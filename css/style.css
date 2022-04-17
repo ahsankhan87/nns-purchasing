@@ -1,0 +1,149 @@
+#wrapper {
+    width: 100%;
+    background-colors: #e7eaec;
+    color: #676a6c;
+}
+#main_nav .manu-arrow .manu-slider-arrow #page-wrapper
+{
+    transition: all 0.5s ease 0s;
+    
+}
+@media print { 
+ /* All your print styles go here */
+ #header, #footer, #nav, #main_nav, #btn_print { display: none !important; } 
+}
+
+#side-menu
+{
+}
+#main_nav{
+    
+    padding-left: 0;
+    padding-right:0;
+     
+}
+.manu-arrow
+{
+    position: relative;
+    float:left;    
+}
+.manu-slider-arrow {
+	padding:5px;
+	vwidth:10px;
+	
+	background:#eee;
+	font:400 12px Arial, Helvetica, sans-serif;
+	color:#000;
+	text-decoration:none;
+	 
+	position: relative;
+    z-index: 999;
+    lefts: 210px;
+}
+#page-wrapper
+{
+    margin-top: 70px;
+    
+}
+
+
+.sidebar .sidebar-nav.navbar-collapse {
+    padding-right: 0;
+    padding-left: 0;
+}
+
+.sidebar .sidebar-search {
+    padding: 15px;
+}
+
+.sidebar ul li {
+    border-bottom: 1px solid #e7e7e7;
+}
+
+.sidebar ul li a.active {
+    background-color: #eee;
+}
+
+.sidebar .arrow {
+    float: right;
+}
+
+.sidebar .fa.arrow:before {
+    content: "\f104";
+}
+
+.sidebar .active>a>.fa.arrow:before {
+    content: "\f107";
+}
+
+.sidebar .nav-second-level li,
+.sidebar .nav-third-level li {
+    border-bottom: 0!important;
+}
+
+.sidebar .nav-second-level li a {
+    padding-left: 37px;
+}
+
+.sidebar .nav-third-level li a {
+    padding-left: 52px;
+}
+
+/* Dashboard PAnel */
+.huge {
+    font-size: 40px;
+}
+
+.panel-green {
+    border-color: #5cb85c;
+}
+
+.panel-green .panel-heading {
+    border-color: #5cb85c;
+    color: #fff;
+    background-color: #5cb85c;
+}
+
+.panel-green a {
+    color: #5cb85c;
+}
+
+.panel-green a:hover {
+    color: #3d8b3d;
+}
+
+.panel-red {
+    border-color: #d9534f;
+}
+
+.panel-red .panel-heading {
+    border-color: #d9534f;
+    color: #fff;
+    background-color: #d9534f;
+}
+
+.panel-red a {
+    color: #d9534f;
+}
+
+.panel-red a:hover {
+    color: #b52b27;
+}
+
+.panel-yellow {
+    border-color: #f0ad4e;
+}
+
+.panel-yellow .panel-heading {
+    border-color: #f0ad4e;
+    color: #fff;
+    background-color: #f0ad4e;
+}
+
+.panel-yellow a {
+    color: #f0ad4e;
+}
+
+.panel-yellow a:hover {
+    color: #df8a13;
+}

@@ -1,0 +1,12 @@
+/* here you can put your own css to customize and override the theme */
+thead, th{
+    font-size:14px !important;
+    text-align: center !important;
+}
+
+table tbody{
+    font-size:12px !important;
+}
+.page-title {
+    font-size:16px !important;   
+}
