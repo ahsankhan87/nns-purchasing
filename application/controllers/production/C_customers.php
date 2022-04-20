@@ -31,7 +31,7 @@ class C_customers extends MY_Controller{
             
             //form Validation
             $this->form_validation->set_rules('name', 'Name', 'required');
-            $this->form_validation->set_error_delimiters('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><strong>', '</strong></div>');
+            $this->form_validation->set_error_delimiters('<div class="alert alert-danger"><a class="close" data-dismiss="alert">ï¿½</a><strong>', '</strong></div>');
             
             //after form Validation run
             if($this->form_validation->run())
@@ -72,7 +72,7 @@ class C_customers extends MY_Controller{
         {
             //form Validation
             $this->form_validation->set_rules('name', 'Name', 'required');
-            $this->form_validation->set_error_delimiters('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><strong>', '</strong></div>');
+            $this->form_validation->set_error_delimiters('<div class="alert alert-danger"><a class="close" data-dismiss="alert">ï¿½</a><strong>', '</strong></div>');
             
             //after form Validation run
             if($this->form_validation->run())
@@ -110,5 +110,15 @@ class C_customers extends MY_Controller{
         $this->M_prod_customers->delete_prod_customer($id);
         $this->session->set_flashdata('message','Customer Deleted');
         redirect('production/C_customers','refresh');
+    }
+
+    //get all Customers 
+    function CustomersDDL($id= FALSE)
+    {
+        ini_set('max_execution_time', 0); 
+        ini_set('memory_limit','100240M');
+        
+        echo json_encode($this->M_prod_customers->get_prod_customer($id));
+        
     }
 }

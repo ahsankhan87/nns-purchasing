@@ -132,15 +132,14 @@ $autoload['language'] = array();
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array('pos/M_items','pos/M_sizes','pos/M_units','pos/M_areas','pos/M_suppliers','pos/M_locations','pos/M_postingTypes',
-                           'pos/M_colors','pos/M_category','pos/M_sales','pos/M_pos_reports','pos/M_receivings',
-                           'pos/M_banking','pos/M_taxes','pos/M_estimate','pos/M_purchaseorder','pos/M_samples',
+$autoload['model'] = array('pos/M_items','pos/M_units','pos/M_suppliers','pos/M_samples','pos/M_category','pos/M_pos_reports','pos/M_receivings',
                            'accounts/M_groups','accounts/M_ledgers','accounts/M_entries','accounts/M_reports',
                            'pos/M_companies','M_login','M_dashboard','M_modules','pos/M_employees','pos/M_customers',
-                           'accounts/M_fyear','pos/M_currencies','M_logs','M_users','pos/M_payments','pos/M_eventCalendar',
+                           'accounts/M_fyear','pos/M_currencies','M_logs','M_users','pos/M_payments',
                            'pos/M_shipping_terms','pos/M_sourcings',
                            'pos/M_claims','pos/M_logistics_fees','pos/M_purchase_requests',
                            'production/M_products','production/M_prod_customers','rd/M_samples_request','production/M_production_request',
                            'production/M_production_schedule','farm/M_grinding','farm/M_harvest','farm/M_inventory','farm/M_feeding',
                            'rd/M_samples_schedule',
+                           'hr_finance/M_sales',
                            );

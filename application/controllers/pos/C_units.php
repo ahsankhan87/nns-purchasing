@@ -31,7 +31,7 @@ class C_units extends MY_Controller{
             
             //form Validation
             $this->form_validation->set_rules('name', 'Name', 'required');
-            $this->form_validation->set_error_delimiters('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><strong>', '</strong></div>');
+            $this->form_validation->set_error_delimiters('<div class="alert alert-danger"><a class="close" data-dismiss="alert">ï¿½</a><strong>', '</strong></div>');
             
             //after form Validation run
             if($this->form_validation->run())
@@ -70,7 +70,7 @@ class C_units extends MY_Controller{
         {
             //form Validation
             $this->form_validation->set_rules('name', 'Name', 'required');
-            $this->form_validation->set_error_delimiters('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><strong>', '</strong></div>');
+            $this->form_validation->set_error_delimiters('<div class="alert alert-danger"><a class="close" data-dismiss="alert">ï¿½</a><strong>', '</strong></div>');
             
             //after form Validation run
             if($this->form_validation->run())
@@ -106,5 +106,15 @@ class C_units extends MY_Controller{
         $this->M_units->delete_unit($id);
         $this->session->set_flashdata('message','Unit Deleted');
         redirect('pos/C_units/index','refresh');
+    }
+
+    //get all units
+    function unitsDDL($id=FALSE)
+    {
+        ini_set('max_execution_time', 0); 
+        ini_set('memory_limit','100240M');
+        
+        echo json_encode($this->M_units->get_unit($id));
+        
     }
 }

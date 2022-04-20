@@ -29,7 +29,21 @@ class M_products extends CI_Model{
         }
         return '';
     }
-    
+     //check the item option i.e item_id, color and size if exist
+     public function is_item_exist($item_id = 0)
+     {
+         $query = $this->db->get_where('prod_products',array('id'=>$item_id));
+         
+         if($query->num_rows() > 0)
+         {
+             return true;
+         }
+         else
+         {
+             return false;
+         }
+             
+     }
     function get_activeproducts($id = FALSE)
     {
         if($id == FALSE)

@@ -452,6 +452,52 @@ var path = '<?php echo base_url(); ?>';</script>
 						</li>
 					</ul>
 				</li>
+				<li <?php echo ($url2 == 'hr_finance' ? "class='active'" : '') ?>>
+					<a href="javascript:;">
+					<i class="icon-present"></i>
+					<span class="title">HR & Finance</span>
+					<span class="arrow "></span>
+					</a>
+					<ul class="sub-menu">
+					    <!--<li <?php echo ($url2 == 'Sales' ? "class='active'" : '') ?>>-->
+					    <!--    <a href="<?php echo site_url('Dashboard/C_dashboard') ?>"><i class="icon-home"></i> Dashboard</a>-->
+					    <!--</li>-->
+						
+						<li <?php echo ($url3 == 'C_sales' ? "class='active'" : '') ?>>
+					        <a href="<?php echo site_url('hr_finance/C_sales/allSales') ?>"><i class="icon-time"></i> Sales</a>
+					    </li>
+						
+						<li <?php echo ($url3 == 'C_harvest' ? "class='active'" : '') ?>>
+					        <a href="<?php echo site_url('farm/C_harvest') ?>"><i class="icon-time"></i> Expense Tracking</a>
+					    </li>
+						
+						<li <?php echo ($url3 == 'C_feeding' ? "class='active'" : '') ?>>
+					        <a href="<?php echo site_url('farm/C_feeding') ?>"><i class="icon-time"></i> OT Tracking</a>
+					    </li>
+						
+						<li <?php echo ($url3 == 'C_inventory' ? "class='active'" : '') ?>>
+					        <a href="<?php echo site_url('farm/C_inventory') ?>"><i class="icon-time"></i> Employee Masterfile</a>
+					    </li>
+					    
+					    <li <?php echo ($url3 == 'farmReports' ? "class='active'" : '') ?>>
+							<a href="javascript:;">
+							<i class="fa fa-bar-chart-o fa"></i> Reports <span class="arrow"></span>
+							</a>
+							<ul class="sub-menu">
+								<li <?php echo ($url4 == 'C_feedingReport' ? "class='active'" : '') ?>>
+									<a href="<?php echo site_url('farm/farmReports/C_feedingReport') ?>"><i class="icon-graph"></i> Feeding Report</a>
+								</li>
+								<li <?php echo ($url4 == 'C_harvestReport' ? "class='active'" : '') ?>>
+									<a href="<?php echo site_url('farm/farmReports/C_harvestReport') ?>"><i class="icon-share"></i> Harvest Report</a>
+								</li>
+								<li <?php echo ($url4 == 'C_grindingReport' ? "class='active'" : '') ?>>
+									<a href="<?php echo site_url('farm/farmReports/C_grindingReport') ?>"><i class="icon-settings"></i> Grinding Report</a>
+								</li>
+								
+							</ul>
+						</li>
+					</ul>
+				</li>
 			</ul>
 			<!-- END SIDEBAR MENU -->
 		</div>
