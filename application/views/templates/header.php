@@ -467,8 +467,8 @@ var path = '<?php echo base_url(); ?>';</script>
 					        <a href="<?php echo site_url('hr_finance/C_sales/allSales') ?>"><i class="icon-time"></i> Sales</a>
 					    </li>
 						
-						<li <?php echo ($url3 == 'C_harvest' ? "class='active'" : '') ?>>
-					        <a href="<?php echo site_url('farm/C_harvest') ?>"><i class="icon-time"></i> Expense Tracking</a>
+						<li <?php echo ($url3 == 'C_expenses' ? "class='active'" : '') ?>>
+					        <a href="<?php echo site_url('hr_finance/C_expenses/allExpenses') ?>"><i class="icon-time"></i> Expense Tracking</a>
 					    </li>
 						
 						<li <?php echo ($url3 == 'C_feeding' ? "class='active'" : '') ?>>

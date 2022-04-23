@@ -141,5 +141,5 @@ $autoload['model'] = array('pos/M_items','pos/M_units','pos/M_suppliers','pos/M_
                            'production/M_products','production/M_prod_customers','rd/M_samples_request','production/M_production_request',
                            'production/M_production_schedule','farm/M_grinding','farm/M_harvest','farm/M_inventory','farm/M_feeding',
                            'rd/M_samples_schedule',
-                           'hr_finance/M_sales',
+                           'hr_finance/M_sales','hr_finance/M_expenses',
                            );
