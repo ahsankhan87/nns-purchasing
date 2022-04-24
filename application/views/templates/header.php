@@ -475,8 +475,8 @@ var path = '<?php echo base_url(); ?>';</script>
 					        <a href="<?php echo site_url('farm/C_feeding') ?>"><i class="icon-time"></i> OT Tracking</a>
 					    </li>
 						
-						<li <?php echo ($url3 == 'C_inventory' ? "class='active'" : '') ?>>
-					        <a href="<?php echo site_url('farm/C_inventory') ?>"><i class="icon-time"></i> Employee Masterfile</a>
+						<li <?php echo ($url3 == 'C_employees' ? "class='active'" : '') ?>>
+					        <a href="<?php echo site_url('hr_finance/C_employees') ?>"><i class="icon-time"></i> Employee Masterfile</a>
 					    </li>
 					    
 					    <li <?php echo ($url3 == 'farmReports' ? "class='active'" : '') ?>>
