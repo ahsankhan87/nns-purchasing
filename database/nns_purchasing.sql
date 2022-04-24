@@ -444,7 +444,43 @@ INSERT INTO `finance_sales_items` (`sale_item_id`, `invoice_no`, `sale_id`, `ite
 (42, '', 23, 58, '90 capsules x 500 mg', '', NULL, 0, '1.00', '0.0000', '0.0000', 0, 0, NULL, 21, NULL, 0, 0, '');
 
 -- --------------------------------------------------------
-
+CREATE TABLE `hr_employees` (
+ `id` int(255) NOT NULL AUTO_INCREMENT,
+ `company_id` int(255) NOT NULL,
+ `first_name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+ `last_name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `middle_name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `suffix` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `nick_name` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `address` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `email` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `contact` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `emergency_contact` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `dob` date DEFAULT NULL,
+ `gender` enum('male','female') COLLATE utf8_unicode_ci NOT NULL,
+ `status` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+ `employment_status` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+ `hire_date` date DEFAULT NULL,
+ `job_type` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
+ `picture` varchar(150) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `marital_status` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `emp_no` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `position` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `department` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `working_hours` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `contract` tinyint(1) DEFAULT NULL,
+ `bpi_account` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `card_no` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `tracking_no` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `tin` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `phic` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `pag_ibig` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `sss` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `created_on` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+ `updated_on` datetime NOT NULL,
+ PRIMARY KEY (`id`),
+ KEY `company_id` (`company_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
 --
 -- Table structure for table `logs`
 --
