@@ -83,7 +83,7 @@ class m_sales extends CI_Model{
     
     function get_sales_by_invoice($invoice_no)
     {   
-        $this->db->where(array('invoice_no'=>$invoice_no,'company_id'=>$_SESSION['company_id']));
+        $this->db->where(array('invoice_no'=>$invoice_no));
         $query = $this->db->get('finance_sales');
         return $query->result_array();
        
@@ -97,11 +97,28 @@ class m_sales extends CI_Model{
     //    B.discount_percent,B.discount_value,B.tax_rate,B.tax_id,B.inventory_acc_code');
     //    $this->db->join('finance_sales_items as B','A.sale_id = B.sale_id');
        
-       $this->db->where(array('invoice_no'=>$invoice_no,'company_id'=>$_SESSION['company_id']));
+       $this->db->where(array('invoice_no'=>$invoice_no));
        $query = $this->db->get('finance_sales_items');
        return $query->result_array();
        
     }
+
+    function get_sales_charges_by_invoice($invoice_no)
+    {   
+        $this->db->where(array('invoice_no'=>$invoice_no));
+        $query = $this->db->get('finance_sales_charges');
+        return $query->result_array();
+       
+    }
+    
+    function get_sales_deduction_by_invoice($invoice_no)
+    {   
+        $this->db->where(array('invoice_no'=>$invoice_no));
+        $query = $this->db->get('finance_sales_deduction');
+        return $query->result_array();
+       
+    }
+    
     function getMAXSaleInvoiceNo()
     {   
         $this->db->order_by('CAST(SUBSTR(invoice_no,2) AS UNSIGNED) DESC');

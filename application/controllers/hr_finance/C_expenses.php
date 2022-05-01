@@ -32,6 +32,38 @@ class C_expenses extends MY_Controller
         $this->load->view('hr_finance/expenses/v_create_expense', $data);
         $this->load->view('templates/footer');
     }
+    public function detail($expenses_id)
+    {
+        $data = array('langs' => $this->session->userdata('lang'));
+
+        $data['title'] = "Expense Summary";
+        $data['main'] = "Expense Summary";
+
+        $data['expenses_id'] = $expenses_id;
+
+        $data['expenses'] = $this->M_expenses->get_expenses($expenses_id);
+        $data['expenses_items'] = $this->M_expenses->get_expenses_items_only($expenses_id);
+        
+        $this->load->view('templates/header', $data);
+        $this->load->view('hr_finance/expenses/v_expense_detail', $data);
+        $this->load->view('templates/footer');
+    }
+    
+    public function allPaymentFor($payment_for)
+    {
+        $data = array('langs' => $this->session->userdata('lang'));
+
+        $data['title'] = "Expense Summary";
+        $data['main'] = "Expense Summary";
+
+        $data['payment_for'] = $payment_for;
+
+        $data['expenses'] = $this->M_expenses->get_expenses_by_payment_for($payment_for);
+        
+        $this->load->view('templates/header', $data);
+        $this->load->view('hr_finance/expenses/v_allexpenses_paymentfor', $data);
+        $this->load->view('templates/footer');
+    }
 
     public function allExpenses()
     {
@@ -128,7 +160,7 @@ class C_expenses extends MY_Controller
 
                 foreach ($this->input->post('charge_id') as $key => $value) {
                     
-                    if ($value != 0) {
+                    if ($value != "") {
                         $item_id  = htmlspecialchars(trim($value));
                         //$content = $this->input->post('content')[$key];
                         //$qty = $this->input->post('qty')[$key];
@@ -148,11 +180,10 @@ class C_expenses extends MY_Controller
 
                     }
                 } //end foreach
-                
+                $this->db->trans_complete();
+             
             } //check product count
 
-
-            $this->db->trans_complete();
             echo '1';
         } //end post if
     }

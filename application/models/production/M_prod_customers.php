@@ -29,6 +29,11 @@ class M_prod_customers extends CI_Model{
         }
         return '';
     }
+
+    function get_prod_customer_payments($prod_customer_id){
+        $query = $this->db->get_where('prod_customer_payments',array('customer_id'=>$prod_customer_id));
+       return $query->result_array();
+    }
     
     function get_activeprod_customers($id = FALSE)
     {

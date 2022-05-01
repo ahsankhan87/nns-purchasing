@@ -61,8 +61,7 @@ var path = '<?php echo base_url(); ?>';</script>
 <?php } ?>
     
 <link href="<?php echo base_url(); ?>assets/css/animate.min.css" rel="stylesheet" type="text/css">
-<!--<link href="<?php echo base_url(); ?>assets/plugins/toastr/toastr.min.css" rel="stylesheet" type="text/css">-->
-
+<link href="<?php echo base_url(); ?>assets/plugins/toastr/toastr.min.css" rel="stylesheet" type="text/css">
 
 <link rel="shortcut icon" href="<?php echo base_url(); ?>assets/img/favicon.ico">
 

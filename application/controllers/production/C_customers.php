@@ -22,6 +22,21 @@ class C_customers extends MY_Controller{
         $this->load->view('templates/footer');
     }
     
+    function payment_detail($customer_id)
+    {
+        $data = array('langs' => $this->session->userdata('lang'));
+        
+        $data['title'] = 'Customer Payment Detail';
+        $data['main'] = 'Customer Payment Detail';
+        $data['customer_id'] = $customer_id;
+        
+        $data['detail'] = $this->M_prod_customers->get_prod_customer_payments($customer_id);
+        
+        $this->load->view('templates/header',$data);
+        $this->load->view('production/customers/v_payment_detail',$data);
+        $this->load->view('templates/footer');
+    }
+    
     function create()
     {
         $data = array('langs' => $this->session->userdata('lang'));

@@ -13,8 +13,8 @@ class C_sales extends MY_Controller
     {
         $data = array('langs' => $this->session->userdata('lang'));
 
-        $data['title'] = ucfirst($saleType) . ' ' . lang('sales');
-        $data['main'] = ucfirst($saleType) . ' ' . lang('sales');
+        $data['title'] = 'Sales';
+        $data['main'] = 'Sales';
 
         $data['customer_id'] = $customer_id;
         $data['saleType'] = $saleType;
@@ -40,13 +40,32 @@ class C_sales extends MY_Controller
         $to_date = FY_END_DATE; //date("Y-m-d");
         $fiscal_dates = "(From: " . date('d-m-Y', strtotime($start_date)) . " To:" . date('d-m-Y', strtotime($to_date)) . ")";
 
-        $data['title'] = lang('sales');
-        $data['main'] = lang('sales');
+        $data['title'] = 'All Sales';
+        $data['main'] = 'All Sales';
 
         $data['sales'] = $this->M_sales->get_sales(false, $start_date, $to_date);
 
         $this->load->view('templates/header', $data);
         $this->load->view('hr_finance/sales/v_allsales', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function detail($invoice_no)
+    {
+        $data = array('langs' => $this->session->userdata('lang'));
+
+        $data['title'] = "Sale Summary";
+        $data['main'] = "Sale Summary";
+
+        $data['invoice_no'] = $invoice_no;
+
+        $data['Sales'] = $this->M_sales->get_sales_by_invoice($invoice_no);
+        $data['sales_items'] = $this->M_sales->get_sales_items_only($invoice_no);
+        $data['charges'] = $this->M_sales->get_sales_charges_by_invoice($invoice_no);
+        $data['deduction'] = $this->M_sales->get_sales_deduction_by_invoice($invoice_no);
+        
+        $this->load->view('templates/header', $data);
+        $this->load->view('hr_finance/sales/v_sale_detail', $data);
         $this->load->view('templates/footer');
     }
 
@@ -109,7 +128,9 @@ class C_sales extends MY_Controller
                 $delivery_date = $this->input->post("delivery_date");
                 $payment_terms = $this->input->post("payment_terms");
                 $status = $this->input->post("status");
-
+                $sub_total_deduction = $this->input->post("sub_total_deduction");
+                $sub_total_charges = $this->input->post("sub_total_charges");
+                
                 //if tax amount is checked or 1 then tax will be dedected otherwise not deducted from total amount
                 if ($is_taxable == 1) {
                     //total net amount 
@@ -125,10 +146,10 @@ class C_sales extends MY_Controller
                     'company_id' => $company_id,
                     'invoice_no' => $new_invoice_no,
                     'customer_id' => $customer_id,
-                    
                     'user_id' => $user_id,
                     'sale_date' => $sale_date,
-                    //'register_mode' => $register_mode,
+                    'charges_total' => $sub_total_charges,
+                    'deduction_total' => $sub_total_deduction,
                     'account' => $saleType,
                     'description' => $narration,
                     'discount_value' => $discount,
@@ -195,9 +216,27 @@ class C_sales extends MY_Controller
                     }
                 } //end foreach
                 
+                //Customer payment entry
+                if ($this->input->post('customer_id') != 0) {
+                    $data = array(
+                        'sale_id' => $sale_id,
+                        'invoice_no' => $new_invoice_no,
+                        'customer_id' => $customer_id,
+                        'description' => $narration,
+                        'debit' => ($status == "Unpaid" ? $total_amount : 0),
+                        'credit' => ($status == "Paid" ? $total_amount : 0),
+                        'date' => $sale_date,
+                        'creation_date' => date("Y-m-d H:i:s"),
+                    );
+
+                    $this->db->insert('prod_customer_payments', $data);
+                }
+                /////
+
+                //Charges entry
                 foreach ($this->input->post('charge_id') as $key => $value) {
                     
-                    if ($value != 0) {
+                    if ($value != "") {
                         $charge_id  = htmlspecialchars(trim($value));
                         $qty = $this->input->post('qty')[$key];
                         $description_chr = $this->input->post('description_chr')[$key];
@@ -217,10 +256,11 @@ class C_sales extends MY_Controller
                         $this->db->insert('finance_sales_charges', $data);
                     }
                 }
-
+                //
+                //Deduction entry
                 foreach ($this->input->post('deduction_id') as $key => $value) {
                     
-                    if ($value != 0) {
+                    if ($value != "") {
                         $deduction_id  = htmlspecialchars(trim($value));
                         $qty = $this->input->post('qty_ded')[$key];
                         $description_chr = $this->input->post('description_chr')[$key];
@@ -240,10 +280,11 @@ class C_sales extends MY_Controller
                         $this->db->insert('finance_sales_deduction', $data);
                     }
                 }
+                //
+                $this->db->trans_complete();
+            
             } //check product count
 
-
-            $this->db->trans_complete();
             echo '1';
         } //end post if
     }

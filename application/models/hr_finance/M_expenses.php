@@ -26,7 +26,7 @@ class m_expenses extends CI_Model{
             return $query->result_array();
         }
         
-       $query = $this->db->get_where('finance_expenses',array('expense_id'=>$expenses_id));
+       $query = $this->db->get_where('finance_expenses',array('id'=>$expenses_id));
        return $query->result_array();
     }
     
@@ -81,23 +81,17 @@ class m_expenses extends CI_Model{
        
     }
     
-    function get_expenses_by_invoice($invoice_no)
+    function get_expenses_by_payment_for($payment_for)
     {   
-        $this->db->where(array('invoice_no'=>$invoice_no,'company_id'=>$_SESSION['company_id']));
+        $this->db->where(array('payment_for'=>$payment_for));
         $query = $this->db->get('finance_expenses');
         return $query->result_array();
        
     }
     
-    function get_expenses_items_only($invoice_no)//for receipt
+    function get_expenses_items_only($expenses_id)//for receipt
     {
-    //    $this->db->select('A.expense_date,A.expense_time,A.amount_due,A.register_mode,A.employee_id,A.discount_value as total_discount,A.customer_id,
-    //    A.currency_id,A.description,A.invoice_no,A.account,A.is_taxable,
-    //    B.unit_id,B.item_id,B.size_id,B.item_unit_price,B.item_cost_price,B.quantity_sold,B.exchange_rate,B.service,
-    //    B.discount_percent,B.discount_value,B.tax_rate,B.tax_id,B.inventory_acc_code');
-    //    $this->db->join('finance_expenses_items as B','A.expense_id = B.expense_id');
-       
-       $this->db->where(array('invoice_no'=>$invoice_no,'company_id'=>$_SESSION['company_id']));
+       $this->db->where(array('expense_id'=>$expenses_id));
        $query = $this->db->get('finance_expenses_items');
        return $query->result_array();
        

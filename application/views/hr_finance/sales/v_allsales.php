@@ -33,7 +33,7 @@
             </ul>
         </div>
         </p> -->
-            <?php echo anchor('hr_finance/C_sales/index/cash', 'New ' . lang('transaction'), 'class="btn btn-success" id="sample_editable_1_new"'); ?>
+            <?php echo anchor('hr_finance/C_sales/index/cash', 'Add New ' . lang('transaction'), 'class="btn btn-success" id="sample_editable_1_new"'); ?>
 
         <div class="portlet">
             <div class="portlet-title">
@@ -75,18 +75,43 @@
                             //echo '<td><a href="'.site_url('hr_finance/C_sales/receipt/'.$list['invoice_no']).'" class="hidden-print">'.$list['invoice_no'].'</a></td>';
                             echo '<td>'.$sno++.'</td>';
                             echo '<td>' . date('m/d/Y', strtotime($list['sale_date'])) . '</td>';
-                            echo '<td>' . $list['invoice_no'] . '</td>';
+                            // echo '<td><a href="'.site_url('hr_finance/C_sales/detail/'.$list['invoice_no']).'">'.date('m/d/Y', strtotime($list['sale_date'])).'</a></td>';
+                            echo '<td><a href="'.site_url('hr_finance/C_sales/detail/'.$list['invoice_no']).'">'.$list['invoice_no'].'</a></td>';
+                            // echo '<td>' . $list['invoice_no'] . '</td>';
                             $name = $this->M_prod_customers->get_prod_customerName($list['customer_id']);
-                            echo '<td>' . @$name . '</td>';
+                            echo '<td>'.anchor('production/C_customers/payment_detail/'.$list['customer_id'],'<span class="">'.$name.'</span>', '').'</td>';
+
                             echo '<td>' . $list['payment_terms'] . '</td>';
                             echo '<td>' . number_format($list['total_amount'],2) . '</td>';
                             echo '<td>' . date('m/d/Y', strtotime($list['delivery_date'])) . '</td>';
-                            echo '<td>' . number_format($list['amount_due'],2) . '</td>';
+                            echo '<td>' . number_format($list['balance'],2) . '</td>';
                             echo '<td></td>';
                             echo '<td>' . $list['status'] . '</td>';
-                            echo '<td>View</td>';
+                            echo '<td>'.anchor('#','<span class="">View</span>', ' data-toggle="modal" data-target="#view_sales_'.$sno.'"').'</td>';
                             echo '</tr>';
-
+                            ?>
+                            <!--delivery_status_ Modal -->
+                            <div class="modal fade" id="view_sales_<?php echo $sno;?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Invoice: <?php echo $list['invoice_no'];?> Sale Note</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p><?php echo $list['description'] ?></p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+           
+                        <?php
                         }
 
                         echo '</tbody>';

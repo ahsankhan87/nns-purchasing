@@ -287,9 +287,9 @@
 
             let charges_ddl = '';
             charges_ddl += '<option value="0">Select Charges</option>';
-            charges_ddl += '<option value="1">Charge 1</option>';
-            charges_ddl += '<option value="2">Charge 2</option>';
-            charges_ddl += '<option value="3">Charge 3</option>';
+            charges_ddl += '<option value="Charge 1">Charge 1</option>';
+            charges_ddl += '<option value="Charge 2">Charge 2</option>';
+            charges_ddl += '<option value="Charge 3">Charge 3</option>';
             $('#chargeid_' + index).html(charges_ddl);
            
         }
@@ -299,9 +299,9 @@
 
         let sub_category_ddl = '';
         sub_category_ddl += '<option value="0">Select Category</option>';
-        sub_category_ddl += '<option value="1">Charge 1</option>';
-        sub_category_ddl += '<option value="2">Charge 2</option>';
-        sub_category_ddl += '<option value="3">Charge 3</option>';
+        sub_category_ddl += '<option value="Category 1">Category 1</option>';
+        sub_category_ddl += '<option value="Category 2">Category 2</option>';
+        sub_category_ddl += '<option value="Category 3">Category 3</option>';
         $('#subcategoryid_' + index).html(sub_category_ddl);
 
         }

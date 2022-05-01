@@ -9,7 +9,7 @@
             
             <label class="control-label col-sm-2" for="invoice_no">Invoice No.:</label>
             <div class="col-sm-4">
-                <input type="text" class="form-control" id="invoice_no" name="invoice_no" value="" />
+                <input type="text" class="form-control" id="invoice_no" name="invoice_no" required="" value="" />
             </div>
         </div>
         <!-- /.col-sm-12 -->
@@ -236,7 +236,7 @@
         </div>
     </div><!-- close here -->
 
-    <?php echo form_submit('', 'Save', 'class="btn btn-success"'); ?>
+    <?php echo form_submit('', 'Save & New', 'class="btn btn-success"'); ?>
 </form>
 <!-- Modal -->
 <div class="modal fade" id="customerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -432,11 +432,13 @@
             $("#sale_table > tbody").empty();
             $('#top_net_total').html('');
             $('#customer_id').val('').trigger('change');
-            $('#bank_id').val('').trigger('change');
+            $('#payment_terms').val('').trigger('change');
+            $('#status').val('').trigger('change');
 
             $('#business_address').val('');
             $('#description').val('');
             $('#due_date').val();
+            $('#invoice_no').val();
 
             $(".add_new").trigger("click");//add new line
         }
@@ -533,6 +535,8 @@
                                 
                             }
                             clearall();
+                            clearall_charges();
+                            clearall_deduction();
                             console.log(data);
                         }
                     });
@@ -711,9 +715,9 @@
 
             let charges_ddl = '';
             charges_ddl += '<option value="0">Select Charges</option>';
-            charges_ddl += '<option value="1">Charge 1</option>';
-            charges_ddl += '<option value="2">Charge 2</option>';
-            charges_ddl += '<option value="3">Charge 3</option>';
+            charges_ddl += '<option value="Charge 1">Charge 1</option>';
+            charges_ddl += '<option value="Charge 2">Charge 2</option>';
+            charges_ddl += '<option value="Charge 3">Charge 3</option>';
             $('#chargeid_' + index).html(charges_ddl);
            
         }
@@ -821,9 +825,9 @@
 
             let deduction_ddl = '';
             deduction_ddl += '<option value="0">Select Deduction</option>';
-            deduction_ddl += '<option value="1">Deduction 1</option>';
-            deduction_ddl += '<option value="2">Deduction 2</option>';
-            deduction_ddl += '<option value="3">Deduction 3</option>';
+            deduction_ddl += '<option value="Deduction 1">Deduction 1</option>';
+            deduction_ddl += '<option value="Deduction 2">Deduction 2</option>';
+            deduction_ddl += '<option value="Deduction 3">Deduction 3</option>';
             $('#deductionid_' + index).html(deduction_ddl);
            
         }

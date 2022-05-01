@@ -33,7 +33,7 @@
             </ul>
         </div>
         </p> -->
-            <?php echo anchor('hr_finance/C_expenses/index/cash', 'Add New ' . lang('transaction'), 'class="btn btn-success" id="sample_editable_1_new"'); ?>
+            <?php echo anchor('hr_finance/C_expenses/index/cash', 'New ' . lang('transaction'), 'class="btn btn-success" id="sample_editable_1_new"'); ?>
 
         <div class="portlet">
             <div class="portlet-title">
@@ -76,7 +76,7 @@
                             //echo '<td><a href="'.site_url('hr_finance/C_expenses/receipt/'.$list['invoice_no']).'" class="hidden-print">'.$list['invoice_no'].'</a></td>';
                             echo '<td>'.$sno++.'</td>';
                             echo '<td>' . date('m/d/Y', strtotime($list['date_issued'])) . '</td>';
-                            echo '<td><a href="'.site_url('hr_finance/C_expenses/allPaymentFor/'.$list['payment_for']).'">'.$list['payment_for'].'</a></td>';
+                            echo '<td>' . $list['payment_for'] . '</td>';
                             echo '<td>' . $list['category'] . '</td>';
                             echo '<td>' . number_format($list['amount'],2) . '</td>';
                             echo '<td>' . number_format($list['change'],2) . '</td>';
@@ -85,19 +85,25 @@
                             echo '<td><a href="'.site_url('hr_finance/C_expenses/detail/'.$list['id']).'">'.number_format($total,2).'</a></td>';
                             echo '<td>' . $list['payment_method'] . '</td>';
                             echo '<td>' . $list['approval'] . '</td>';
-                            echo '<td>' . $list['receipted'] . '</td>';
-                            echo '<td>' . $list['cross_checked'] . '</td>';
+                            $label_1 = ($list['receipted'] == "Yes" ? 'green_color': 'red_color');
+                            $label_2 = ($list['cross_checked'] == "Yes" ? 'green_color': 'red_color');
+                            echo '<td class="'.$label_1.'">' . $list['receipted'] . '</td>';
+                            echo '<td class="'.$label_2.'">' . $list['cross_checked'] . '</td>';
                             echo '<td>' . $list['note'] . '</td>';
                             echo '</tr>';
+
+                            $net_total +=$total;
                         }
-                        $net_total +=$total;
+
+                        echo '';
+
                         ?>
                     </tbody>
                     <tfoot>
                         <tr>
                             <th></th><th></th><th></th>
-                            <th></th><th></th><th></th>
-                            <th></th><th></th><th></th>
+                            <th></th><th></th><th>Total</th>
+                            <th><?php echo number_format($net_total,2); ?></th><th></th><th></th>
                             <th></th><th></th><th></th>
                         </tr>
                     </tfoot>
@@ -109,3 +115,13 @@
     <!-- /.col-sm-12 -->
 </div>
 <!-- /.row -->
+<style>
+    .red_color{
+        background-color: red;
+        color:#fff;
+    }
+    .green_color{
+        background-color: green;
+        color:#fff;
+    }
+</style>
