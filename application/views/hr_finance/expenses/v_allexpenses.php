@@ -70,6 +70,7 @@
                         <?php
                         $sno = 1;
                         $net_total = 0;
+                        $total=0;
                         foreach ($expenses as $key => $list) {
                             echo '<tr>';
                             //echo '<td>'.form_checkbox('p_id[]',$list['id'],false).'</td>';
