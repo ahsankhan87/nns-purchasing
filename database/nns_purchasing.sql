@@ -353,7 +353,41 @@ INSERT INTO `finance_sales_charges` (`id`, `sale_id`, `invoice_no`, `charges`, `
 (5, 23, '', '1', 'easdfasdf', '1', '333', '2022-04-20', '2022-04-20 11:52:58');
 
 -- --------------------------------------------------------
+CREATE TABLE `finance_exp_paymentfor` (
+ `id` int(100) NOT NULL AUTO_INCREMENT,
+ `company_id` int(11) NULL,
+ `name` varchar(100) NOT NULL,
+ `status` tinyint(1)  NULL,
+ `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
+CREATE TABLE `finance_exp_paymentmethod` (
+ `id` int(100) NOT NULL AUTO_INCREMENT,
+ `company_id` int(11) NULL,
+ `name` varchar(100) NOT NULL,
+ `status` tinyint(1)  NULL,
+ `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `finance_exp_items` (
+ `id` int(100) NOT NULL AUTO_INCREMENT,
+ `company_id` int(11) NULL,
+ `name` varchar(100) NOT NULL,
+ `status` tinyint(1)  NULL,
+ `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `finance_exp_subcategory` (
+ `id` int(100) NOT NULL AUTO_INCREMENT,
+ `company_id` int(11) NULL,
+ `name` varchar(100) NOT NULL,
+ `status` tinyint(1)  NULL,
+ `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+ PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 --
 -- Table structure for table `finance_sales_deduction`
 --

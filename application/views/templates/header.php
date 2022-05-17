@@ -458,27 +458,44 @@ var path = '<?php echo base_url(); ?>';</script>
 					<span class="arrow "></span>
 					</a>
 					<ul class="sub-menu">
-					    <!--<li <?php echo ($url2 == 'Sales' ? "class='active'" : '') ?>>-->
-					    <!--    <a href="<?php echo site_url('Dashboard/C_dashboard') ?>"><i class="icon-home"></i> Dashboard</a>-->
-					    <!--</li>-->
-						
+					    
 						<li <?php echo ($url3 == 'C_sales' ? "class='active'" : '') ?>>
-					        <a href="<?php echo site_url('hr_finance/C_sales/allSales') ?>"><i class="icon-time"></i> Sales</a>
+					        <a href="<?php echo site_url('hr_finance/C_sales/allSales') ?>"><i class="fa fa-bar-chart-o fa"></i> Sales</a>
 					    </li>
 						
-						<li <?php echo ($url3 == 'C_expenses' ? "class='active'" : '') ?>>
-					        <a href="<?php echo site_url('hr_finance/C_expenses/allExpenses') ?>"><i class="icon-time"></i> Expense Tracking</a>
-					    </li>
+					    <li <?php echo ($url3 == 'C_expenses' || $url3 == 'C_paymentFor' || $url3 == 'C_paymentMethod' || $url3 == 'C_expenseItems' || $url3 == 'C_expenseSubCategory' ? "class='active'" : '') ?>>
+							<a href="javascript:;">
+							<i class="fa fa-bar-chart-o fa"></i> Expenses <span class="arrow"></span>
+							</a>
+							<ul class="sub-menu">
+								<li <?php echo ($url4 == 'allExpenses' ? "class='active'" : '') ?>>
+									<a href="<?php echo site_url('hr_finance/C_expenses/allExpenses') ?>"><i class="icon-share"></i> All Expenses</a>
+								</li>
+								<li <?php echo ($url3 == 'C_expenseItems' ? "class='active'" : '') ?>>
+									<a href="<?php echo site_url('hr_finance/C_expenseItems/') ?>"><i class="icon-settings"></i> Items</a>
+								</li>
+								<li <?php echo ($url3 == 'C_paymentFor' ? "class='active'" : '') ?>>
+									<a href="<?php echo site_url('hr_finance/C_paymentFor') ?>"><i class="icon-graph"></i> Payment For</a>
+								</li>
+								<li <?php echo ($url3 == 'C_paymentMethod' ? "class='active'" : '') ?>>
+									<a href="<?php echo site_url('hr_finance/C_paymentMethod') ?>"><i class="icon-share"></i> Payment Method</a>
+								</li>
+								<li <?php echo ($url3 == 'C_expenseSubCategory' ? "class='active'" : '') ?>>
+									<a href="<?php echo site_url('hr_finance/C_expenseSubCategory/') ?>"><i class="icon-settings"></i> Sub Category</a>
+								</li>
+								
+							</ul>
+						</li>
 						
-						<li <?php echo ($url3 == 'C_feeding' ? "class='active'" : '') ?>>
+						<!-- <li <?php echo ($url3 == 'C_feeding' ? "class='active'" : '') ?>>
 					        <a href="<?php echo site_url('farm/C_feeding') ?>"><i class="icon-time"></i> OT Tracking</a>
-					    </li>
+					    </li> -->
 						
 						<li <?php echo ($url3 == 'C_employees' ? "class='active'" : '') ?>>
 					        <a href="<?php echo site_url('hr_finance/C_employees') ?>"><i class="icon-time"></i> Employee Masterfile</a>
 					    </li>
 					    
-					    <li <?php echo ($url3 == 'farmReports' ? "class='active'" : '') ?>>
+					    <!-- <li <?php echo ($url3 == 'farmReports' ? "class='active'" : '') ?>>
 							<a href="javascript:;">
 							<i class="fa fa-bar-chart-o fa"></i> Reports <span class="arrow"></span>
 							</a>
@@ -494,7 +511,7 @@ var path = '<?php echo base_url(); ?>';</script>
 								</li>
 								
 							</ul>
-						</li>
+						</li> -->
 					</ul>
 				</li>
 			</ul>

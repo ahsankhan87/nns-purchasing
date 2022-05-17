@@ -27,7 +27,7 @@
             <tr>
                 <?php
                 echo '<td>Amount</td>';
-                echo '<td>'.number_format($expenses[0]['amount'],2).'</td>';
+                echo '<td>₱'.number_format($expenses[0]['amount'],2).'</td>';
                 ?>    
             </tr>
         <?php 
@@ -37,7 +37,7 @@
             $total = (double)($list['amount']);
             echo '<tr>';
             echo '<td>'.$list['item'].'</td>';
-            echo '<td>'.number_format($list['amount'],2).'</td>';
+            echo '<td>₱'.number_format($list['amount'],2).'</td>';
             echo '</tr>';
             $products_total += $total;
         }
@@ -45,10 +45,10 @@
         </tbody>
         <tfoot>
             <tr>
-                <th>Total</th><th><?php echo number_format($products_total,2); ?></th>
+                <th>Total</th><th>₱<?php echo number_format($products_total,2); ?></th>
             </tr>
             <tr>
-                <th>Change</th><th><?php echo number_format($expenses[0]['change'],2); ?></th>
+                <th>Change</th><th>₱<?php echo number_format($expenses[0]['change'],2); ?></th>
             </tr>
         </tfoot>        
         </table>

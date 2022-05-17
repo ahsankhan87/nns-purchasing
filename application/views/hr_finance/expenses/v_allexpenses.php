@@ -13,28 +13,13 @@
         }
         ?>
 
-        <p>
-            <!-- <div class="btn-group">
-            <button type="button" class="btn btn-success"><?php echo lang('new') . ' ' . lang('transaction') ?></button>
-            <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown"><i class="fa fa-angle-down"></i></button>
-            <ul class="dropdown-menu" role="menu">
-                <li>
-                    <?php echo anchor('hr_finance/C_expenses/index/cash', lang('cash') . ' ' . lang('expenses'), 'class="hidden-print"'); ?>
-                </li>
-                <li>
-                    <?php echo anchor('hr_finance/C_expenses/index/credit', lang('credit') . ' ' . lang('expenses'), 'class="hidden-print"'); ?>
-                </li>
-                <li>
-                    <?php echo anchor('hr_finance/C_expenses/index/cashReturn', lang('cash') . ' ' . lang('return'), 'class="hidden-print"'); ?>
-                </li>
-                <li>
-                    <?php echo anchor('hr_finance/C_expenses/index/creditReturn', lang('credit') . ' ' . lang('return'), 'class="hidden-print"'); ?>
-                </li>
-            </ul>
+        <div class="row">
+            <div class="col-sm-12">
+                <?php echo anchor('hr_finance/C_expenses/index/cash',lang('add_new').' <i class="fa fa-plus"></i>','class="btn btn-success"'); ?>
+            </div>
         </div>
-        </p> -->
-            <?php echo anchor('hr_finance/C_expenses/index/cash', 'Add New ' . lang('transaction'), 'class="btn btn-success" id="sample_editable_1_new"'); ?>
-
+        </br>
+        
         <div class="portlet">
             <div class="portlet-title">
                 <div class="caption">
@@ -54,7 +39,7 @@
                         <tr>
                             <th>S.No</th>
                             <th>Date Issued</th>
-                            <th>Payment For</th>
+                            <th>Payment For:</th>
                             <th>Category</th>
                             <th class="text-right"><?php echo lang('amount') ?></th>
                             <th class="text-right">Change</th>
@@ -79,11 +64,11 @@
                             echo '<td>' . date('m/d/Y', strtotime($list['date_issued'])) . '</td>';
                             echo '<td><a href="'.site_url('hr_finance/C_expenses/allPaymentFor/'.$list['payment_for']).'">'.$list['payment_for'].'</a></td>';
                             echo '<td>' . $list['category'] . '</td>';
-                            echo '<td>' . number_format($list['amount'],2) . '</td>';
-                            echo '<td>' . number_format($list['change'],2) . '</td>';
+                            echo '<td>₱' . number_format($list['amount'],2) . '</td>';
+                            echo '<td>₱' . number_format($list['change'],2) . '</td>';
                             $total = (double) $list['amount'] - (double)$list['change'];
                             //echo '<td>' . number_format($total,2) . '</td>';
-                            echo '<td><a href="'.site_url('hr_finance/C_expenses/detail/'.$list['id']).'">'.number_format($total,2).'</a></td>';
+                            echo '<td><a href="'.site_url('hr_finance/C_expenses/detail/'.$list['id']).'">₱'.number_format($total,2).'</a></td>';
                             echo '<td>' . $list['payment_method'] . '</td>';
                             echo '<td>' . $list['approval'] . '</td>';
                             echo '<td>' . $list['receipted'] . '</td>';
