@@ -55,20 +55,21 @@
                         <?php
                         $sno = 1;
                         $net_total = 0;
+                        // var_dump($expenses);
                         foreach ($expenses as $key => $list) {
                             echo '<tr>';
                             //echo '<td>'.form_checkbox('p_id[]',$list['id'],false).'</td>';
                             //echo '<td><a href="'.site_url('hr_finance/C_expenses/receipt/'.$list['invoice_no']).'" class="hidden-print">'.$list['invoice_no'].'</a></td>';
                             echo '<td>'.$sno++.'</td>';
                             echo '<td>' . date('m/d/Y', strtotime($list['date_issued'])) . '</td>';
-                            echo '<td>' . $list['payment_for'] . '</td>';
-                            echo '<td>' . $list['category'] . '</td>';
+                            echo '<td>' . $this->M_paymentfor->get_paymentforName($list['payment_for_id']) . '</td>';
+                            echo '<td>' . $this->M_category->get_CatNameByItem($list['category_id']) . '</td>';
                             echo '<td>₱' . number_format($list['amount'],2) . '</td>';
                             echo '<td>₱' . number_format($list['change'],2) . '</td>';
                             $total = (double) $list['amount'] - (double)$list['change'];
                             //echo '<td>' . number_format($total,2) . '</td>';
                             echo '<td><a href="'.site_url('hr_finance/C_expenses/detail/'.$list['id']).'">₱'.number_format($total,2).'</a></td>';
-                            echo '<td>' . $list['payment_method'] . '</td>';
+                            echo '<td>' . $this->M_paymentMethod->get_paymentMethodName($list['payment_method_id']) . '</td>';
                             echo '<td>' . $list['approval'] . '</td>';
                             $label_1 = ($list['receipted'] == "Yes" ? 'green_color': 'red_color');
                             $label_2 = ($list['cross_checked'] == "Yes" ? 'green_color': 'red_color');

@@ -10,8 +10,7 @@
             <label class="control-label col-sm-1" for="payment_for">Payment For:</label>
             <div class="col-sm-3">
                 <select class="form-control select2me" id="payment_for" name="payment_for">
-                    <option value="DHL">DHL</option>
-                    <option value="Payroll">Payroll</option>
+                    
                 </select> 
                 
             </div>
@@ -20,9 +19,7 @@
             <label class="control-label col-sm-1" for="payment_method">Payment Method:</label>
             <div class="col-sm-3">
                 <select class="form-control select2me" id="payment_method" name="payment_method">
-                    <option value="Cash">Cash</option>
-                    <option value="Bank Transfer">Bank Transfer</option>
-                    <option value="Gcash">Gcash</option>
+                    
                 </select> 
                 
             </div>
@@ -36,8 +33,7 @@
             <label class="control-label col-sm-1" for="category_id">Category:</label>
             <div class="col-sm-3">
                 <select class="form-control select2me" id="category_id" name="category_id">
-                    <option value="Logistics">Logistics</option>
-                    <option value="Operations">Operations</option>
+                    
                 </select> 
             </div>
 
@@ -286,24 +282,59 @@
         function chargesDDL(index = 0) {
 
             let charges_ddl = '';
-            charges_ddl += '<option value="0">Select Charges</option>';
-            charges_ddl += '<option value="Charge 1">Charge 1</option>';
-            charges_ddl += '<option value="Charge 2">Charge 2</option>';
-            charges_ddl += '<option value="Charge 3">Charge 3</option>';
-            $('#chargeid_' + index).html(charges_ddl);
-           
+            
+                $.ajax({
+                url: site_url + "hr_finance/C_expenseItems/expenseItemsDDL",
+                type: 'GET',
+                dataType: 'json', // added data type
+                success: function(data) {
+                    //console.log(data);
+                    let i = 0;
+                    charges_ddl += '<option value="0">Select Item</option>';
+
+                    $.each(data, function(index, value) {
+
+                        charges_ddl += '<option value="' + value.id + '">' + value.name+ '</option>';
+
+                    });
+
+                    $('#chargeid_' + index).html(charges_ddl);
+
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                }
+            });
         }
         ///////////////////
         //GET product DROPDOWN LIST
         function subCategoryDDL(index = 0) {
 
-        let sub_category_ddl = '';
-        sub_category_ddl += '<option value="0">Select Category</option>';
-        sub_category_ddl += '<option value="Category 1">Category 1</option>';
-        sub_category_ddl += '<option value="Category 2">Category 2</option>';
-        sub_category_ddl += '<option value="Category 3">Category 3</option>';
-        $('#subcategoryid_' + index).html(sub_category_ddl);
+            let sub_category_ddl = '';
+            $.ajax({
+                url: site_url + "hr_finance/C_expenseSubCategory/expenseSubCategoryDDL",
+                type: 'GET',
+                dataType: 'json', // added data type
+                success: function(data) {
+                    //console.log(data);
+                    let i = 0;
+                    sub_category_ddl += '<option value="0">Select Sub Category</option>';
 
+                    $.each(data, function(index, value) {
+
+                        sub_category_ddl += '<option value="' + value.id + '">' + value.name+ '</option>';
+
+                    });
+
+                    $('#subcategoryid_' + index).html(sub_category_ddl);
+
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                }
+            });
         }
         ///////////////////
         /////////////ADD NEW LINES END HERE
@@ -330,6 +361,100 @@
         //CHARGES SECTION END HERE
         //////////////////////////
         
-        
+        ///////////////////
+        paymentforDDL();
+        //GET product DROPDOWN LIST
+        function paymentforDDL() {
+
+            let paymentfor_ddl = '';
+            $.ajax({
+                url: site_url + "hr_finance/C_paymentFor/paymentforDDL",
+                type: 'GET',
+                dataType: 'json', // added data type
+                success: function(data) {
+                    //console.log(data);
+                    let i = 0;
+                    paymentfor_ddl += '<option value="0">Please Select</option>';
+
+                    $.each(data, function(index, value) {
+
+                        paymentfor_ddl += '<option value="' + value.id + '">' + value.name+ '</option>';
+
+                    });
+
+                    $('#payment_for').html(paymentfor_ddl);
+
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                }
+            });
+        }
+        ///////////////////
+       
+        ///////////////////
+        paymentMethodDDL();
+        //GET product DROPDOWN LIST
+        function paymentMethodDDL() {
+
+            let paymentMethod_ddl = '';
+            $.ajax({
+                url: site_url + "hr_finance/C_paymentMethod/paymentMethodDDL",
+                type: 'GET',
+                dataType: 'json', // added data type
+                success: function(data) {
+                    //console.log(data);
+                    let i = 0;
+                    paymentMethod_ddl += '<option value="0">Please Select</option>';
+
+                    $.each(data, function(index, value) {
+
+                        paymentMethod_ddl += '<option value="' + value.id + '">' + value.name+ '</option>';
+
+                    });
+
+                    $('#payment_method').html(paymentMethod_ddl);
+
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                }
+            });
+        }
+        ///////////////////
+
+        ///////////////////
+        categoryDDL();
+        //GET product DROPDOWN LIST
+        function categoryDDL() {
+
+            let category_ddl = '';
+            $.ajax({
+                url: site_url + "pos/C_categories/categoriesDDL",
+                type: 'GET',
+                dataType: 'json', // added data type
+                success: function(data) {
+                    //console.log(data);
+                    let i = 0;
+                    category_ddl += '<option value="0">Please Select</option>';
+
+                    $.each(data, function(index, value) {
+
+                        category_ddl += '<option value="' + value.id + '">' + value.name+ '</option>';
+
+                    });
+
+                    $('#category_id').html(category_ddl);
+
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                }
+            });
+        }
+        ///////////////////
     });
 </script>

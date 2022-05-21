@@ -27,6 +27,16 @@ class C_categories extends MY_Controller{
         $this->load->view('templates/footer');
     }
     
+    //get all categories
+    function categoriesDDL($id=FALSE)
+    {
+        ini_set('max_execution_time', 0); 
+        ini_set('memory_limit','100240M');
+        
+        echo json_encode($this->M_category->get_category($id));
+        
+    }
+
     function ProductsByCategory($category_id)
     {
         $data = array('langs' => $this->session->userdata('lang'));

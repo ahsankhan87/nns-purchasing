@@ -21,7 +21,7 @@
             <tr>
                 <?php
                 echo '<td>Payment For</td>';
-                echo '<td>'.$expenses[0]['payment_for'].'</td>';
+                echo '<td>'.$this->M_paymentfor->get_paymentforName($expenses[0]['payment_for_id']).'</td>';
                 ?>    
             </tr>
             <tr>
@@ -36,7 +36,7 @@
         {
             $total = (double)($list['amount']);
             echo '<tr>';
-            echo '<td>'.$list['item'].'</td>';
+            echo '<td>'.$this->M_expenseItems->get_expenseItemsName($list['expense_item_id']).'</td>';
             echo '<td>₱'.number_format($list['amount'],2).'</td>';
             echo '</tr>';
             $products_total += $total;

@@ -83,7 +83,7 @@ class m_expenses extends CI_Model{
     
     function get_expenses_by_payment_for($payment_for)
     {   
-        $this->db->where(array('payment_for'=>$payment_for));
+        $this->db->where(array('payment_for_id'=>$payment_for));
         $query = $this->db->get('finance_expenses');
         return $query->result_array();
        
@@ -119,14 +119,10 @@ class m_expenses extends CI_Model{
     
     function delete($invoice_no)
     {
-        $this->db->delete('finance_expenses',array('invoice_no'=>$invoice_no,'company_id'=> $_SESSION['company_id']));
+        $this->db->delete('finance_expenses',array('id'=>$invoice_no));
         
-        $this->db->delete('finance_expenses_items',array('invoice_no'=>$invoice_no,'company_id'=> $_SESSION['company_id']));
-        
-        $this->db->delete('acc_entries',array('invoice_no'=>$invoice_no,'company_id'=> $_SESSION['company_id']));
-        $this->db->delete('acc_entry_items',array('invoice_no'=>$invoice_no,'company_id'=> $_SESSION['company_id']));
-        
-        $this->db->delete('pos_customer_payments',array('invoice_no'=>$invoice_no,'company_id'=> $_SESSION['company_id']));
+        $this->db->delete('finance_expenses_items',array('id'=>$invoice_no));
+       
     }
 
     public function get_totalexpensesByCategory()
