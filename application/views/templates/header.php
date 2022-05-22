@@ -492,7 +492,7 @@ var path = '<?php echo base_url(); ?>';</script>
 					    </li> -->
 						
 						<li <?php echo ($url3 == 'C_employees' ? "class='active'" : '') ?>>
-					        <a href="<?php echo site_url('hr_finance/C_employees') ?>"><i class="icon-time"></i> Employee Masterfile</a>
+					        <a href="<?php echo site_url('hr_finance/C_employees') ?>"><i class="icon-time"></i> Employees</a>
 					    </li>
 					    
 					    <!-- <li <?php echo ($url3 == 'farmReports' ? "class='active'" : '') ?>>

@@ -5,7 +5,7 @@
 <?php 
 $attributes = array('class' => 'form-horizontal', 'role' => 'form','enctype'=>"multipart/form-data");
 echo validation_errors();
-echo form_open('hr_finance/C_paymentfor/create',$attributes);
+echo form_open('hr_finance/C_paymentFor/create',$attributes);
 
 ?>
 <div class="form-group">

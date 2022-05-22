@@ -158,7 +158,7 @@
             // alert(formValues);
             // return false;
            
-            var confirmexpense = confirm('Are you absolutely sure you want to expense?');
+            var confirmexpense = confirm('Are you sure you want to save?');
            
             if (confirmexpense) {
                 
@@ -171,7 +171,7 @@
                         success: function(data) {
                             if(data == '1')
                             {
-                                toastr.success("Invoice saved successfully",'Success');
+                                toastr.success("Record saved successfully",'Success');
                                 
                             }
                             clearall();
