@@ -23,7 +23,7 @@ class C_receivings extends MY_Controller{
         
         //$data['itemDDL'] = $this->M_items->getItemDropDown();
         //$data['emp_DDL'] = $this->M_employees->getEmployeeDropDown();
-        $data['sizesDDL'] = $this->M_sizes->get_activeSizesDDL();
+        //$data['sizesDDL'] = $this->M_sizes->get_activeSizesDDL();
         $data['supplierDDL'] = $this->M_suppliers->getSupplierDropDown();//search for legder account
         //$data['currencyDropDown'] = $this->M_currencies->getcurrencyDropDown();
         
