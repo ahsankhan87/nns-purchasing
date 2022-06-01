@@ -635,8 +635,8 @@ class C_receivings extends MY_Controller{
                 'receiving_id'=>$receiving_id,
                 'invoice_no' => $new_invoice_no,
                 'item_id'=>$item_id[$key],
-                'quantity_purchased'=>($register_mode == 'receive' ? $quantity[$key] : -quantity[$key]),//if purchase return then insert amount in negative
-                'item_cost_price'=>($register_mode == 'receive' ? $cost_price[$key] : -cost_price[$key]),//actually its avg cost comming from sale from
+                'quantity_purchased'=>($register_mode == 'receive' ? $quantity[$key] : -$quantity[$key]),//if purchase return then insert amount in negative
+                'item_cost_price'=>($register_mode == 'receive' ? $cost_price[$key] : -$cost_price[$key]),//actually its avg cost comming from sale from
                 'item_unit_price'=>0, //($register_mode == 'receive' ? $unit_price[$key] : -unit_price[$key]),//if purchase return then insert amount in negative
                 //'discount_percent'=>$posted_values->discount,
                 //'color_id'=>0,

@@ -165,7 +165,7 @@ class Items extends MY_Controller{
             $data['title'] = 'Add New Product';
             $data['main'] = 'Add New Product';
             
-            $data['accountDDL'] = $this->M_groups->getGrpDetailDropDown($_SESSION['company_id'],$data['langs']);//search for legder account
+            //$data['accountDDL'] = $this->M_groups->getGrpDetailDropDown($_SESSION['company_id'],$data['langs']);//search for legder account
         
             $data['categoryDDL'] = $this->M_category->getCategoriesDropDown();
             // $data['locationDDL'] = $this->M_locations->get_activelocationsDDL();
@@ -329,7 +329,7 @@ class Items extends MY_Controller{
             $data['title'] = 'Update Product';
             $data['main'] = 'Update Product';
             
-            $data['accountDDL'] = $this->M_groups->getGrpDetailDropDown($_SESSION['company_id'],$data['langs']);//search for legder account
+            //$data['accountDDL'] = $this->M_groups->getGrpDetailDropDown($_SESSION['company_id'],$data['langs']);//search for legder account
         
             // $data['locationDDL'] = $this->M_locations->get_activelocationsDDL();
             $data['categoryDDL'] = $this->M_category->getCategoriesDropDown();

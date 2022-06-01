@@ -54,7 +54,7 @@
                         <tr>
                             <th>S.No</th>
                             <th><?php echo lang('date') ?></th>
-                            <th>Inv #</th>
+                            <th>Invoice</th>
                             <th><?php echo lang('customer') ?></th>
                             <th>Payment Terms</th>
                             <th class="text-right"><?php echo lang('amount') ?></th>
@@ -63,13 +63,18 @@
                             <th>Last Payment Date</th>
                             <th>Status</th>
                             <th>Note</th>
-
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody class="text-center">
                         <?php
                         $sno = 1;
+                        $total_balance = 0;
+                        $total_amount = 0;
                         foreach ($sales as $key => $list) {
+                            $total_balance += $list['balance'];
+                            $total_amount += $list['total_amount'];
+
                             echo '<tr>';
                             //echo '<td>'.form_checkbox('p_id[]',$list['id'],false).'</td>';
                             //echo '<td><a href="'.site_url('hr_finance/C_sales/receipt/'.$list['invoice_no']).'" class="hidden-print">'.$list['invoice_no'].'</a></td>';
@@ -82,12 +87,22 @@
                             echo '<td>'.anchor('production/C_customers/payment_detail/'.$list['customer_id'],'<span class="">'.$name.'</span>', '').'</td>';
 
                             echo '<td>' . $list['payment_terms'] . '</td>';
-                            echo '<td>' . number_format($list['total_amount'],2) . '</td>';
+                            echo '<td>₱' . number_format($list['total_amount'],2) . '</td>';
                             echo '<td>' . date('m/d/Y', strtotime($list['delivery_date'])) . '</td>';
-                            echo '<td>' . number_format($list['balance'],2) . '</td>';
+                            echo '<td>₱' . number_format($list['balance'],2) . '</td>';
                             echo '<td></td>';
-                            echo '<td>' . $list['status'] . '</td>';
+                            
+                            if($list['status'] == 'Paid'){
+                                $label = "label label-success";
+                            }else {
+                                $label = "label label-danger";
+                            }
+
+                            echo '<td> <span class="'.$label.'">' . $list['status'] . '</span></td>';
                             echo '<td>'.anchor('#','<span class="">View</span>', ' data-toggle="modal" data-target="#view_sales_'.$sno.'"').'</td>';
+                            echo '<td>';
+                            echo  anchor('hr_finance/C_sales/delete/'.$list['invoice_no'],' <i class="fa fa-trash-o fa-fw"></i>','onclick="return confirm(\'Are you sure you want to delete?\')"');
+                            echo '</td>';
                             echo '</tr>';
                             ?>
                             <!--delivery_status_ Modal -->
@@ -118,9 +133,9 @@
                         echo '<tfoot>
                                 <tr>
                                     <th></th><th></th><th></th>
+                                    <th></th><th>Total</th><th>₱'.number_format($total_amount,2).'</th>
+                                    <th></th><th>₱'.number_format($total_balance,2).'</th><th></th>
                                     <th></th><th></th><th></th>
-                                    <th></th><th></th><th></th>
-                                    <th></th><th></th>
                                 </tr>
                               </tfoot>';
 

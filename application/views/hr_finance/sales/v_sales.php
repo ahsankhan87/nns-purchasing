@@ -31,7 +31,7 @@
 
             <label class="control-label col-sm-2" for="delivery_date">Delivery Date:</label>
             <div class="col-sm-4">
-                <input type="date" class="form-control" id="delivery_date" name="delivery_date" value="<?php echo date("Y-m-d") ?>" />
+                <input type="text" class="form-control" id="delivery_date" name="delivery_date" value="<?php echo date("Y-m-d") ?>" />
             </div>
             
             <label class="control-label col-sm-2" for="">Customer:</label>
@@ -76,6 +76,7 @@
 
     </div>
     <hr />
+    <div class="lead">Order Details</div>
     <div class="row">
         <div class="col-sm-12">
         <?php $i = 1; ?>
@@ -83,7 +84,7 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Product</th>
+                        <th>Products</th>
                         <th>Content</th>
                         <th>Quantity</th>
                         <th>Price</th>
@@ -191,7 +192,7 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>deduction</th>
+                        <th>Deduction</th>
                         <th>Description</th>
                         <th>Quantity</th>
                         <th>Price</th>
@@ -439,6 +440,7 @@
             $('#description').val('');
             $('#due_date').val();
             $('#invoice_no').val();
+            $('#delivery_date').val();
 
             $(".add_new").trigger("click");//add new line
         }
@@ -518,7 +520,7 @@
             // alert(formValues);
             // return false;
            
-            var confirmSale = confirm('Are you absolutely sure you want to sale?');
+            var confirmSale = confirm('Are you sure you want to save?');
            
             if (confirmSale) {
                 

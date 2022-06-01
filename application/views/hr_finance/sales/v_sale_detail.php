@@ -45,10 +45,10 @@
             echo '<td>'.anchor('production/C_customers/payment_detail/'.$list['customer_id'],'<span class="">'.$customer.'</span>', '').'</td>';
 
             echo '<td>'.$list['payment_terms'].'</td>';
-            echo '<td>'.number_format($list['total_amount'],2).'</td>';
+            echo '<td>₱'.number_format($list['total_amount'],2).'</td>';
             echo '<td>'.date('m/d/Y',strtotime($list['delivery_date'])).'</td>';
             // echo '<td>'.($list['delivery_date'] == '' ? '' : date('m/d/Y',strtotime($list['delivery_date']))).'</td>';
-            echo '<td>'.number_format($list['balance'],2).'</td>';
+            echo '<td>₱'.number_format($list['balance'],2).'</td>';
             echo '<td>'.$list['status'].'</td>';
             echo '<td>'.anchor('#','<span class="">View</span>', ' data-toggle="modal" data-target="#view_sales_'.$list['sale_id'].'"').'</td>';
             echo '</tr>';
@@ -121,9 +121,9 @@
             echo '<td>'.@$product[0]['name'].'</td>';
             echo '<td>'.$list['item_content'].'</td>';
             echo '<td>'.number_format($list['quantity_sold'],2).'</td>';
-            echo '<td>'.number_format($list['item_unit_price'],2).'</td>';
+            echo '<td>₱'.number_format($list['item_unit_price'],2).'</td>';
             echo '<td>'.$this->M_units->get_unitName($list['unit_id']).'</td>';
-            echo '<td>'.number_format($total,2).'</td>';
+            echo '<td>₱'.number_format($total,2).'</td>';
             echo '</tr>';
             $products_total += $total;
         }
@@ -133,7 +133,7 @@
             <tr>
                 <th></th><th></th>
                 <th></th><th></th>
-                <th>Products Total</th><th><?php echo number_format($products_total,2); ?></th>
+                <th>Products Total</th><th>₱<?php echo number_format($products_total,2); ?></th>
             </tr>
             
         </tfoot>        
@@ -179,8 +179,8 @@
             echo '<td>'.$list['charges'].'</td>';
             echo '<td>'.$list['description'].'</td>';
             echo '<td>'.number_format($list['qty'],2).'</td>';
-            echo '<td>'.number_format($list['price'],2).'</td>';
-            echo '<td>'.number_format($total,2).'</td>';
+            echo '<td>₱'.number_format($list['price'],2).'</td>';
+            echo '<td>₱'.number_format($total,2).'</td>';
             echo '</tr>';
             $charges_total += $total;
         }
@@ -190,7 +190,7 @@
             <tr>
                 <th></th>
                 <th></th><th></th>
-                <th>Charges Total</th><th><?php echo number_format($charges_total,2); ?></th>
+                <th>Charges Total</th><th>₱<?php echo number_format($charges_total,2); ?></th>
             </tr>
         </tfoot>        
         </table>
@@ -235,8 +235,8 @@
             echo '<td>'.$list['deduction'].'</td>';
             echo '<td>'.$list['description'].'</td>';
             echo '<td>'.number_format($list['qty'],2).'</td>';
-            echo '<td>'.number_format($list['price'],2).'</td>';
-            echo '<td>'.number_format($total,2).'</td>';
+            echo '<td>₱'.number_format($list['price'],2).'</td>';
+            echo '<td>₱'.number_format($total,2).'</td>';
             echo '</tr>';
             $deduction_total += $total;
         }
@@ -246,12 +246,12 @@
             <tr>
                 <th></th>
                 <th></th><th></th>
-                <th>Deduction Total</th><th><?php echo number_format($deduction_total,2); ?></th>
+                <th>Deduction Total</th><th>₱<?php echo number_format($deduction_total,2); ?></th>
             </tr>
             <tr>
                 <th></th>
                 <th></th><th></th>
-                <th>Grand Total</th><th><?php echo number_format($products_total+$charges_total-$deduction_total,2); ?></th>
+                <th>Grand Total</th><th>₱<?php echo number_format($products_total+$charges_total-$deduction_total,2); ?></th>
             </tr>
         </tfoot>        
         </table>

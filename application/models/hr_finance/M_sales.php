@@ -142,14 +142,14 @@ class m_sales extends CI_Model{
     
     function delete($invoice_no)
     {
-        $this->db->delete('finance_sales',array('invoice_no'=>$invoice_no,'company_id'=> $_SESSION['company_id']));
+        $this->db->delete('finance_sales',array('invoice_no'=>$invoice_no));
         
-        $this->db->delete('finance_sales_items',array('invoice_no'=>$invoice_no,'company_id'=> $_SESSION['company_id']));
+        $this->db->delete('finance_sales_items',array('invoice_no'=>$invoice_no));
         
-        $this->db->delete('acc_entries',array('invoice_no'=>$invoice_no,'company_id'=> $_SESSION['company_id']));
-        $this->db->delete('acc_entry_items',array('invoice_no'=>$invoice_no,'company_id'=> $_SESSION['company_id']));
+        $this->db->delete('finance_sales_charges',array('invoice_no'=>$invoice_no));
+        $this->db->delete('finance_sales_deduction',array('invoice_no'=>$invoice_no));
         
-        $this->db->delete('pos_customer_payments',array('invoice_no'=>$invoice_no,'company_id'=> $_SESSION['company_id']));
+        $this->db->delete('prod_customer_payments',array('invoice_no'=>$invoice_no));
     }
 
     public function get_totalSalesByCategory()

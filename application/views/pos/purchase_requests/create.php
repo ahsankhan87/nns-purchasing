@@ -42,7 +42,7 @@ echo form_open('trans/C_purchase_requests/create',$attributes);
 <div class="form-group">
   <label class="control-label col-sm-2" for="c_stock">Current Stock:</label>
   <div class="col-sm-10">
-    <input type="number" class="form-control" id="c_stock" name="current_stock" value="<?php echo $row['current_stock']; ?>" placeholder="Current Stock" />
+    <input type="number" class="form-control" id="c_stock" name="current_stock" value="<?php echo set_value('current_stock'); ?>" placeholder="Current Stock" />
   </div>
 </div>
 

@@ -9,6 +9,14 @@ echo form_open('hr_finance/C_expenseSubCategory/edit',$attributes);
 foreach($update_expenseSubCategory as $row)
 {
 ?>
+ <div class="form-group">
+      <label class="control-label col-sm-2" for="Category">Category:<span class="required">* </span></label>
+      <div class="col-sm-10">
+        <?php echo form_dropdown('category_id',$categoryDDL,$row['category_id'],'class="form-control select2me"'); ?>
+        								
+      </div>
+    </div>
+
 <div class="form-group">
   <label class="control-label col-sm-2" for="Name">Name:</label>
   <div class="col-sm-10">

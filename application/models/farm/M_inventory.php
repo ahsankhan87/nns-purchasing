@@ -13,7 +13,7 @@ class M_inventory extends CI_Model{
         {
             $this->db->select('id,prod_product_id,ibn,in_qty,in_date,waste,out_qty,(in_qty-out_qty) as balance,status,out_date,moq');
             $this->db->group_by('id');
-            $this->db->having('sum(in_qty-out_qty) > 0');
+            $this->db->having('(sum(in_qty-out_qty)-waste) > 0');
             $query = $this->db->get('farm_inventory');
             return $query->result_array();
         }
@@ -35,7 +35,7 @@ class M_inventory extends CI_Model{
         
         $this->db->select('id,prod_product_id,ibn,in_qty,in_date,waste,out_qty,(in_qty-out_qty) as balance,status,out_date,moq');
         $this->db->group_by('id');
-        $this->db->having('sum(in_qty-out_qty) <= 0');
+        $this->db->having('(sum(in_qty-out_qty)-waste) <= 0');
         $query = $this->db->get('farm_inventory');
         return $query->result_array();
         

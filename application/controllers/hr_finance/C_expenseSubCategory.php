@@ -38,7 +38,8 @@ class C_expenseSubCategory extends MY_Controller{
             {
                   $data = array(  'name'=>$_POST['name'],
                         'status'=>1,
-                      'company_id'=> $_SESSION['company_id']
+                        'category_id'=>$_POST['category_id'],
+                        'company_id'=> $_SESSION['company_id']
                      );
                   
                   if($this->db->insert('finance_exp_subcategory',$data)) {
@@ -56,7 +57,8 @@ class C_expenseSubCategory extends MY_Controller{
         
         $data['title'] = 'Add New expenseSubCategory';
         $data['main'] = 'Add New expenseSubCategory';
-        
+        $data['categoryDDL'] = $this->M_category->getCategoriesDropDown();
+            
         $this->load->view('templates/header',$data);
         $this->load->view('hr_finance/menu/expenseSubCategory/create',$data);
         $this->load->view('templates/footer');
@@ -76,7 +78,7 @@ class C_expenseSubCategory extends MY_Controller{
             if($this->form_validation->run())
             {
                   $data = array(  'name'=>$_POST['name'],
-                        //'status'=>$_POST['status'],
+                        'category_id'=>$_POST['category_id'],
                       'company_id'=> $_SESSION['company_id']
                      );
                   
@@ -95,7 +97,8 @@ class C_expenseSubCategory extends MY_Controller{
         $data['main'] = 'Update expenseSubCategory';
         
         $data['update_expenseSubCategory'] = $this->M_expenseSubCategory->get_expenseSubCategory($id);      
-        
+        $data['categoryDDL'] = $this->M_category->getCategoriesDropDown();
+            
         $this->load->view('templates/header',$data);
         $this->load->view('hr_finance/menu/expenseSubCategory/edit',$data);
         $this->load->view('templates/footer');
