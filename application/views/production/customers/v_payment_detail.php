@@ -16,8 +16,9 @@
                 <th>Date</th>
                 <th>Invoice</th>
                 <th>Description</th>
-                <th>Unpaid</th>
-                <th>Paid</th>
+                <th>Amount`</th>
+                <th>Delivery Date</th>
+                <th>Payment Status</th>
             </tr>
         </thead>
         
@@ -31,11 +32,18 @@
             $dr_total = (double)($list['debit']);
             $cr_total = (double)($list['credit']);
             echo '<tr valign="top">';
-            echo '<td>'.$list['date'].'</td>';
-            echo '<td>'.$list['invoice_no'].'</td>';
+            echo '<td>'.date("m/d/Y",strtotime($list['date'])).'</td>';
+            echo '<td><a href="'.site_url('hr_finance/C_sales/detail/'.$list['invoice_no']).'">'.$list['invoice_no'].'</a></td>';
             echo '<td>'.$list['description'].'</td>';
-            echo '<td>'.number_format($dr_total,2).'</td>';
-            echo '<td>'.number_format($cr_total,2).'</td>';
+            echo '<td>₱'.number_format(($dr_total == 0 ? $cr_total : $dr_total),2).'</td>';
+            if($list['payment_status'] == 'Paid'){
+                $label = "label label-success";
+            }else {
+                $label = "label label-danger";
+            }
+
+            echo '<td>'.$list['delivery_date'].'</td>';
+            echo '<td> <span class="'.$label.'">' . $list['payment_status'] . '</span></td>';
             echo '</tr>';
             $net_dr_total += $dr_total;
             $net_cr_total += $cr_total;
@@ -46,8 +54,10 @@
             <tr>
                 <th></th>
                 <th></th><th>Total</th>
-                <th><?php echo number_format($net_dr_total,2); ?></th>
-                <th><?php echo number_format($net_cr_total,2); ?></th>
+                <th>₱<?php echo number_format($net_dr_total+$net_cr_total,2); ?></th>
+                <th></th>
+                <th></th>
+                <th></th>
             </tr>
         </tfoot>        
         </table>

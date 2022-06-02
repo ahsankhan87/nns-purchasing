@@ -462,6 +462,26 @@ var path = '<?php echo base_url(); ?>';</script>
 						<li <?php echo ($url3 == 'C_sales' ? "class='active'" : '') ?>>
 					        <a href="<?php echo site_url('hr_finance/C_sales/allSales') ?>"><i class="fa fa-bar-chart-o fa"></i> Sales</a>
 					    </li>
+						<li <?php echo ($url3 == 'C_sales' || $url3 == 'C_payment_terms' || $url3 == 'C_sales_charges' || $url3 == 'C_sales_deductions' ? "class='active'" : '') ?>>
+							<a href="javascript:;">
+							<i class="fa fa-bar-chart-o fa"></i> Sales <span class="arrow"></span>
+							</a>
+							<ul class="sub-menu">
+								<li <?php echo ($url4 == 'allSales' ? "class='active'" : '') ?>>
+									<a href="<?php echo site_url('hr_finance/C_sales/allSales') ?>"><i class="icon-share"></i> All Sales</a>
+								</li>
+								<li <?php echo ($url3 == 'C_sales_charges' ? "class='active'" : '') ?>>
+									<a href="<?php echo site_url('hr_finance/C_sales_charges/') ?>"><i class="icon-settings"></i> Sales Charges</a>
+								</li>
+								<li <?php echo ($url3 == 'C_sales_deductions' ? "class='active'" : '') ?>>
+									<a href="<?php echo site_url('hr_finance/C_sales_deductions') ?>"><i class="icon-graph"></i> Sales Deductions</a>
+								</li>
+								<li <?php echo ($url3 == 'C_payment_terms' ? "class='active'" : '') ?>>
+									<a href="<?php echo site_url('hr_finance/C_payment_terms') ?>"><i class="icon-share"></i> Payment Terms</a>
+								</li>
+								
+							</ul>
+						</li>
 						
 					    <li <?php echo ($url3 == 'C_expenses' || $url3 == 'C_paymentFor' || $url3 == 'C_paymentMethod' || $url3 == 'C_expenseItems' || $url3 == 'C_expenseSubCategory' ? "class='active'" : '') ?>>
 							<a href="javascript:;">

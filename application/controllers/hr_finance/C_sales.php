@@ -131,16 +131,8 @@ class C_sales extends MY_Controller
                 $sub_total_deduction = $this->input->post("sub_total_deduction");
                 $sub_total_charges = $this->input->post("sub_total_charges");
                 
-                //if tax amount is checked or 1 then tax will be dedected otherwise not deducted from total amount
-                if ($is_taxable == 1) {
-                    //total net amount 
-                    $total_amount =  ($this->input->post("sub_total") - $discount) - $total_tax_amount;
-                    $total_return_amount =  ($this->input->post("sub_total") - $discount) - $total_tax_amount; //FOR RETURN PURSPOSE
-                } else {
-                    $total_amount =  ($this->input->post("sub_total") - $discount);
-                    $total_return_amount =  ($this->input->post("sub_total") - $discount); //FOR RETURN PURSPOSE
-                }
-                //////
+                $total_amount =  ($this->input->post("sub_total") - $discount);
+                $net_total = ($total_amount-$sub_total_deduction+$sub_total_charges);
 
                 $data = array(
                     'company_id' => $company_id,
@@ -195,24 +187,6 @@ class C_sales extends MY_Controller
 
                         $this->db->insert('finance_sales_items', $data);
 
-                        //CHECK SERVICE IF SERVICE THEN DO NOT UPDATE QTY
-                        if (trim($this->input->post('item_type')[$key]) != "service") {
-                            if ($this->M_products->is_item_exist($item_id)) {
-                                $total_stock =  $this->M_items->total_stock($item_id);
-
-                                //if products is to be return then it will add from qty and the avg cost will be reverse to original cost
-                                if ($register_mode == 'return') {
-                                    $quantity = ($total_stock + $qty);
-                                } else {
-                                    $quantity = ($total_stock - $qty);
-                                }
-
-                                $option_data = array(
-                                    'quantity' => $quantity
-                                );
-                                //$this->db->update('prod_products', $option_data, array('id' => $item_id));
-                            }
-                        }
                     }
                 } //end foreach
                 
@@ -223,9 +197,12 @@ class C_sales extends MY_Controller
                         'invoice_no' => $new_invoice_no,
                         'customer_id' => $customer_id,
                         'description' => $narration,
-                        'debit' => ($status == "Unpaid" ? $total_amount : 0),
-                        'credit' => ($status == "Paid" ? $total_amount : 0),
+                        'debit' => ($status == "Unpaid" ? $net_total : 0),
+                        'credit' => ($status == "Paid" ? $net_total : 0),
                         'date' => $sale_date,
+                        'payment_status' => $status,
+                        'delivery_date'=>$delivery_date,
+                        'note' => $narration,
                         'creation_date' => date("Y-m-d H:i:s"),
                     );
 

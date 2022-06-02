@@ -70,7 +70,6 @@
         <!-- /.col-sm-12 -->
         
         <div class="col-sm-4 text-right">
-            <div id="top_net_total"></div>
             
         </div>
 
@@ -192,7 +191,7 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Deduction</th>
+                        <th>Deductions</th>
                         <th>Description</th>
                         <th>Quantity</th>
                         <th>Price</th>
@@ -210,7 +209,7 @@
                             <a href="#" class="btn btn-info btn-sm clear_all_deduction" name="clear_all">Clear all</a>
                             <!-- <textarea name="description" id="description" class="form-control" placeholder="Description" cols="5" rows="6"></textarea> -->
                         </td>
-                        <th class="text-right">deduction Total</th>
+                        <th class="text-right">Deduction Total</th>
                         <!-- <th class="text-right" id="sub_total">0.00</th> -->
                         <th><input type="text" name="sub_total_deduction" class="form-control text-right" id="sub_total_txt_deduction" readonly="" value=""></th>
                     </tr>
@@ -233,7 +232,20 @@
                     </tr> -->
                 </tfoot>
             </table>
-            
+            <div id="top_net_total" class="text-right"></div>
+            <table class="table table-striped table-bordered">
+                <tbody>
+                    <tr>
+                        <th></th><th></th><th></th><th></th>
+                        <th colspan="4"  class="text-right">
+                        </th>
+                        <th class="text-right">Grand Total</th>
+                        <!-- <th class="text-right" id="sub_total">0.00</th> -->
+                        <th><input type="text" name="grand_total" class="form-control text-right" id="grand_total" readonly="" value=""></th>
+                    </tr>
+                   
+                </tbody>
+            </table>
         </div>
     </div><!-- close here -->
 
@@ -478,40 +490,40 @@
         }
         ///////////////////
         /////////////ADD NEW LINES END HERE
+        function calc_grand_total() {
+            var grand_total = 0;
+            var total_ded = 0;
+            var total_charges = 0;
+            var products_total = 0;
 
+            products_total = $('#sub_total_txt').val();
+            total_ded = $("#sub_total_txt_deduction").val();
+            total_charges = $("#sub_total_txt_charges").val();
+            
+            grand_total = (grand_total ? grand_total : 0);
+            total_ded  = (total_ded ? total_ded : 0);
+            total_charges = (total_charges ? total_charges : 0);
+
+            grand_total = ((parseFloat(products_total) + parseFloat(total_charges)) - parseFloat(total_ded));
+            $('#grand_total').val(parseFloat(grand_total));
+            $('#net_total').text(parseFloat(grand_total).toLocaleString('en-US', 2));
+            $('#top_net_total').html('Grand Total:<h2 style="margin:0">'+parseFloat(grand_total).toLocaleString('en-US', 2)+'</h2>');
+            
+        }
         function calc_gtotal() {
             var total = 0;
-            var total_discount = 0;
-            var total_tax = 0;
-            var net_total = 0;
-
+            
             $('.total').each(function() {
                 total += parseFloat($(this).val());
             });
 
-            $('.tax').each(function() {
-                total_tax += parseFloat($(this).text());
-            });
-            $('.discount').each(function() {
-                total_discount += (parseFloat($(this).val()) ? parseFloat($(this).val()) : 0);
-            });
-
-            net_total = (total - total_discount + total_tax ? total - total_discount + total_tax : 0);
             sub_total = (total ? total : 0);
 
             //ASSIGN VALUE TO TEXTBOXES
             $('#sub_total_txt').val(parseFloat(sub_total).toFixed(2));
-            //$('#total_discount_txt').val(parseFloat(total_discount));
-            //$('#total_tax_txt').val(parseFloat(total_tax));
-            // $('#net_total_txt').val(parseFloat(net_total));
-            /////////////
-
-            $('#top_net_total').html('Grand Total:<h2 style="margin:0">'+parseFloat(sub_total).toLocaleString('en-US', 2)+'</h2>');
-            $('#net_total').text(parseFloat(net_total).toLocaleString('en-US', 2));
             $('#sub_total').text(parseFloat(sub_total).toLocaleString('en-US'));
-            //$('#total_discount').text(parseFloat(total_discount).toLocaleString('en-US'));
-            //$('#total_tax').text(parseFloat(total_tax).toLocaleString('en-US'));
-            //console.log(total_discount);
+
+            calc_grand_total();
         }
 
         $("#sale_form").on("submit", function(e) {
@@ -738,11 +750,8 @@
 
             //ASSIGN VALUE TO TEXTBOXES
             $('#sub_total_txt_charges').val(parseFloat(sub_total_charges).toFixed(2));
-            //$('#total_discount_txt').val(parseFloat(total_discount));
-            //$('#total_tax_txt').val(parseFloat(total_tax));
-            // $('#net_total_txt').val(parseFloat(net_total));
             /////////////
-
+            calc_grand_total();
         }
         ///////////////////////////
         //CHARGES SECTION END HERE
@@ -848,11 +857,8 @@
 
             //ASSIGN VALUE TO TEXTBOXES
             $('#sub_total_txt_deduction').val(parseFloat(sub_total_deduction).toFixed(2));
-            //$('#total_discount_txt').val(parseFloat(total_discount));
-            //$('#total_tax_txt').val(parseFloat(total_tax));
-            // $('#net_total_txt').val(parseFloat(net_total));
             /////////////
-
+            calc_grand_total();
         }
         ///////////////////////////
         //DEDUCTION SECTION END HERE

@@ -49,7 +49,13 @@
             echo '<td>'.date('m/d/Y',strtotime($list['delivery_date'])).'</td>';
             // echo '<td>'.($list['delivery_date'] == '' ? '' : date('m/d/Y',strtotime($list['delivery_date']))).'</td>';
             echo '<td>₱'.number_format($list['balance'],2).'</td>';
-            echo '<td>'.$list['status'].'</td>';
+            
+            if($list['status'] == 'Paid'){
+                $label = "label label-success";
+            }else {
+                $label = "label label-danger";
+            }
+            echo '<td> <span class="'.$label.'">' . $list['status'] . '</span></td>';
             echo '<td>'.anchor('#','<span class="">View</span>', ' data-toggle="modal" data-target="#view_sales_'.$list['sale_id'].'"').'</td>';
             echo '</tr>';
         ?>
@@ -100,7 +106,7 @@
         <table class="table table-bordered table-striped table-condensed flip-content"  id="sample_">
         <thead class="flip-content">
             <tr>
-                <th>Product</th>
+                <th>Products</th>
                 <th>Content</th>
                 <th>Quantity</th>
                 <th>Price</th>

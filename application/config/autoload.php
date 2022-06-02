@@ -142,5 +142,6 @@ $autoload['model'] = array('pos/M_items','pos/M_units','pos/M_suppliers','pos/M_
                            'production/M_production_schedule','farm/M_grinding','farm/M_harvest','farm/M_inventory','farm/M_feeding',
                            'rd/M_samples_schedule',
                            'hr_finance/M_sales','hr_finance/M_expenses','hr_finance/M_expenseItems','hr_finance/M_paymentfor',
-                           'hr_finance/M_paymentMethod','hr_finance/M_expenseSubCategory',
+                           'hr_finance/M_paymentMethod','hr_finance/M_expenseSubCategory','hr_finance/M_payment_terms',
+                           'hr_finance/M_sales_charges','hr_finance/M_sales_deductions',
                            );
