@@ -12,13 +12,13 @@ class C_payment_terms extends MY_Controller{
     {
         $data = array('langs' => $this->session->userdata('lang'));
         
-        $data['title'] = 'List of Payment For';
-        $data['main'] = 'List of Payment For';
+        $data['title'] = 'List of Payment Terms';
+        $data['main'] = 'List of Payment Terms';
         
         $data['payment_terms'] = $this->M_payment_terms->get_payment_terms();
         
         $this->load->view('templates/header',$data);
-        $this->load->view('hr_finance/menu/payment_terms',$data);
+        $this->load->view('hr_finance/menu/payment_terms/v_payment_terms',$data);
         $this->load->view('templates/footer');
     }
     
@@ -41,8 +41,8 @@ class C_payment_terms extends MY_Controller{
                       'company_id'=> $_SESSION['company_id']
                      );
                   
-                  if($this->db->insert('finance_exp_payment_terms',$data)) {
-                    $this->session->set_flashdata('message','Payment For Added');
+                  if($this->db->insert('finance_sales_pay_terms',$data)) {
+                    $this->session->set_flashdata('message','Payment Terms Added');
                     }else{
                     $data['flash_message'] = false;
                     }
@@ -54,8 +54,8 @@ class C_payment_terms extends MY_Controller{
         }
         }
         
-        $data['title'] = 'Add New Payment For';
-        $data['main'] = 'Add New Payment For';
+        $data['title'] = 'Add New Payment Terms';
+        $data['main'] = 'Add New Payment Terms';
         
         $this->load->view('templates/header',$data);
         $this->load->view('hr_finance/menu/payment_terms/create',$data);
@@ -80,8 +80,8 @@ class C_payment_terms extends MY_Controller{
                       'company_id'=> $_SESSION['company_id']
                      );
                   
-                  if($this->db->update('finance_exp_payment_terms',$data,array('id'=>$_POST['id']))) {
-                    $this->session->set_flashdata('message','Payment For Updated');
+                  if($this->db->update('finance_sales_pay_terms',$data,array('id'=>$_POST['id']))) {
+                    $this->session->set_flashdata('message','Payment Terms Updated');
                     }else{
                     $data['flash_message'] = false;
                     }
@@ -91,8 +91,8 @@ class C_payment_terms extends MY_Controller{
             redirect('hr_finance/C_payment_terms','refresh');
         }
         }
-        $data['title'] = 'Update Payment For';
-        $data['main'] = 'Update Payment For';
+        $data['title'] = 'Update Payment Terms';
+        $data['main'] = 'Update Payment Terms';
         
         $data['update_payment_terms'] = $this->M_payment_terms->get_payment_terms($id);      
         
@@ -104,7 +104,7 @@ class C_payment_terms extends MY_Controller{
     function delete($id)
     {
         $this->M_payment_terms->delete_payment_terms($id);
-        $this->session->set_flashdata('message','Payment For Deleted');
+        $this->session->set_flashdata('message','Payment Terms Deleted');
         redirect('hr_finance/C_payment_terms','refresh');
     }
 

@@ -459,9 +459,6 @@ var path = '<?php echo base_url(); ?>';</script>
 					</a>
 					<ul class="sub-menu">
 					    
-						<li <?php echo ($url3 == 'C_sales' ? "class='active'" : '') ?>>
-					        <a href="<?php echo site_url('hr_finance/C_sales/allSales') ?>"><i class="fa fa-bar-chart-o fa"></i> Sales</a>
-					    </li>
 						<li <?php echo ($url3 == 'C_sales' || $url3 == 'C_payment_terms' || $url3 == 'C_sales_charges' || $url3 == 'C_sales_deductions' ? "class='active'" : '') ?>>
 							<a href="javascript:;">
 							<i class="fa fa-bar-chart-o fa"></i> Sales <span class="arrow"></span>

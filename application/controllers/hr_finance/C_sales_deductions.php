@@ -12,8 +12,8 @@ class C_sales_deductions extends MY_Controller{
     {
         $data = array('langs' => $this->session->userdata('lang'));
         
-        $data['title'] = 'List of Payment For';
-        $data['main'] = 'List of Payment For';
+        $data['title'] = 'List of Sales Deduction';
+        $data['main'] = 'List of Sales Deduction';
         
         $data['sales_deductions'] = $this->M_sales_deductions->get_sales_deductions();
         
@@ -42,7 +42,7 @@ class C_sales_deductions extends MY_Controller{
                      );
                   
                   if($this->db->insert('finance_deductions',$data)) {
-                    $this->session->set_flashdata('message','Payment For Added');
+                    $this->session->set_flashdata('message','Sales Deduction Added');
                     }else{
                     $data['flash_message'] = false;
                     }
@@ -54,8 +54,8 @@ class C_sales_deductions extends MY_Controller{
         }
         }
         
-        $data['title'] = 'Add New Payment For';
-        $data['main'] = 'Add New Payment For';
+        $data['title'] = 'Add New Sales Deduction';
+        $data['main'] = 'Add New Sales Deduction';
         
         $this->load->view('templates/header',$data);
         $this->load->view('hr_finance/menu/sales_deductions/create',$data);
@@ -81,7 +81,7 @@ class C_sales_deductions extends MY_Controller{
                      );
                   
                   if($this->db->update('finance_deductions',$data,array('id'=>$_POST['id']))) {
-                    $this->session->set_flashdata('message','Payment For Updated');
+                    $this->session->set_flashdata('message','Sales Deduction Updated');
                     }else{
                     $data['flash_message'] = false;
                     }
@@ -91,8 +91,8 @@ class C_sales_deductions extends MY_Controller{
             redirect('hr_finance/C_sales_deductions','refresh');
         }
         }
-        $data['title'] = 'Update Payment For';
-        $data['main'] = 'Update Payment For';
+        $data['title'] = 'Update Sales Deduction';
+        $data['main'] = 'Update Sales Deduction';
         
         $data['update_sales_deductions'] = $this->M_sales_deductions->get_sales_deductions($id);      
         
@@ -104,7 +104,7 @@ class C_sales_deductions extends MY_Controller{
     function delete($id)
     {
         $this->M_sales_deductions->delete_sales_deductions($id);
-        $this->session->set_flashdata('message','Payment For Deleted');
+        $this->session->set_flashdata('message','Sales Deduction Deleted');
         redirect('hr_finance/C_sales_deductions','refresh');
     }
 

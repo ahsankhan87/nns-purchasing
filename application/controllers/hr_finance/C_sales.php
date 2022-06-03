@@ -150,7 +150,7 @@ class C_sales extends MY_Controller
                     //'total_tax' => $total_tax_amount, //return will be in minus amount
                     //'is_taxable' => $is_taxable,
                     'delivery_date'=>$delivery_date,
-                    'payment_terms'=>$payment_terms,
+                    'payment_terms_id'=>$payment_terms,
                     'status'=>$status,
                 );
                 $this->db->insert('finance_sales', $data);
@@ -222,7 +222,7 @@ class C_sales extends MY_Controller
                         $data = array(
                             'sale_id' => $sale_id,
                             'invoice_no' => $new_invoice_no,
-                            'charges' => $charge_id,
+                            'charges_id' => $charge_id,
                             'description' => $description_chr,
                             'qty' => $qty,
                             'price' => $price,
@@ -246,7 +246,7 @@ class C_sales extends MY_Controller
                         $data = array(
                             'sale_id' => $sale_id,
                             'invoice_no' => $new_invoice_no,
-                            'deduction' => $deduction_id,
+                            'deduction_id' => $deduction_id,
                             'description' => $description_chr,
                             'qty' => $qty,
                             'price' => $price,

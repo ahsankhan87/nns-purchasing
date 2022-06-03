@@ -86,7 +86,7 @@
                             $name = $this->M_prod_customers->get_prod_customerName($list['customer_id']);
                             echo '<td>'.anchor('production/C_customers/payment_detail/'.$list['customer_id'],'<span class="">'.$name.'</span>', '').'</td>';
 
-                            echo '<td>' . $list['payment_terms'] . '</td>';
+                            echo '<td>' . $this->M_payment_terms->get_payment_termsName($list['payment_terms_id']) . '</td>';
                             echo '<td>₱' . number_format($list['total_amount'],2) . '</td>';
                             echo '<td>' . date('m/d/Y', strtotime($list['delivery_date'])) . '</td>';
                             echo '<td>₱' . number_format($list['balance'],2) . '</td>';

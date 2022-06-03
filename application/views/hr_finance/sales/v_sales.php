@@ -102,7 +102,7 @@
                             <a href="#" class="btn btn-info btn-sm clear_all" name="clear_all">Clear all</a>
                             <!-- <textarea name="description" id="description" class="form-control" placeholder="Description" cols="5" rows="6"></textarea> -->
                         </td>
-                        <th class="text-right">Products Total</th>
+                        <th class="text-right">Products Total ₱:</th>
                         <!-- <th class="text-right" id="sub_total">0.00</th> -->
                         <th><input type="text" name="sub_total" class="form-control text-right" id="sub_total_txt" readonly="" value=""></th>
                     </tr>
@@ -155,7 +155,7 @@
                             <a href="#" class="btn btn-info btn-sm clear_all_charges" name="clear_all">Clear all</a>
                             <!-- <textarea name="description" id="description" class="form-control" placeholder="Description" cols="5" rows="6"></textarea> -->
                         </td>
-                        <th class="text-right">Charges Total</th>
+                        <th class="text-right">Charges Total ₱:</th>
                         <!-- <th class="text-right" id="sub_total">0.00</th> -->
                         <th><input type="text" name="sub_total_charges" class="form-control text-right" id="sub_total_txt_charges" readonly="" value=""></th>
                     </tr>
@@ -209,7 +209,7 @@
                             <a href="#" class="btn btn-info btn-sm clear_all_deduction" name="clear_all">Clear all</a>
                             <!-- <textarea name="description" id="description" class="form-control" placeholder="Description" cols="5" rows="6"></textarea> -->
                         </td>
-                        <th class="text-right">Deduction Total</th>
+                        <th class="text-right">Deduction Total ₱:</th>
                         <!-- <th class="text-right" id="sub_total">0.00</th> -->
                         <th><input type="text" name="sub_total_deduction" class="form-control text-right" id="sub_total_txt_deduction" readonly="" value=""></th>
                     </tr>
@@ -239,7 +239,7 @@
                         <th></th><th></th><th></th><th></th>
                         <th colspan="4"  class="text-right">
                         </th>
-                        <th class="text-right">Grand Total</th>
+                        <th class="text-right">Grand Total ₱:</th>
                         <!-- <th class="text-right" id="sub_total">0.00</th> -->
                         <th><input type="text" name="grand_total" class="form-control text-right" id="grand_total" readonly="" value=""></th>
                     </tr>
@@ -728,12 +728,30 @@
         function chargesDDL(index = 0) {
 
             let charges_ddl = '';
-            charges_ddl += '<option value="0">Select Charges</option>';
-            charges_ddl += '<option value="Charge 1">Charge 1</option>';
-            charges_ddl += '<option value="Charge 2">Charge 2</option>';
-            charges_ddl += '<option value="Charge 3">Charge 3</option>';
-            $('#chargeid_' + index).html(charges_ddl);
-           
+          
+            $.ajax({
+                url: site_url + "hr_finance/C_sales_charges/sales_chargesDDL",
+                type: 'GET',
+                dataType: 'json', // added data type
+                success: function(data) {
+                    //console.log(data);
+                    let i = 0;
+                    charges_ddl += '<option value="0">Select Item</option>';
+
+                    $.each(data, function(index, value) {
+
+                        charges_ddl += '<option value="' + value.id + '">' + value.name+ '</option>';
+
+                    });
+
+                    $('#chargeid_' + index).html(charges_ddl);
+
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                }
+            });
         }
         ///////////////////
         /////////////ADD NEW LINES END HERE
@@ -835,12 +853,30 @@
         function deductionDDL(index = 0) {
 
             let deduction_ddl = '';
-            deduction_ddl += '<option value="0">Select Deduction</option>';
-            deduction_ddl += '<option value="Deduction 1">Deduction 1</option>';
-            deduction_ddl += '<option value="Deduction 2">Deduction 2</option>';
-            deduction_ddl += '<option value="Deduction 3">Deduction 3</option>';
-            $('#deductionid_' + index).html(deduction_ddl);
-           
+            
+            $.ajax({
+                url: site_url + "hr_finance/C_sales_deductions/sales_deductionsDDL",
+                type: 'GET',
+                dataType: 'json', // added data type
+                success: function(data) {
+                    //console.log(data);
+                    let i = 0;
+                    deduction_ddl += '<option value="0">Select Deduction</option>';
+            
+                    $.each(data, function(index, value) {
+
+                        deduction_ddl += '<option value="' + value.id + '">' + value.name+ '</option>';
+
+                    });
+
+                    $('#deductionid_' + index).html(deduction_ddl);
+
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                }
+            });
         }
         ///////////////////
         /////////////ADD NEW LINES END HERE
@@ -863,5 +899,38 @@
         ///////////////////////////
         //DEDUCTION SECTION END HERE
         //////////////////////////
+        
+        ////
+        payment_termsDDL();
+        ////////////////////////
+        //GET payment_terms DROPDOWN LIST
+        function payment_termsDDL() {
+
+        let payment_terms_ddl = '';
+        $.ajax({
+            url: site_url + "hr_finance/C_payment_terms/payment_termsDDL",
+            type: 'GET',
+            dataType: 'json', // added data type
+            success: function(data) {
+                //console.log(data);
+                let i = 0;
+                payment_terms += '<option value="0">Select Payment Terms</option>';
+
+                $.each(data, function(index, value) {
+
+                    payment_terms += '<option value="' + value.id + '">' + value.name+ '</option>';
+
+                });
+
+                $('#payment_terms').html(payment_terms);
+
+            },
+            error: function(xhr, ajaxOptions, thrownError) {
+                console.log(xhr.status);
+                console.log(thrownError);
+            }
+        });
+        }
+        ///
     });
 </script>

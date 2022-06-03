@@ -44,7 +44,7 @@
             $customer = $this->M_prod_customers->get_prod_customerName($list['customer_id']);
             echo '<td>'.anchor('production/C_customers/payment_detail/'.$list['customer_id'],'<span class="">'.$customer.'</span>', '').'</td>';
 
-            echo '<td>'.$list['payment_terms'].'</td>';
+            echo '<td>'.$this->M_payment_terms->get_payment_termsName($list['payment_terms_id']).'</td>';
             echo '<td>₱'.number_format($list['total_amount'],2).'</td>';
             echo '<td>'.date('m/d/Y',strtotime($list['delivery_date'])).'</td>';
             // echo '<td>'.($list['delivery_date'] == '' ? '' : date('m/d/Y',strtotime($list['delivery_date']))).'</td>';
@@ -182,7 +182,7 @@
             $total = (double)($list['qty']*$list['price']);
             echo '<tr>';
             echo '<tr valign="top">';
-            echo '<td>'.$list['charges'].'</td>';
+            echo '<td>'.$this->M_sales_charges->get_sales_chargesName($list['charges_id']).'</td>';
             echo '<td>'.$list['description'].'</td>';
             echo '<td>'.number_format($list['qty'],2).'</td>';
             echo '<td>₱'.number_format($list['price'],2).'</td>';
@@ -238,7 +238,7 @@
         {
             $total = (double)($list['qty']*$list['price']);
             echo '<tr valign="top">';
-            echo '<td>'.$list['deduction'].'</td>';
+            echo '<td>'.$this->M_sales_deductions->get_sales_deductionsName($list['deduction_id']).'</td>';
             echo '<td>'.$list['description'].'</td>';
             echo '<td>'.number_format($list['qty'],2).'</td>';
             echo '<td>₱'.number_format($list['price'],2).'</td>';

@@ -12,8 +12,8 @@ class C_sales_charges extends MY_Controller{
     {
         $data = array('langs' => $this->session->userdata('lang'));
         
-        $data['title'] = 'List of Payment For';
-        $data['main'] = 'List of Payment For';
+        $data['title'] = 'List of Sales Charges';
+        $data['main'] = 'List of Sales Charges';
         
         $data['sales_charges'] = $this->M_sales_charges->get_sales_charges();
         
@@ -42,7 +42,7 @@ class C_sales_charges extends MY_Controller{
                      );
                   
                   if($this->db->insert('finance_charges',$data)) {
-                    $this->session->set_flashdata('message','Payment For Added');
+                    $this->session->set_flashdata('message','Sales Charges Added');
                     }else{
                     $data['flash_message'] = false;
                     }
@@ -54,8 +54,8 @@ class C_sales_charges extends MY_Controller{
         }
         }
         
-        $data['title'] = 'Add New Payment For';
-        $data['main'] = 'Add New Payment For';
+        $data['title'] = 'Add New Sales Charges';
+        $data['main'] = 'Add New Sales Charges';
         
         $this->load->view('templates/header',$data);
         $this->load->view('hr_finance/menu/sales_charges/create',$data);
@@ -81,7 +81,7 @@ class C_sales_charges extends MY_Controller{
                      );
                   
                   if($this->db->update('finance_charges',$data,array('id'=>$_POST['id']))) {
-                    $this->session->set_flashdata('message','Payment For Updated');
+                    $this->session->set_flashdata('message','Sales Charges Updated');
                     }else{
                     $data['flash_message'] = false;
                     }
@@ -91,8 +91,8 @@ class C_sales_charges extends MY_Controller{
             redirect('hr_finance/C_sales_charges','refresh');
         }
         }
-        $data['title'] = 'Update Payment For';
-        $data['main'] = 'Update Payment For';
+        $data['title'] = 'Update Sales Charges';
+        $data['main'] = 'Update Sales Charges';
         
         $data['update_sales_charges'] = $this->M_sales_charges->get_sales_charges($id);      
         
@@ -104,7 +104,7 @@ class C_sales_charges extends MY_Controller{
     function delete($id)
     {
         $this->M_sales_charges->delete_sales_charges($id);
-        $this->session->set_flashdata('message','Payment For Deleted');
+        $this->session->set_flashdata('message','Sales Charges Deleted');
         redirect('hr_finance/C_sales_charges','refresh');
     }
 
