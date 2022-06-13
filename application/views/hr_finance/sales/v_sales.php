@@ -31,7 +31,7 @@
 
             <label class="control-label col-sm-2" for="delivery_date">Delivery Date:</label>
             <div class="col-sm-4">
-                <input type="text" class="form-control" id="delivery_date" name="delivery_date" value="<?php echo date("Y-m-d") ?>" />
+                <input type="text" class="form-control" id="delivery_date" name="delivery_date" value="" />
             </div>
             
             <label class="control-label col-sm-2" for="">Customer:</label>
@@ -247,6 +247,62 @@
                 </tbody>
             </table>
         </div>
+    </div><!-- close here -->
+
+    <hr />
+    <div class="row">
+        <div class="col-sm-12">
+        <div class="lead">Summary of Payments</div>
+        <?php $i = 1; ?>
+            <table class="table table-striped table-bordered" id="payment_summary_table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Amount</th>
+                        <th>Payment Terms</th>
+                        <th>Payment Date</th>
+                        <th>Status</th>
+                        <th>Payment Method</th>
+                        <th>Payment Method</th>
+                        <th>Note</th>
+                    </tr>
+                </thead>
+                <tbody class="create_payment_summary_table">
+
+                </tbody>
+                <tfoot>
+                    <!-- <tr>
+                        <td colspan="4"  class="text-left">
+                            <a href="#" class="btn btn-info btn-sm add_new_payment_summary" name="add_new">Add lines</a>
+                            <a href="#" class="btn btn-info btn-sm clear_all_payment_summary" name="clear_all">Clear all</a>-->
+                            <!-- <textarea name="description" id="description" class="form-control" placeholder="Description" cols="5" rows="6"></textarea> -->
+                        <!-- </td>
+                        <th class="text-right">Payment Summary Total ₱:</th> -->
+                        <!-- <th class="text-right" id="sub_total">0.00</th> -->
+                        <!-- <th><input type="text" name="sub_total_payment_summary" class="form-control text-right" id="sub_total_txt_charges" readonly="" value=""></th>
+                    </tr> --> 
+                    <!-- <tr>
+                    
+                        <th class="text-right" >Discount</th>
+                        <th class="text-right" id="total_discount">0.00</th>
+                        <th><input type="hidden" name="total_discount" id="total_discount_txt" value=""></th>
+                    </tr>
+                    <tr>
+                        <th class="text-right">Tax</th>
+                        <th class="text-right" id="total_tax">0.00</th>
+                        <th><input type="hidden" name="total_tax" id="total_tax_txt" value=""></th>
+                    </tr> -->
+                    <!-- <tr>
+                        <th colspan="5"><?php echo form_submit('', 'Save', 'class="btn btn-success"'); ?></th>
+                        <th class="text-right" >Grand Total</th>
+                        <th class="text-right lead" id="net_total">0.00</th>
+                        <th><input type="hidden" name="net_total" id="net_total_txt" value=""></th>
+                    </tr> -->
+                </tfoot>
+            </table>
+            
+        </div>
+        
     </div><!-- close here -->
 
     <?php echo form_submit('', 'Save & New', 'class="btn btn-success"'); ?>
@@ -546,7 +602,7 @@
                             if(data == '1')
                             {
                                 toastr.success("Invoice saved successfully",'Success');
-                                
+                                window.location.href = site_url+"hr_finance/C_sales/allSales";
                             }
                             clearall();
                             clearall_charges();
@@ -932,5 +988,128 @@
         });
         }
         ///
+
+        ///////////////////////////
+        //payment_summary SECTION END HERE
+        //////////////////////////
+        /////////////ADD NEW LINES
+        let counter_chr = 0; //counter is used for id of the debit / credit textbox to enable and disable 8 textboxs already used so start from 8 here
+        $('.add_new_payment_summary').on('click', function(event) {
+            event.preventDefault();
+            counter_chr++;
+            
+            var div = '<tr><td>' + counter_chr + '</td>' +
+                '<td width="25%"><select  class="form-control charge_id" id="chargeid_' + counter_chr + '" name="charge_id[]"></select></td>' +
+                '<td class="text-right"><input type="text"  class="form-control description_chr" id="descriptionchr_' + counter_chr + '" name="description_chr[]" value="" ></td>' +
+                '<td class="text-right" width="10%"><input type="number" min="1" class="form-control qty_chr" id="qtychr_' + counter_chr + '" name="qty_chr[]" value="1" autocomplete="off"></td>' +
+                '<td class="text-right"><input type="number" class="form-control unit_price_chr" id="unitpricechr_' + counter_chr + '" name="unit_price_chr[]" autocomplete="off">' +
+                '<td class=""> <input type="number" class="form-control text-right total_chr" id="totalchr_' + counter_chr + '" name="total_chr[]" readonly=""></td>' +
+                '<td><i id="removeItem" class="fa fa-trash-o fa-1x"  style="color:red;"></i></td></tr>';
+            $('.create_payment_summary_table').append(div);
+
+            payment_summaryDDL(counter_chr);
+            //SELECT 2 DROPDOWN LIST   
+            $('#chargeid_' + counter_chr).select2();
+            ///
+
+            //GET TOTAL WHEN QTY CHANGE
+            $(".qty_chr").on("keyup change", function(e) {
+                var curId = this.id.split("_")[1];
+                var qty = parseFloat($(this).val());
+                var price = parseFloat($('#unitpricechr_' + curId).val());
+                var discount = 0; //(parseFloat($('#discount_' + curId).val()) ? parseFloat($('#discount_' + curId).val()) : 0);
+                var total = (qty * price ? qty * price - discount : 0).toFixed(2);
+                $('#totalchr_' + curId).val(total);
+
+                calc_payment_summary_gtotal();
+            });
+            //GET TOTAL WHEN UNIT PRICE CHANGE
+            $(".unit_price_chr").on("keyup change", function(e) {
+                var curId = this.id.split("_")[1];
+                var qty = parseFloat($('#qtychr_' + curId).val());
+                var discount = 0; //(parseFloat($('#discount_' + curId).val()) ? parseFloat($('#discount_' + curId).val()) : 0);
+                var price = parseFloat($(this).val());
+                var total = (qty * price ? qty * price - discount : 0).toFixed(2);
+                $('#totalchr_' + curId).val(total);
+
+                calc_payment_summary_gtotal();
+            });
+            
+        });
+        $(".add_new_payment_summary").trigger("click"); //ADD NEW LINE WHEN PAGE LOAD BY DEFAULT
+
+        /////////////////////////////////
+        $("#payment_summary_table").on("click", "#removeItem", function() {
+            $(this).closest("tr").remove();
+            calc_payment_summary_gtotal();
+        });
+
+        ////////// CLEAR ALL TABLE
+        $(".clear_all_payment_summary").on("click", function() {
+            clearall_payment_summary();
+        });
+        
+        function clearall_payment_summary()
+        {
+            counter_chr = 0;
+            calc_payment_summary_gtotal();
+            $('#sub_total_payment_summary').html(parseFloat('0').toFixed(2));
+            $("#payment_summary_table > tbody").empty();
+            
+            $(".add_new_payment_summary").trigger("click");//add new line
+        }
+         ///////////////////
+        // payment_summaryDDL();
+        ////////////////////////
+        //GET product DROPDOWN LIST
+        function payment_summaryDDL(index = 0) {
+
+            let payment_summary_ddl = '';
+
+            $.ajax({
+                url: site_url + "hr_finance/C_sales_payment_summary/sales_payment_summaryDDL",
+                type: 'GET',
+                dataType: 'json', // added data type
+                success: function(data) {
+                    //console.log(data);
+                    let i = 0;
+                    payment_summary_ddl += '<option value="0">Select Item</option>';
+
+                    $.each(data, function(index, value) {
+
+                        payment_summary_ddl += '<option value="' + value.id + '">' + value.name+ '</option>';
+
+                    });
+
+                    $('#chargeid_' + index).html(payment_summary_ddl);
+
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                }
+            });
+            }
+            ///////////////////
+            /////////////ADD NEW LINES END HERE
+
+            function calc_payment_summary_gtotal() {
+            var total_chr = 0;
+            var net_total = 0;
+
+            $('.total_chr').each(function() {
+                total_chr += parseFloat($(this).val());
+            });
+
+            sub_total_payment_summary = (total_chr ? total_chr : 0);
+
+            //ASSIGN VALUE TO TEXTBOXES
+            $('#sub_total_txt_payment_summary').val(parseFloat(sub_total_payment_summary).toFixed(2));
+            /////////////
+            calc_grand_total();
+        }
+            ///////////////////////////
+            //payment_summary SECTION END HERE
+            //////////////////////////
     });
 </script>

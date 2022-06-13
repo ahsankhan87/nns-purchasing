@@ -46,7 +46,7 @@
 
             echo '<td>'.$this->M_payment_terms->get_payment_termsName($list['payment_terms_id']).'</td>';
             echo '<td>₱'.number_format($list['total_amount'],2).'</td>';
-            echo '<td>'.date('m/d/Y',strtotime($list['delivery_date'])).'</td>';
+            echo '<td>'.$list['delivery_date'].'</td>';
             // echo '<td>'.($list['delivery_date'] == '' ? '' : date('m/d/Y',strtotime($list['delivery_date']))).'</td>';
             echo '<td>₱'.number_format($list['balance'],2).'</td>';
             
