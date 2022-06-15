@@ -258,6 +258,34 @@ class C_sales extends MY_Controller
                     }
                 }
                 //
+                 //Payment Summary entry
+                 foreach ($this->input->post('amount') as $key => $value) {
+                    
+                    if ($value != "") {
+                        $amount  = htmlspecialchars(trim($value));
+                        $payment_terms_id = $this->input->post('summary_payment_terms_id')[$key];
+                        $payment_date = $this->input->post('payment_date')[$key];
+                        $payment_method = $this->input->post('payment_method_id')[$key];
+                        $payment_method_file = $this->input->post('payment_file')[$key];
+                        $status = $this->input->post('summary_status')[$key];
+                        $note = $this->input->post('summary_note')[$key];
+                        
+                        $data = array(
+                            'sale_id' => $sale_id,
+                            'amount' => $amount,
+                            'payment_term_id' => $payment_terms_id,
+                            'payment_date' => $payment_date,
+                            'payment_method' => $payment_method,
+                            'payment_method_file' => $payment_method_file,
+                            'status' => $status,
+                            'note' => $note,
+                            'date_created' => date("Y-m-d H:i:s"),
+                        );
+
+                        $this->db->insert('finance_payment_summary', $data);
+                    }
+                }
+                //
                 $this->db->trans_complete();
             
             } //check product count

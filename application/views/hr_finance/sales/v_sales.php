@@ -18,8 +18,7 @@
             <label class="control-label col-sm-5" for="payment_terms">Payment Terms:</label>
             <div class="col-sm-7">
                 <select class="form-control select2me" id="payment_terms" name="payment_terms">
-                    <option value="50%">50% </option>
-                    <option value="100%">100%</option>
+                   
                 </select> 
                 
             </div>
@@ -970,7 +969,7 @@
             success: function(data) {
                 //console.log(data);
                 let i = 0;
-                payment_terms += '<option value="0">Select Payment Terms</option>';
+                payment_terms += '<option value="0">Payment Terms</option>';
 
                 $.each(data, function(index, value) {
 
@@ -999,15 +998,18 @@
             counter_summary++;
             
             var div = '<tr><td>' + counter_summary + '</td>' +
-                '<td width="25%"><select  class="form-control amount_id" id="amountid_' + counter_summary + '" name="amount_id[]"></select></td>' +
-                '<td><select  class="form-control payment_terms_id" id="paymenttermsid_' + counter_summary + '" name="payment_terms_id[]"></select></td>' +
-                '<td class="text-right" width="10%"><input type="number" min="1" class="form-control qty_chr" id="qtychr_' + counter_summary + '" name="qty_chr[]" value="1" autocomplete="off"></td>' +
-                '<td class="text-right"><input type="number" class="form-control unit_price_chr" id="unitpricechr_' + counter_summary + '" name="unit_price_chr[]" autocomplete="off">' +
-                '<td class=""> <input type="number" class="form-control text-right total_chr" id="totalchr_' + counter_summary + '" name="total_chr[]" readonly=""></td>' +
+                '<td ><input type="number" min="1" class="form-control amount" id="amount_' + counter_summary + '" name="amount[]"/></td>' +
+                '<td><select  class="form-control summary_payment_terms_id" id="summarypaymenttermsid_' + counter_summary + '" name="summary_payment_terms_id[]"></select></td>' +
+                '<td><input type="date" min="1" class="form-control payment_date" id="paymentdate_' + counter_summary + '" name="payment_date[]" ></td>' +
+                '<td><select  class="form-control summary_status" id="summarystatus_' + counter_summary + '" name="summary_status[]"></select></td>' +
+                '<td><select  class="form-control payment_method_id" id="paymentmethodid_' + counter_summary + '" name="payment_method_id[]"></select></td>' +
+                '<td><input type="file" class="form-control payment_file" id="paymentfile_' + counter_summary + '" name="payment_file[]"/></td>' +
+                '<td><input type="text" class="form-control summary_note" id="summarynote_' + counter_summary + '" name="summary_note[]"/></td>' +
                 '<td><i id="removeItem" class="fa fa-trash-o fa-1x"  style="color:red;"></i></td></tr>';
             $('.payment_summary_table').append(div);
 
-            payment_termsDDL(counter_summary);
+            payment_termsDDL_1(counter_summary);
+            summary_status(counter_summary);
             //SELECT 2 DROPDOWN LIST   
             $('#amountid_' + counter_summary).select2();
             ///
@@ -1037,9 +1039,9 @@
         }
         
         //GET payment_terms DROPDOWN LIST
-        function payment_termsDDL(index = 0) {
+        function payment_termsDDL_1(index = 0) {
 
-                let payment_terms_ddl = '';
+                let payment_terms = '';
                 $.ajax({
                     url: site_url + "hr_finance/C_payment_terms/payment_termsDDL",
                     type: 'GET',
@@ -1055,7 +1057,7 @@
 
                         });
 
-                        $('#paymenttermsid_' + index).html(payment_terms);
+                        $('#summarypaymenttermsid_' + index).html(payment_terms);
 
                     },
                     error: function(xhr, ajaxOptions, thrownError) {
@@ -1065,7 +1067,19 @@
                 });
         }
         ///
+        //GET payment_terms DROPDOWN LIST
+        function summary_status(index = 0) {
 
+            let summary_status = '';
+            //payment_terms += '<option value="0">Status</option>';
+            summary_status += '<option>Paid</option>';
+            summary_status += '<option>Unpaid</option>';
+            summary_status += '<option>Partial Paid</option>';
+            $('#summarystatus_' + index).html(summary_status);
+
+        
+        }
+        ///
         ///////////////////
         /////////////ADD NEW LINES END HERE
         function calc_payment_summary_gtotal() {
