@@ -582,21 +582,27 @@
         }
 
         $("#sale_form").on("submit", function(e) {
-            var formValues = $(this).serialize();
-            console.log(formValues);
-            // alert(formValues);
-            // return false;
-           
+            e.preventDefault();
             var confirmSale = confirm('Are you sure you want to save?');
            
             if (confirmSale) {
+
+                var formData = new FormData(this);
+                var files = $('.payment_file')[0].files;
                 
-                if(formValues.length > 0)
-                {
+                if(files != undefined){
+                    
+                }
+                formData.append('payment_file',files[0]);
+               
+                
                    $.ajax({
                         type: "POST",
                         url: site_url + "hr_finance/C_sales/saleProducts",
-                        data: formValues,
+                        data:formData,
+                        cache: false,
+                        processData: false,
+                        contentType: false,
                         success: function(data) {
                             if(data == '1')
                             {
@@ -609,9 +615,9 @@
                             console.log(data);
                         }
                     });
-                }
+                
             }
-            e.preventDefault();
+            
         });
 
         ////
@@ -1010,8 +1016,11 @@
 
             payment_termsDDL_1(counter_summary);
             summary_status(counter_summary);
+            paymentMethodDDL(counter_summary);
             //SELECT 2 DROPDOWN LIST   
             $('#amountid_' + counter_summary).select2();
+            $('#summarypaymenttermsid_' + counter_summary).select2();
+            $('#paymentmethodid_' + counter_summary).select2();
             ///
             
         });
@@ -1068,6 +1077,38 @@
         }
         ///
         //GET payment_terms DROPDOWN LIST
+         ///////////////////
+         
+        //GET product DROPDOWN LIST
+        function paymentMethodDDL(index = 0) {
+
+            let paymentMethod_ddl_1 = '';
+            $.ajax({
+                url: site_url + "hr_finance/C_paymentMethod/paymentMethodDDL",
+                type: 'GET',
+                dataType: 'json', // added data type
+                success: function(data) {
+                    console.log(data);
+                    let i = 0;
+                    paymentMethod_ddl_1 += '<option value="0">Please Select</option>';
+
+                    $.each(data, function(index, value) {
+
+                        paymentMethod_ddl_1 += '<option value="' + value.id + '">' + value.name+ '</option>';
+
+                    });
+
+                    $('#paymentmethodid_' + index).html(paymentMethod_ddl_1);
+
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                }
+            });
+        }
+        ///////////////////
+
         function summary_status(index = 0) {
 
             let summary_status = '';

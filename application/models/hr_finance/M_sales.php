@@ -119,6 +119,14 @@ class m_sales extends CI_Model{
        
     }
     
+    function get_sales_payment_summary_by_invoice($invoice_no)
+    {   
+        $this->db->where(array('invoice_no'=>$invoice_no));
+        $query = $this->db->get('finance_payment_summary');
+        return $query->result_array();
+       
+    }
+    
     function getMAXSaleInvoiceNo()
     {   
         $this->db->order_by('CAST(SUBSTR(invoice_no,2) AS UNSIGNED) DESC');

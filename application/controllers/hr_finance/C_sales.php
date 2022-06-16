@@ -63,6 +63,7 @@ class C_sales extends MY_Controller
         $data['sales_items'] = $this->M_sales->get_sales_items_only($invoice_no);
         $data['charges'] = $this->M_sales->get_sales_charges_by_invoice($invoice_no);
         $data['deduction'] = $this->M_sales->get_sales_deduction_by_invoice($invoice_no);
+        $data['payment_summary'] = $this->M_sales->get_sales_payment_summary_by_invoice($invoice_no);
         
         $this->load->view('templates/header', $data);
         $this->load->view('hr_finance/sales/v_sale_detail', $data);
@@ -98,7 +99,9 @@ class C_sales extends MY_Controller
         $discount = 0;
         $unit_price = 0;
         $cost_price = 0;
-
+        var_dump($this->input->post('payment_file'));
+        // var_dump($_FILES['payment_file']);
+        
         if ($this->input->server('REQUEST_METHOD') === 'POST') {
 
             if (count((array)$this->input->post('product_id')) > 0) {
@@ -262,16 +265,29 @@ class C_sales extends MY_Controller
                  foreach ($this->input->post('amount') as $key => $value) {
                     
                     if ($value != "") {
+                        
+                        if (isset($_FILES['payment_file']) && $_FILES['payment_file']['error'] == 0) {
+
+                            // uploads image in the folder images
+                                $temp = explode(".", $_FILES["payment_file"]["name"]);
+                                $newfilename = substr(md5(time()), 0, 10) . '.' . end($temp);
+                                move_uploaded_file($_FILES['payment_file']['tmp_name'], 'images/sales/' . $newfilename);
+                                $payment_method_file = $newfilename;
+                            }else{
+                                $payment_method_file = "";
+                            }
+            
                         $amount  = htmlspecialchars(trim($value));
                         $payment_terms_id = $this->input->post('summary_payment_terms_id')[$key];
                         $payment_date = $this->input->post('payment_date')[$key];
                         $payment_method = $this->input->post('payment_method_id')[$key];
-                        $payment_method_file = $this->input->post('payment_file')[$key];
+                        //$payment_method_file = $this->input->post('payment_file')[$key];
                         $status = $this->input->post('summary_status')[$key];
                         $note = $this->input->post('summary_note')[$key];
                         
                         $data = array(
                             'sale_id' => $sale_id,
+                            'invoice_no' => $new_invoice_no,
                             'amount' => $amount,
                             'payment_term_id' => $payment_terms_id,
                             'payment_date' => $payment_date,

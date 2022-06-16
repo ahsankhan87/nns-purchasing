@@ -26,7 +26,7 @@ class m_sales extends CI_Model{
             return $query->result_array();
         }
         
-       $query = $this->db->get_where('pos_sales',array('sale_id'=>$sale_id,'company_id'=> $_SESSION['company_id']));
+       $query = $this->db->get_where('pos_sales',array('sale_id'=>$sales_id,'company_id'=> $_SESSION['company_id']));
        return $query->result_array();
     }
     

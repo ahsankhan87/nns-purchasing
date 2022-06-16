@@ -257,7 +257,77 @@
             <tr>
                 <th></th>
                 <th></th><th></th>
-                <th>Grand Total</th><th>₱<?php echo number_format($products_total+$charges_total-$deduction_total,2); ?></th>
+                <?php $grand_total = ($products_total+$charges_total-$deduction_total); ?>
+                <th>Grand Total</th><th>₱<?php echo number_format($grand_total,2); ?></th>
+            </tr>
+        </tfoot>        
+        </table>
+        </div>
+        <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <!-- /.col-sm-12 -->
+</div>
+<!-- /.row -->
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="portlet">
+			<div class="portlet-title">
+				<div class="caption">
+					<i class="fa fa-cogs"></i><?php echo "Summary of Payments"; ?>
+				</div>
+				
+			</div>
+        <div class="portlet-body flip-scroll">
+                
+        <table class="table table-bordered table-striped table-condensed flip-content"  id="sample_">
+        <thead class="flip-content">
+            <tr>
+                <th>Amount</th>
+                <th>Payment Terms</th>
+                <th>Payment Date</th>
+                <th>Status</th>
+                <th>Payment Method</th>
+                <th>Note</th>
+            </tr>
+        </thead>
+        
+        <tbody class="text-center">
+        <?php 
+        $summary_total = 0;
+        foreach($payment_summary as $key => $list)
+        {
+            $total = (double)($list['amount']);
+            echo '<tr valign="top">';
+            echo '<td>₱'.number_format($list['amount'],2).'</td>';
+            echo '<td>'.$this->M_payment_terms->get_payment_termsName($list['payment_term_id']).'</td>';
+            echo '<td>'.date('m/d/Y',strtotime($list['payment_date'])).'</td>';
+            if($list['status'] == 'Paid'){
+                $label = "label label-success";
+            }else {
+                $label = "label label-danger";
+            }
+            echo '<td> <span class="'.$label.'">' . $list['status'] . '</span></td>';
+            
+            echo '<td><a href="'.base_url('images/sales/'.$list['payment_method_file']).'" target="_blank">'.$this->M_paymentMethod->get_paymentMethodName($list['payment_method']).'<a/></td>';
+            echo '<td>'.$list['note'].'</td>';
+            echo '</tr>';
+            $summary_total += $total;
+        }
+        ?>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th></th><th></th>
+                <th></th><th></th>
+                <th>Grand Total</th><th>₱<?php echo number_format($grand_total,2); ?></th>
+            </tr>
+            <tr>
+                <th></th><th></th>
+                <th></th><th></th>
+                <th>Balance</th><th>₱<?php echo number_format($grand_total-$summary_total,2); ?></th>
             </tr>
         </tfoot>        
         </table>
