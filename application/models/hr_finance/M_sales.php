@@ -136,6 +136,19 @@ class m_sales extends CI_Model{
         return $query->row()->invoice_no;
     }
     
+    function get_last_payment_date_by_invoice($invoice_no)
+    {   
+        $this->db->where(array('invoice_no'=>$invoice_no));
+        $this->db->order_by("id",'desc');
+        $query = $this->db->get('finance_payment_summary');
+        $rows = $query->row();
+        if($rows)
+        {
+            return $rows->payment_date;
+        }else return "";
+       
+    }
+    
     public function get_totalCostBysaleID($invoice_no)
     {
        $this->db->select('SUM(item_unit_price*quantity_sold) as price, SUM(discount_value) as discount_value');   

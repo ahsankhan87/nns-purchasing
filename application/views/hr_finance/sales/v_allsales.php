@@ -90,7 +90,8 @@
                             echo '<td>₱' . number_format($list['total_amount'],2) . '</td>';
                             echo '<td>' . $list['delivery_date'] . '</td>';
                             echo '<td>₱' . number_format($list['balance'],2) . '</td>';
-                            echo '<td></td>';
+                            $last_payment_date = $this->M_sales->get_last_payment_date_by_invoice($list['invoice_no']);
+                            echo '<td>'.($last_payment_date == "" ? "" : date('m/d/Y', strtotime($last_payment_date))).'</td>';
                             
                             if($list['status'] == 'Paid'){
                                 $label = "label label-success";
