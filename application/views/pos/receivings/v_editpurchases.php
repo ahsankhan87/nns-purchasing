@@ -390,7 +390,11 @@
             <td colspan="6">
             <!--<button ng-click="updatePurchaseProducts();"  ng-disabled="cart_loader" ng-show="false" class="btn btn-success">Update</button>-->
             <!--<img src="<?php echo base_url('images/wait.gif'); ?>" ng-show="cart_loader" width="30" height="30" title="Loading" alt="Loading" />-->
-            
+            <input type="hidden" name="ssdt_old_file" ng:model="ssdt" value="{{ssdt}}">
+            <input type="hidden" name="fan_old_file" ng:model="fan" value="{{fan}}">
+            <input type="hidden" name="supplier_pi_old_file" ng:model="supplier_pi" value="{{supplier_pi}}">
+            <input type="hidden" name="quotation_file_old_file" ng:model="quotation_file" value="{{quotation_file}}">
+
             <input type="submit" name="update" value="Update form"class="btn btn-success" />
             <img src="<?php echo base_url('images/wait.gif'); ?>" id="cart_loader_1" width="30" height="30" title="Loading" alt="Loading" />
             </td>

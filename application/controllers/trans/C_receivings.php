@@ -103,7 +103,6 @@ class C_receivings extends MY_Controller{
             
             //GET ALL ACCOUNT CODE WHICH IS TO BE POSTED AMOUNT
             $supplier_id =$data_posted->supplier_id;
-            $posting_type_code = $this->M_suppliers->getSupplierPostingTypes($supplier_id);
             
            
                 $total_amount =  round(($data_posted->total_amount-$discount),2);
@@ -168,7 +167,7 @@ class C_receivings extends MY_Controller{
                 'item_unit_price'=>($register_mode == 'receive' ? $posted_values->unit_price : -$posted_values->unit_price),//if purchase return then insert amount in negative
                 //'discount_percent'=>$posted_values->discount,
                 'color_id'=>0,
-                'size_id'=>$posted_values->size_id,
+                'size_id'=>0,
                 'company_id'=> $_SESSION['company_id'],
                 'unit_id'=>$posted_values->unit_id,
                 'tax_id'=>$posted_values->tax_id,
@@ -187,9 +186,9 @@ class C_receivings extends MY_Controller{
                     
             //insert items details
             //if items already exist according to expiry then update qty.
-            if($this->M_items->checkItemOptions($posted_values->item_id,0,$posted_values->size_id))
+            if($this->M_items->checkItemOptions($posted_values->item_id,0,0))
             {
-                $total_stock =  $this->M_items->total_stock($posted_values->item_id,0,$posted_values->size_id);
+                $total_stock =  $this->M_items->total_stock($posted_values->item_id,0,0);
                         
                         //if products is to be return then it will subtract from qty and the avg cost will be reverse to original cost
                         if($service != 1)
@@ -209,10 +208,10 @@ class C_receivings extends MY_Controller{
                 $option_data = array(
                 'quantity'=>$quantity,
                 'unit_price' =>$posted_values->unit_price,
-                'avg_cost'=>$this->M_items->getAvgCost($posted_values->item_id,$posted_values->cost_price,$posted_values->quantity,0,$posted_values->size_id,$register_mode)//calculate avg cost
+                'avg_cost'=>$this->M_items->getAvgCost($posted_values->item_id,$posted_values->cost_price,$posted_values->quantity,0,0,$register_mode)//calculate avg cost
                  
                 );
-              $this->db->update('pos_items_detail',$option_data,array('color_id'=>0,'size_id'=>$posted_values->size_id,'item_id'=>$posted_values->item_id));
+              $this->db->update('pos_items_detail',$option_data,array('color_id'=>0,'size_id'=>0,'item_id'=>$posted_values->item_id));
          
             }
             //item details
@@ -318,7 +317,6 @@ class C_receivings extends MY_Controller{
             
             //GET ALL ACCOUNT CODE WHICH IS TO BE POSTED AMOUNT
             $supplier_id =$data_posted->supplier_id;
-            $posting_type_code = $this->M_suppliers->getSupplierPostingTypes($supplier_id);
             
            
                 $total_amount =  round(($data_posted->total_amount-$discount),2);
@@ -328,7 +326,7 @@ class C_receivings extends MY_Controller{
         
         // if(count($posting_type_code) !== 0)
         // {
-            $this->delete_by_receiving_id($receiving_id1,$invoice_no,'edit');
+            $this->delete_by_receiving_id($receiving_id1,$invoice_no,true);
             
          $data = array(
             'company_id'=> $_SESSION['company_id'],
@@ -385,7 +383,7 @@ class C_receivings extends MY_Controller{
                 'item_unit_price'=>($register_mode == 'receive' ? $posted_values->unit_price : -$posted_values->unit_price),//if purchase return then insert amount in negative
                 //'discount_percent'=>$posted_values->discount,
                 //'color_id'=>0,
-                'size_id'=>$posted_values->size_id,
+                'size_id'=>0,
                 'company_id'=> $_SESSION['company_id'],
                 'unit_id'=>$posted_values->unit_id,
                 'tax_id'=>$posted_values->tax_id,
@@ -404,9 +402,9 @@ class C_receivings extends MY_Controller{
                     
             //insert items details
             //if items already exist according to expiry then update qty.
-            if($this->M_items->checkItemOptions($posted_values->item_id,0,$posted_values->size_id))
+            if($this->M_items->checkItemOptions($posted_values->item_id,0,0))
             {
-                $total_stock =  $this->M_items->total_stock($posted_values->item_id,0,$posted_values->size_id);
+                $total_stock =  $this->M_items->total_stock($posted_values->item_id,0,0);
                         
                         //if products is to be return then it will subtract from qty and the avg cost will be reverse to original cost
                         if($service != 1)
@@ -426,10 +424,10 @@ class C_receivings extends MY_Controller{
                 $option_data = array(
                 'quantity'=>$quantity,
                 'unit_price' =>$posted_values->unit_price,
-                'avg_cost'=>$this->M_items->getAvgCost($posted_values->item_id,$posted_values->cost_price,$posted_values->quantity,0,$posted_values->size_id,$register_mode)//calculate avg cost
+                'avg_cost'=>$this->M_items->getAvgCost($posted_values->item_id,$posted_values->cost_price,$posted_values->quantity,0,0,$register_mode)//calculate avg cost
                  
                 );
-              $this->db->update('pos_items_detail',$option_data,array('color_id'=>0,'size_id'=>$posted_values->size_id,'item_id'=>$posted_values->item_id));
+              $this->db->update('pos_items_detail',$option_data,array('item_id'=>$posted_values->item_id));
          
             }
             //item details
@@ -481,7 +479,7 @@ class C_receivings extends MY_Controller{
         $fan_file_name="";
         $ssdt_file_name="";
         $supplier_pi_file_name="";
-        $quotation_file = "";
+        $quotation_file_name = "";
         
         //var_dump($_POST);
         //var_dump($_FILES['fan']);
@@ -493,24 +491,30 @@ class C_receivings extends MY_Controller{
             $newfilename = substr(md5(time()), 0, 10) . '.' . end($temp);
             move_uploaded_file($_FILES['fan']['tmp_name'], 'images/fan/' . $newfilename);
             $fan_file_name = $newfilename;
+        }else{
+            $fan_file_name = $this->input->post('fan_old_file');
         }
         
         if (isset($_FILES['ssdt']) && $_FILES['ssdt']['error'] == 0) {
 
-        // uploads image in the folder images
+            // uploads image in the folder images
             $temp = explode(".", $_FILES["ssdt"]["name"]);
             $newfilename = substr(md5(time()), 1, 10) . '.' . end($temp);
             move_uploaded_file($_FILES['ssdt']['tmp_name'], 'images/ssdt/' . $newfilename);
             $ssdt_file_name = $newfilename;
+        }else{
+            $ssdt_file_name = $this->input->post('ssdt_old_file');
         }
         
         if (isset($_FILES['supplier_pi']) && $_FILES['supplier_pi']['error'] == 0) {
 
-        // uploads image in the folder images
+            // uploads image in the folder images
             $temp = explode(".", $_FILES["supplier_pi"]["name"]);
             $newfilename = substr(md5(time()), 2, 10) . '.' . end($temp);
             move_uploaded_file($_FILES['supplier_pi']['tmp_name'], 'images/supplier_pi/' . $newfilename);
             $supplier_pi_file_name = $newfilename;
+        }else{
+            $supplier_pi_file_name = $this->input->post('supplier_pi_old_file');
         }
         
         if (isset($_FILES['quotation_file']) && $_FILES['quotation_file']['error'] == 0) {
@@ -520,6 +524,8 @@ class C_receivings extends MY_Controller{
             $newfilename = substr(md5(time()), 3, 10) . '.' . end($temp);
             move_uploaded_file($_FILES['quotation_file']['tmp_name'], 'images/quotation/' . $newfilename);
             $quotation_file_name = $newfilename;
+        }else{
+            $quotation_file_name = $this->input->post('quotation_file_old_file');
         }
        
         
@@ -558,21 +564,14 @@ class C_receivings extends MY_Controller{
             $shipping_cost = $this->input->post('shipping_cost');
             $delivery_date = $this->input->post('delivery_date');
             $payment_date = $this->input->post('payment_date');
+            $total_amount =  round(($this->input->post('total_amount')-$discount),2);
             
-            //GET ALL ACCOUNT CODE WHICH IS TO BE POSTED AMOUNT
-            $supplier_id =$this->input->post('supplier_id');
-            $posting_type_code = $this->M_suppliers->getSupplierPostingTypes($supplier_id);
-            
-           
-                $total_amount =  round(($this->input->post('total_amount')-$discount),2);
-                $total_return_amount =  round(($this->input->post('total_amount')-$discount),2);//FOR RETURN PURSPOSE
-           
             /////
         
         // if(count($posting_type_code) !== 0)
         // {
         
-        $this->delete_by_receiving_id($receiving_id1,$invoice_no,'edit');
+        $this->delete_by_receiving_id($receiving_id1,$invoice_no,true);
             
          $data = array(
             'receiving_id'=>$receiving_id1,
@@ -684,7 +683,7 @@ class C_receivings extends MY_Controller{
                 'avg_cost'=>$this->M_items->getAvgCost($item_id[$key],$cost_price[$key],$quantity[$key],0,0,$register_mode)//calculate avg cost
                  
                 );
-              $this->db->update('pos_items_detail',$option_data,array('color_id'=>0,'size_id'=>0,'item_id'=>$item_id[$key]));
+              $this->db->update('pos_items_detail',$option_data,array('item_id'=>$item_id[$key]));
          
             }
             //item details
@@ -824,7 +823,7 @@ class C_receivings extends MY_Controller{
         
         foreach($receiving_items as $values)
         {
-            $total_stock =  $this->M_items->total_stock($values['item_id'],-1,$values['size_id']);
+            $total_stock =  $this->M_items->total_stock($values['item_id'],-1,-1);
             $quantity = ($total_stock - $values['quantity_purchased']);
              
             $option_data = array(
@@ -834,7 +833,7 @@ class C_receivings extends MY_Controller{
              
             );
             
-          $this->db->update('pos_items_detail',$option_data,array('size_id'=>$values['size_id'],'item_id'=>$values['item_id']));
+          $this->db->update('pos_items_detail',$option_data,array('item_id'=>$values['item_id']));
           
           $this->db->delete('pos_inventory',array('invoice_no'=>$invoice_no));
          
@@ -860,7 +859,7 @@ class C_receivings extends MY_Controller{
         redirect('trans/C_receivings/allPurchases','refresh');
     }
     
-    public function delete_by_receiving_id($receiving_id,$invoice_no='',$edit='')
+    public function delete_by_receiving_id($receiving_id,$invoice_no='',$edit=false)
     {
         //if entry deleted then all item qty will be reversed
         $this->db->trans_start();
@@ -870,7 +869,7 @@ class C_receivings extends MY_Controller{
         
         foreach($receiving_items as $values)
         {
-            $total_stock =  $this->M_items->total_stock($values['item_id'],-1,$values['size_id']);
+            $total_stock =  $this->M_items->total_stock($values['item_id'],-1,-1);
             $quantity = ($total_stock - $values['qty']);
              
             $option_data = array(
@@ -880,52 +879,43 @@ class C_receivings extends MY_Controller{
              
             );
             
-          $this->db->update('pos_items_detail',$option_data,array('size_id'=>$values['size_id'],'item_id'=>$values['item_id']));
+          $this->db->update('pos_items_detail',$option_data,array('item_id'=>$values['item_id']));
           
           $this->load->helper("url");
-                
-         if($values['ssdt'] != '')
-           {   
-               //DELETE THE PREVIOUSE PICTURE
-                $file = FCPATH.'images/ssdt/'.$values['ssdt'];
-                @unlink($file);
-                /////////////
-           } 
-         if($values['fan'] != '')
-           {   
-                //DELETE THE PREVIOUSE PICTURE
-                @$file = FCPATH.'images/fan/'.$values['fan'];
-                unlink($file);
-                /////////////
-           } 
-           if($values['supplier_pi'] != '')
-           {   
-               //DELETE THE PREVIOUSE PICTURE
-                @$file = FCPATH.'images/supplier_pi/'.$values['supplier_pi'];
-                unlink($file);
-                /////////////
-                
-           } 
-           if($values['quotation_file'] != '')
-           {   
-               //DELETE THE PREVIOUSE PICTURE
-                @$file = FCPATH.'images/quotation/'.$values['quotation_file'];
-                unlink($file);
-                /////////////
-                
-           } 
-            //insert item info into inventory table
-            // $data1= array(
-                
-            //     'trans_item'=>$values['item_id'],
-            //     'trans_comment'=>'KSRECV Deleted',
-            //     'trans_inventory'=>$values['quantity_purchased'],
-            //     'company_id'=>$_SESSION['company_id'],
-            //     'trans_user'=>$_SESSION['user_id'],
-            //     'invoice_no'=>$invoice_no
-            //     );
-                
-            // $this->db->insert('pos_inventory', $data1);
+            
+            if(!$edit){
+
+                if($values['ssdt'] != '')
+                {   
+                    //DELETE THE PREVIOUSE PICTURE
+                        $file = FCPATH.'images/ssdt/'.$values['ssdt'];
+                        @unlink($file);
+                        /////////////
+                } 
+                if($values['fan'] != '')
+                {   
+                        //DELETE THE PREVIOUSE PICTURE
+                        @$file = FCPATH.'images/fan/'.$values['fan'];
+                        @unlink($file);
+                        /////////////
+                } 
+                if($values['supplier_pi'] != '')
+                {   
+                    //DELETE THE PREVIOUSE PICTURE
+                        @$file = FCPATH.'images/supplier_pi/'.$values['supplier_pi'];
+                        @unlink($file);
+                        /////////////
+                        
+                } 
+                if($values['quotation_file'] != '')
+                {   
+                    //DELETE THE PREVIOUSE PICTURE
+                        @$file = FCPATH.'images/quotation/'.$values['quotation_file'];
+                        @unlink($file);
+                        /////////////
+                        
+                } 
+            }
         }
         
          
@@ -933,9 +923,9 @@ class C_receivings extends MY_Controller{
         $this->db->delete('pos_inventory',array('invoice_no'=>$invoice_no));
         $this->db->trans_complete();
         
-        if($edit != 'edit'){
-        $this->session->set_flashdata('message','Entry Deleted');
-        redirect('trans/C_receivings/allPurchases','refresh');    
+        if(!$edit){
+            $this->session->set_flashdata('message','Entry Deleted');
+            redirect('trans/C_receivings/allPurchases','refresh');    
         }
         
     }
@@ -953,7 +943,7 @@ class C_receivings extends MY_Controller{
             if ($outp != "") {$outp .= ",";}
             
             $outp .= '{"item_id":"'  . $rs["item_id"] . '",';
-            $outp .= '"size_id":"'   . $rs["size_id"]. '",';
+            $outp .= '"size_id":"",';
             $outp .= '"receiving_id":"'   . $rs["receiving_id"]. '",';
             $outp .= '"unit_id":"'   . $rs["unit_id"]. '",';
             $outp .= '"item_cost_price":"'   . $rs["item_cost_price"]. '",';
@@ -971,9 +961,6 @@ class C_receivings extends MY_Controller{
             
             $item_name = $this->M_items->get_ItemName($rs["item_id"]);
             $outp .= '"name":"'   . addslashes(@$item_name) . '",';
-            
-            $size_name = $this->M_sizes->get_sizeName($rs["size_id"]);
-            $outp .= '"size":"'   . @$size_name . '",';
             
             $outp .= '"invoice_no":"'. $rs["invoice_no"]. '"}'; 
         }
@@ -1008,6 +995,7 @@ class C_receivings extends MY_Controller{
             $outp .= '"delivery_status":"'   . $rs["delivery_status"]. '",';
             $outp .= '"delivery_date":"'   . $rs["delivery_date"]. '",';
             $outp .= '"payment_date":"'   . $rs["payment_date"]. '",';
+            $outp .= '"quotation":"'   . $rs["quotation"]. '",';
             $outp .= '"coa":"'   . $rs["coa"]. '",';
             $outp .= '"msds":"'   . $rs["msds"]. '",';
             $outp .= '"flowchart":"'   . $rs["flowchart"]. '",';
@@ -1017,6 +1005,11 @@ class C_receivings extends MY_Controller{
             $outp .= '"etd":"'   . $rs["etd"]. '",';
             $outp .= '"awb":"'   . $rs["awb"]. '",';
             
+            $outp .= '"ssdt":"'   . $rs["ssdt"]. '",';
+            $outp .= '"fan":"'   . $rs["fan"]. '",';
+            $outp .= '"supplier_pi":"'   . $rs["supplier_pi"]. '",';
+            $outp .= '"quotation_file":"'   . $rs["quotation_file"]. '",';
+
             $outp .= '"invoice_no":"'. $rs["invoice_no"]     . '"}'; 
         }
             

@@ -131,6 +131,12 @@ app.controller('editpurchaseCtrl', function($scope,$http,$timeout) {
                                     $scope.shipping_cost=parseFloat(returnData1.shipping_cost);
                                     $scope.delivery_date=returnData1.delivery_date;
                                     $scope.payment_date=returnData1.payment_date;
+                                    $scope.quotation=returnData1.quotation;
+                                    
+                                    $scope.ssdt=returnData1.ssdt;
+                                    $scope.fan=returnData1.fan;
+                                    $scope.supplier_pi=returnData1.supplier_pi;
+                                    $scope.quotation_file=returnData1.quotation_file;
                                     
                                     $scope.currency_id=(returnData1.currency_id);
                                     $scope.getCurrency(returnData1.currency_id);
@@ -139,7 +145,7 @@ app.controller('editpurchaseCtrl', function($scope,$http,$timeout) {
                                     $scope.msds = (returnData1.msds == '1' ? true : false);
                                     $scope.flowchart = (returnData1.flowchart == '1' ? true : false);
                                     $scope.forme = (returnData1.forme == '1' ? true : false);
-                                    $scope.halal = (returnData1.v == '1' ? true : false);
+                                    $scope.halal = (returnData1.halal == '1' ? true : false);
                                     
                                    
                                 });
