@@ -241,13 +241,13 @@ class M_items extends CI_Model{
             
             $data = array(
             'company_id'=> $_SESSION['company_id'],
-            'name' => $this->input->post('name',true),
+            'name' => trim($this->input->post('name',true)),
             //'item_number' => $this->input->post('item_number',true),
             'category_id' => $this->input->post('category_id',true),
             //'item_type' => $this->input->post('item_type',true),
             'service' => (isset($service) ? 1 : 0),
             //'brand' => (isset($brand) ? $brand : ''),
-            'description' => (isset($desc) ? $desc : ''),
+            'description' => (isset($desc) ? trim($desc) : ''),
             //'unit_price' => $this->input->post('unit_price',true),
             //'quantity' => $this->input->post('quantity',true),
             
@@ -438,12 +438,12 @@ class M_items extends CI_Model{
             
             $data = array(
             'company_id'=> $_SESSION['company_id'],
-            'name' => $this->input->post('name',true),
+            'name' => trim($this->input->post('name',true)),
             //'brand' => $this->input->post('brand',true),
             'item_number' => $this->input->post('item_number',true),
             'category_id' => $this->input->post('category_id',true),
             //'item_type' => $this->input->post('item_type',true),
-            'description' => $this->input->post('description',true),
+            'description' => trim($this->input->post('description',true)),
             );
             $this->db->update('pos_items', $data, array('item_id'=>$this->input->post('item_id')));
             
