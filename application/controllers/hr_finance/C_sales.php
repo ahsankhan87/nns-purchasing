@@ -88,7 +88,7 @@ class C_sales extends MY_Controller
         $data['emp_DDL'] = $this->M_employees->getEmployeeDropDown();
 
         $this->load->view('templates/header', $data);
-        $this->load->view('hr_finance/sales/v_editSalesProduct', $data);
+        $this->load->view('hr_finance/sales/v_editsales', $data);
         $this->load->view('templates/footer');
     }
 
@@ -827,21 +827,17 @@ class C_sales extends MY_Controller
             }
 
             $outp .= '{"item_id":"'  . $rs["item_id"] . '",';
-            $outp .= '"size_id":"'   . $rs["size_id"] . '",';
-            $outp .= '"unit_id":"'   . $rs["unit_id"] . '",';
             $outp .= '"item_cost_price":"'   . $rs["item_cost_price"] . '",';
             $outp .= '"item_unit_price":"'   . $rs["item_unit_price"] . '",';
             $outp .= '"quantity_sold":"'   . $rs["quantity_sold"] . '",';
-            $outp .= '"discount_percent":"'   . $rs["discount_percent"] . '",';
-            $outp .= '"discount_value":"'   . $rs["discount_value"] . '",';
+            $outp .= '"item_content":"'   . $rs["item_content"] . '",';
+            $outp .= '"unit_id":"'   . $rs["unit_id"] . '",';
             $outp .= '"tax_id":"'   . $rs["tax_id"] . '",';
             $outp .= '"tax_rate":"'   . $rs["tax_rate"] . '",';
             $outp .= '"tax_name":"",';
-            $outp .= '"inventory_acc_code":"'   . $rs["inventory_acc_code"] . '",';
-            $outp .= '"service":"'   . $rs["service"] . '",';
-
-            $item_name = $this->M_items->get_ItemName($rs["item_id"]);
-            $outp .= '"name":"'   . @$item_name . '",';
+            
+            //$item_name = $this->M_items->get_ItemName($rs["item_id"]);
+            // $outp .= '"name":"'   . @$item_name . '",';
 
             
             $outp .= '"invoice_no":"' . $rs["invoice_no"]     . '"}';
@@ -855,12 +851,11 @@ class C_sales extends MY_Controller
     function getSalesJSON($invoice_no)
     {
         $data = $this->M_sales->get_sales_by_invoice($invoice_no);
+        //print_r($data);
 
         $outp = "";
         foreach ($data as $rs) {
-            //$tm =  json_decode($rs["teams_id"]);
-            //print_r($tm);
-
+            
             if ($outp != "") {
                 $outp .= ",";
             }
@@ -868,20 +863,14 @@ class C_sales extends MY_Controller
             $outp .= '{"sale_time":"'  . $rs["sale_time"] . '",';
             $outp .= '"sale_date":"'   . $rs["sale_date"] . '",';
             $outp .= '"customer_id":"'   . $rs["customer_id"] . '",';
-            $outp .= '"employee_id":"'   . $rs["employee_id"] . '",';
+            //$outp .= '"employee_id":"'   . $rs["employee_id"] . '",';
             $outp .= '"user_id":"'   . $rs["user_id"] . '",';
-            $outp .= '"register_mode":"'   . $rs["register_mode"] . '",';
-            $outp .= '"account":"'   . $rs["account"] . '",';
+            $outp .= '"delivery_date":"'   . $rs["delivery_date"] . '",';
+            $outp .= '"payment_terms_id":"'   . $rs["payment_terms_id"] . '",';
             $outp .= '"description":"'   . $rs["description"] . '",';
-            $outp .= '"discount_value":"'   . $rs["discount_value"] . '",';
+            $outp .= '"status":"'   . $rs["status"] . '",';
             $outp .= '"total_amount":"'   . $rs["total_amount"] . '",';
-            $outp .= '"total_tax":"'   . $rs["total_tax"] . '",';
-            $outp .= '"paid":"'   . $rs["paid"] . '",';
-            $outp .= '"is_taxable":"'   . $rs["is_taxable"] . '",';
-
-            $outp .= '"exchange_rate":"'   . $rs["exchange_rate"] . '",';
-            $outp .= '"currency_id":"'   . $rs["currency_id"] . '",';
-
+            
             $outp .= '"invoice_no":"' . $rs["invoice_no"]     . '"}';
         }
 
