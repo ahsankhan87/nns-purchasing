@@ -705,7 +705,7 @@
 
                 $.each(data, function(index, value) {
 
-                    Unit_ddl += '<option value="' + value.id + '"'+(value.id == unit_id ? "selected=''": "")+'>' + value.name + '</option>';
+                    Unit_ddl += '<option value="' + value.id + '" '+(value.id == unit_id ? "selected=''": "")+'>' + value.name + '</option>';
 
                 });
 
@@ -742,7 +742,13 @@
             //SELECT 2 DROPDOWN LIST   
             $('#chargeid_' + counter_chr).select2();
             ///
+            charges_qty_change();
+            charges_price_change();
+        });
+        //$(".add_new_charges").trigger("click"); //ADD NEW LINE WHEN PAGE LOAD BY DEFAULT
 
+        function charges_qty_change(){
+            
             //GET TOTAL WHEN QTY CHANGE
             $(".qty_chr").on("keyup change", function(e) {
                 var curId = this.id.split("_")[1];
@@ -754,6 +760,10 @@
 
                 calc_charges_gtotal();
             });
+            
+        }
+        function charges_price_change(){
+            
             //GET TOTAL WHEN UNIT PRICE CHANGE
             $(".unit_price_chr").on("keyup change", function(e) {
                 var curId = this.id.split("_")[1];
@@ -766,9 +776,7 @@
                 calc_charges_gtotal();
             });
             
-        });
-        $(".add_new_charges").trigger("click"); //ADD NEW LINE WHEN PAGE LOAD BY DEFAULT
-
+        }
         /////////////////////////////////
         $("#charges_table").on("click", "#removeItem", function() {
             $(this).closest("tr").remove();
@@ -794,7 +802,7 @@
         // chargesDDL();
         ////////////////////////
         //GET product DROPDOWN LIST
-        function chargesDDL(index = 0) {
+        function chargesDDL(index = 0, charge_id=0) {
 
             let charges_ddl = '';
           
@@ -809,7 +817,7 @@
 
                     $.each(data, function(index, value) {
 
-                        charges_ddl += '<option value="' + value.id + '">' + value.name+ '</option>';
+                        charges_ddl += '<option value="' + value.id + '" '+(value.id == charge_id ? "selected=''": "")+'>' + value.name+ '</option>';
 
                     });
 
@@ -868,6 +876,12 @@
             $('#deductionid_' + counter_ded).select2();
             ///
 
+            deduction_qty_change();
+            deduction_price_change();
+        });
+        //$(".add_new_deduction").trigger("click"); //ADD NEW LINE WHEN PAGE LOAD BY DEFAULT
+        
+        function deduction_qty_change(){
             //GET TOTAL WHEN QTY CHANGE
             $(".qty_ded").on("keyup change", function(e) {
                 var curId = this.id.split("_")[1];
@@ -879,6 +893,10 @@
 
                 calc_deduction_gtotal();
             });
+        }
+        
+        function deduction_price_change(){
+            
             //GET TOTAL WHEN UNIT PRICE CHANGE
             $(".unit_price_ded").on("keyup change", function(e) {
                 var curId = this.id.split("_")[1];
@@ -890,9 +908,8 @@
 
                 calc_deduction_gtotal();
             });
-            
-        });
-        $(".add_new_deduction").trigger("click"); //ADD NEW LINE WHEN PAGE LOAD BY DEFAULT
+        }
+       
 
         /////////////////////////////////
         $("#deduction_table").on("click", "#removeItem", function() {
@@ -919,7 +936,7 @@
          deductionDDL();
         ////////////////////////
         //GET product DROPDOWN LIST
-        function deductionDDL(index = 0) {
+        function deductionDDL(index = 0,deduction_id=0) {
 
             let deduction_ddl = '';
             
@@ -934,7 +951,7 @@
             
                     $.each(data, function(index, value) {
 
-                        deduction_ddl += '<option value="' + value.id + '">' + value.name+ '</option>';
+                        deduction_ddl += '<option value="' + value.id + '"  '+(value.id == deduction_id ? "selected=''": "")+'>' + value.name+ '</option>';
 
                     });
 
@@ -987,7 +1004,7 @@
 
                 $.each(data, function(index, value) {
 
-                    payment_terms += '<option value="' + value.id + '">' + value.name+ '</option>';
+                    payment_terms += '<option value="' + value.id + '" >' + value.name+ '</option>';
 
                 });
 
@@ -1032,7 +1049,7 @@
             ///
             
         });
-        $(".add_new_payment_summary").trigger("click"); //ADD NEW LINE WHEN PAGE LOAD BY DEFAULT
+        //$(".add_new_payment_summary").trigger("click"); //ADD NEW LINE WHEN PAGE LOAD BY DEFAULT
 
         /////////////////////////////////
         $("#payment_summary_table").on("click", "#removeItem", function() {
@@ -1056,7 +1073,7 @@
         }
         
         //GET payment_terms DROPDOWN LIST
-        function payment_termsDDL_1(index = 0) {
+        function payment_termsDDL_1(index = 0,payment_term_id=0) {
 
                 let payment_terms = '';
                 $.ajax({
@@ -1070,7 +1087,7 @@
 
                         $.each(data, function(index, value) {
 
-                            payment_terms += '<option value="' + value.id + '">' + value.name+ '</option>';
+                            payment_terms += '<option value="' + value.id + '" '+(value.id == payment_term_id ? "selected=''": "")+'>' + value.name+ '</option>';
 
                         });
 
@@ -1088,7 +1105,7 @@
          ///////////////////
          
         //GET product DROPDOWN LIST
-        function paymentMethodDDL(index = 0) {
+        function paymentMethodDDL(index = 0,payment_method_id=0) {
 
             let paymentMethod_ddl_1 = '';
             $.ajax({
@@ -1102,7 +1119,7 @@
 
                     $.each(data, function(index, value) {
 
-                        paymentMethod_ddl_1 += '<option value="' + value.id + '">' + value.name+ '</option>';
+                        paymentMethod_ddl_1 += '<option value="' + value.id + '" '+(value.id == payment_method_id ? "selected=''": "")+' >' + value.name+ '</option>';
 
                     });
 
@@ -1117,13 +1134,13 @@
         }
         ///////////////////
 
-        function summary_status(index = 0) {
+        function summary_status(index = 0,status="") {
 
             let summary_status = '';
             //payment_terms += '<option value="0">Status</option>';
-            summary_status += '<option>Paid</option>';
-            summary_status += '<option>Unpaid</option>';
-            summary_status += '<option>Partial Paid</option>';
+            summary_status += '<option '+(value.id == status ? "selected=''": "")+' >Paid</option>';
+            summary_status += '<option '+(value.id == status ? "selected=''": "")+'>Unpaid</option>';
+            summary_status += '<option '+(value.id == status ? "selected=''": "")+'>Partial Paid</option>';
             $('#summarystatus_' + index).html(summary_status);
 
         
@@ -1166,7 +1183,7 @@
                 //data: {account_types:account_type},
                 //dataType: 'json', // added data type
                 success: function(data) {
-                    console.log(data);
+                    // console.log(data);
                     $.each(data, function(index, value) {
                         $('#customer_id').val(null).trigger('change'); //Clearing selections
                         // $('#payment_terms_id').val(null).trigger('change'); // Clearing selections
@@ -1197,7 +1214,7 @@
                 dataType: "JSON",
                 //data: {account_types:account_type},
                 success: function(data) {
-                    console.log(data);
+                    // console.log(data);
                     
                     $.each(data, function(index, value) {
                         counter++;
@@ -1239,7 +1256,137 @@
                 }
             });
             /////
-        }
+
+            //GET SALES CHARGES
+            $.ajax({
+                url: site_url + "hr_finance/C_sales/getSalesChargesJSON/"+invoice_no,
+                type: 'GET',
+                dataType: "JSON",
+                //data: {account_types:account_type},
+                success: function(data) {
+                    // console.log(data);
+                    
+                    $.each(data, function(index, value) {
+                        counter_chr++;
+            
+                        var div = '<tr><td>' + counter_chr + '</td>' +
+                            '<td width="25%"><select  class="form-control charge_id" id="chargeid_' + counter_chr + '" name="charge_id[]"></select></td>' +
+                            '<td class="text-right"><input type="text"  class="form-control description_chr" id="descriptionchr_' + counter_chr + '" name="description_chr[]" value="'+(value.description)+'"  ></td>' +
+                            '<td class="text-right" width="10%"><input type="number" min="1" class="form-control qty_chr" id="qtychr_' + counter_chr + '" name="qty_chr[]" value="'+(value.qty)+'"  autocomplete="off"></td>' +
+                            '<td class="text-right"><input type="number" class="form-control unit_price_chr" id="unitpricechr_' + counter_chr + '" name="unit_price_chr[]" value="'+(value.price)+'" autocomplete="off">' +
+                            '<td class=""> <input type="number" class="form-control text-right total_chr" id="totalchr_' + counter_chr + '" name="total_chr[]" value="'+(value.qty*value.price)+'" readonly=""></td>' +
+                            '<td><i id="removeItem" class="fa fa-trash-o fa-1x"  style="color:red;"></i></td></tr>';
+                        $('.create_charges_table').append(div);
+
+                        chargesDDL(counter_chr,value.charges_id);
+
+                        //SELECT 2 DROPDOWN LIST   
+                        $('#chargeid_' + counter_chr).select2();
+                        ///
+                        calc_charges_gtotal();
+                        calc_grand_total();
+                    });
+
+                    charges_qty_change();
+                    charges_price_change();
+                        
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                }
+            });
+            /////
+
+            //GET SALES DEDUCTIONS
+            $.ajax({
+                url: site_url + "hr_finance/C_sales/getSalesDeductionsJSON/"+invoice_no,
+                type: 'GET',
+                dataType: "JSON",
+                //data: {account_types:account_type},
+                success: function(data) {
+                    //console.log(data);
+                    
+                    $.each(data, function(index, value) {
+
+                        counter_ded++;
+            
+                        var div = '<tr><td>' + counter_ded + '</td>' +
+                            '<td width="25%"><select  class="form-control deduction_id" id="deductionid_' + counter_ded + '" name="deduction_id[]"></select></td>' +
+                            '<td class="text-right"><input type="text"  class="form-control description_ded" id="descriptionded_' + counter_ded + '" name="description_ded[]" value="'+(value.description)+'" ></td>' +
+                            '<td class="text-right" width="10%"><input type="number" min="1" class="form-control qty_ded" id="qtyded_' + counter_ded + '" name="qty_ded[]" value="'+(value.qty)+'"  autocomplete="off"></td>' +
+                            '<td class="text-right"><input type="number" class="form-control unit_price_ded" id="unitpriceded_' + counter_ded + '" name="unit_price_ded[]" value="'+(value.price)+'" autocomplete="off">' +
+                            '<td class=""> <input type="number" class="form-control text-right total_ded" id="totalded_' + counter_ded + '" name="total_ded[]" value="'+(value.qty*value.price)+'" readonly=""></td>' +
+                            '<td><i id="removeItem" class="fa fa-trash-o fa-1x" style="color:red;"></i></td></tr>';
+                        $('.create_deduction_table').append(div);
+
+                        deductionDDL(counter_ded,value.deduction_id);
+                        
+                        //SELECT 2 DROPDOWN LIST   
+                        $('#deductionid_' + counter_ded).select2();
+                        ///
+
+                        calc_deduction_gtotal();
+                        calc_grand_total();
+                    });
+
+                    deduction_qty_change();
+                    deduction_price_change();
+
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                }
+            });
+            /////
+
+            //GET SALES Payment Summary 
+            $.ajax({
+                url: site_url + "hr_finance/C_sales/getSalesPaymentSummaryJSON/"+invoice_no,
+                type: 'GET',
+                dataType: "JSON",
+                //data: {account_types:account_type},
+                success: function(data) {
+                    //console.log(data);
+                    
+                    $.each(data, function(index, value) {
+                        counter_summary++;
+            
+                        var div = '<tr><td>' + counter_summary + '</td>' +
+                            '<td ><input type="number" min="1" class="form-control amount" id="amount_' + counter_summary + '" name="amount[]" value="'+(value.amount)+'" /></td>' +
+                            '<td><select  class="form-control summary_payment_terms_id" id="summarypaymenttermsid_' + counter_summary + '" name="summary_payment_terms_id[]"></select></td>' +
+                            '<td><input type="date" min="1" class="form-control payment_date" id="paymentdate_' + counter_summary + '" name="payment_date[]" value="'+(value.payment_date)+'" ></td>' +
+                            '<td><select  class="form-control summary_status" id="summarystatus_' + counter_summary + '" name="summary_status[]"></select></td>' +
+                            '<td><select  class="form-control payment_method_id" id="paymentmethodid_' + counter_summary + '" name="payment_method_id[]"></select></td>' +
+                            '<td><input type="file" class="form-control payment_file" id="paymentfile_' + counter_summary + '" name="payment_file[]"/></td>' +
+                            '<td><input type="text" class="form-control summary_note" id="summarynote_' + counter_summary + '" name="summary_note[]" value="'+(value.note)+'" /></td>' +
+                            '<td><i id="removeItem" class="fa fa-trash-o fa-1x"  style="color:red;"></i></td></tr>';
+                        $('.payment_summary_table').append(div);
+
+                        payment_termsDDL_1(counter_summary,value.payment_term_id);
+                        summary_status(counter_summary,value.status);
+                        paymentMethodDDL(counter_summary,value.payment_method);
+
+                        //SELECT 2 DROPDOWN LIST   
+                        $('#amountid_' + counter_summary).select2();
+                        $('#summarypaymenttermsid_' + counter_summary).select2();
+                        $('#paymentmethodid_' + counter_summary).select2();
+                        ///
+
+                        calc_payment_summary_gtotal();
+                        calc_grand_total();
+                    });
+
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                }
+            });
+            /////
+
+        }//end function
 
        
         ////////////

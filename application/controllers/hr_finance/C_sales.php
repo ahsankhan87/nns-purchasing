@@ -182,9 +182,9 @@ class C_sales extends MY_Controller
                             'unit_id' => $unit_id,
                             'company_id' => $company_id,
                             //'discount_percent'=>($posted_values->discount_percent == null ? 0 : $posted_values->discount_percent),
-                            'discount_value' => $this->input->post('discount')[$key],
-                            'tax_id' => ($is_taxable == 1 ? $this->input->post('tax_id')[$key] : 0),
-                            'tax_rate' => ($is_taxable == 1 ? $this->input->post('tax_rate')[$key] : 0),
+                            //'discount_value' => $this->input->post('discount')[$key],
+                            //'tax_id' => ($is_taxable == 1 ? $this->input->post('tax_id')[$key] : 0),
+                            //'tax_rate' => ($is_taxable == 1 ? $this->input->post('tax_rate')[$key] : 0),
                             'inventory_acc_code' => '', //$this->input->post('inventory_acc_code')[$key]
                         );
 
@@ -877,4 +877,24 @@ class C_sales extends MY_Controller
         $outp = '[' . $outp . ']';
         echo $outp;
     }
+
+    function getSalesChargesJSON($invoice_no)
+    {
+        print_r(json_encode($this->M_sales->get_sales_charges_by_invoice($invoice_no)));
+
+    }
+
+    function getSalesDeductionsJSON($invoice_no)
+    {
+        print_r(json_encode($this->M_sales->get_sales_deduction_by_invoice($invoice_no)));
+
+    }
+
+    function getSalesPaymentSummaryJSON($invoice_no)
+    {
+        print_r(json_encode($this->M_sales->get_sales_payment_summary_by_invoice($invoice_no)));
+
+    }
+
+
 }
