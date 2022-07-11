@@ -50,6 +50,17 @@ class C_sales extends MY_Controller
         $this->load->view('templates/footer');
     }
 
+    function check_invoiceno_exist()
+    {
+        $invoice_no = $this->input->post('invoice_no',true);
+        // print_r(json_encode($this->M_sales->get_sales($invoice_no)));
+        if($this->M_sales->get_sales($invoice_no)){
+            echo true;
+        }else{
+            echo false;
+        }
+    }
+
     public function detail($invoice_no)
     {
         $data = array('langs' => $this->session->userdata('lang'));
@@ -93,26 +104,43 @@ class C_sales extends MY_Controller
     }
 
     //sale the projuct angularjs
-    public function saleProducts()
+    public function saleProducts($edit = null,$invoice_no=null)
     {
         $total_amount = 0;
         $discount = 0;
         $unit_price = 0;
         $cost_price = 0;
-        var_dump($this->input->post('payment_file'));
+        //var_dump($this->input->post('payment_file'));
         // var_dump($_FILES['payment_file']);
         
         if ($this->input->server('REQUEST_METHOD') === 'POST') {
 
             if (count((array)$this->input->post('product_id')) > 0) {
+                
+                
                 $this->db->trans_start();
-                //GET PREVIOISE INVOICE NO  
-                // @$prev_invoice_no = $this->M_sales->getMAXSaleInvoiceNo();
-                // //$number = (int) substr($prev_invoice_no,11)+1; // EXTRACT THE LAST NO AND INCREMENT BY 1
-                // //$new_invoice_no = 'POS'.date("Ymd").$number;
-                // $number = (int) $prev_invoice_no + 1; // EXTRACT THE LAST NO AND INCREMENT BY 1
-                // $new_invoice_no = 'S' . $number;
-                $new_invoice_no = $this->input->post("invoice_no");
+                //IF EDIT THEN DELETE ALL INVOICES AND INSERT AGAIN
+                if($edit != null)
+                {
+                    if($this->M_sales->get_sales($invoice_no)){
+                        echo '2';
+                        die;
+                    }
+    
+                    $this->delete($invoice_no,false);
+                    $new_invoice_no = $invoice_no;
+                }else{
+                    //GET PREVIOISE INVOICE NO  
+                    $new_invoice_no = $this->input->post("invoice_no");
+                    
+                    if($this->M_sales->get_sales($new_invoice_no)){
+                        echo '2';
+                        die;
+                    }
+    
+                }
+
+                
                 //GET ALL ACCOUNT CODE WHICH IS TO BE POSTED AMOUNT
                 $user_id = $_SESSION['user_id'];
                 $company_id = $_SESSION['company_id'];
@@ -133,7 +161,8 @@ class C_sales extends MY_Controller
                 $status = $this->input->post("status");
                 $sub_total_deduction = $this->input->post("sub_total_deduction");
                 $sub_total_charges = $this->input->post("sub_total_charges");
-                
+                $balance = $this->input->post("balance");
+
                 $total_amount =  ($this->input->post("sub_total") - $discount);
                 $net_total = ($total_amount-$sub_total_deduction+$sub_total_charges);
 
@@ -150,6 +179,7 @@ class C_sales extends MY_Controller
                     'discount_value' => $discount,
                     'currency_id' => $currency_id,
                     'total_amount' => $total_amount, //return will be in minus amount
+                    'balance' => $balance,
                     //'total_tax' => $total_tax_amount, //return will be in minus amount
                     //'is_taxable' => $is_taxable,
                     'delivery_date'=>$delivery_date,
@@ -274,7 +304,7 @@ class C_sales extends MY_Controller
                                 move_uploaded_file($_FILES['payment_file']['tmp_name'], 'images/sales/' . $newfilename);
                                 $payment_method_file = $newfilename;
                             }else{
-                                $payment_method_file = "";
+                                $payment_method_file = $this->input->post('payment_file_old')[$key];
                             }
             
                         $amount  = htmlspecialchars(trim($value));

@@ -484,6 +484,7 @@ class C_receivings extends MY_Controller{
         //var_dump($_POST);
         //var_dump($_FILES['fan']);
         
+
         if (isset($_FILES['fan']) && $_FILES['fan']['error'] == 0) {
 
         // uploads image in the folder images
@@ -866,7 +867,8 @@ class C_receivings extends MY_Controller{
         
         $receiving_items = $this->M_receivings->get_receiving_items_1($receiving_id);
         //var_dump($receiving_items);
-        
+        $this->load->helper("url");
+          
         foreach($receiving_items as $values)
         {
             $total_stock =  $this->M_items->total_stock($values['item_id'],-1,-1);
@@ -881,9 +883,8 @@ class C_receivings extends MY_Controller{
             
           $this->db->update('pos_items_detail',$option_data,array('item_id'=>$values['item_id']));
           
-          $this->load->helper("url");
             
-            if(!$edit){
+            if (isset($_FILES['ssdt']) && $_FILES['ssdt']['error'] == 0) {
 
                 if($values['ssdt'] != '')
                 {   
@@ -892,6 +893,9 @@ class C_receivings extends MY_Controller{
                         @unlink($file);
                         /////////////
                 } 
+            }
+            if (isset($_FILES['fan']) && $_FILES['fan']['error'] == 0) {
+
                 if($values['fan'] != '')
                 {   
                         //DELETE THE PREVIOUSE PICTURE
@@ -899,6 +903,9 @@ class C_receivings extends MY_Controller{
                         @unlink($file);
                         /////////////
                 } 
+            }
+            if (isset($_FILES['supplier_pi']) && $_FILES['supplier_pi']['error'] == 0) {
+
                 if($values['supplier_pi'] != '')
                 {   
                     //DELETE THE PREVIOUSE PICTURE
@@ -907,6 +914,9 @@ class C_receivings extends MY_Controller{
                         /////////////
                         
                 } 
+            }
+            if (isset($_FILES['quotation_file']) && $_FILES['quotation_file']['error'] == 0) {
+
                 if($values['quotation_file'] != '')
                 {   
                     //DELETE THE PREVIOUSE PICTURE

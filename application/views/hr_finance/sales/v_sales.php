@@ -10,6 +10,7 @@
             <label class="control-label col-sm-2" for="invoice_no">Invoice No.:</label>
             <div class="col-sm-4">
                 <input type="text" class="form-control" id="invoice_no" name="invoice_no" required="" value="" />
+                <!-- <div class="text-danger" id="check_invoiceno">Invoice No exist</div> -->
             </div>
         </div>
         <!-- /.col-sm-12 -->
@@ -45,15 +46,11 @@
         
         <div class="col-sm-4">
             
-            <label class="control-label col-sm-5" for="status">Status:</label>
+            <label class="control-label col-sm-5" for="net_amount">Amount:</label>
             <div class="col-sm-7">
-                <select class="form-control select2me" id="status" name="status">
-                    <option value="Paid">Paid</option>
-                    <option value="Unpaid">Unpaid</option>
-                </select> 
-                
+                <input type="number" name="net_amount" id="net_amount" readonly="" class="form-control">
             </div>
-           
+
         </div>
 
     </div>
@@ -68,8 +65,22 @@
         </div>
         <!-- /.col-sm-12 -->
         
-        <div class="col-sm-4 text-right">
+        <div class="col-sm-4">
             
+            <label class="control-label col-sm-5" for="balance">Balance:</label>
+            <div class="col-sm-7">
+                <input type="number" name="balance" id="balance" readonly="" class="form-control">
+            </div>
+
+            <label class="control-label col-sm-5" for="status">Status:</label>
+            <div class="col-sm-7">
+                <select class="form-control" id="status" name="status">
+                    <option value="Paid">Paid</option>
+                    <option value="Unpaid">Unpaid</option>
+                    <option value="Partial Paid">Partial Paid</option>
+                </select> 
+                
+            </div>
         </div>
 
     </div>
@@ -231,7 +242,7 @@
                     </tr> -->
                 </tfoot>
             </table>
-            <div id="top_net_total" class="text-right"></div>
+            <!-- <div id="top_net_total" class="text-right"></div> -->
             <table class="table table-striped table-bordered">
                 <tbody>
                     <tr>
@@ -278,7 +289,8 @@
                         </td>
                         <!-- <th class="text-right">Payment Summary Total ₱:</th>
                         <th class="text-right" id="sub_total">0.00</th>
-                        <th><input type="text" name="sub_total_payment_summary" class="form-control text-right" id="sub_total_txt_charges" readonly="" value=""></th> -->
+                        <th></th>-->
+                        <input type="hidden" name="sub_total_payment_summary" class="form-control text-right" id="sub_total_txt_payment_summary" readonly="" value=""> 
                     </tr> 
                     <!-- <tr>
                     
@@ -369,7 +381,8 @@
         const date = '<?php echo date("Y-m-d") ?>';
         const curr_symbol = "<?php echo $_SESSION["home_currency_symbol"]; ?>";
         const curr_code = "<?php echo $_SESSION["home_currency_code"]; ?>";
-        
+        //$("#check_invoiceno").hide();
+
         /////////////ADD NEW LINES
         let counter = 0; //counter is used for id of the debit / credit textbox to enable and disable 8 textboxs already used so start from 8 here
         $('.add_new').on('click', function(event) {
@@ -476,12 +489,35 @@
 
         });
         $(".add_new").trigger("click"); //ADD NEW LINE WHEN PAGE LOAD BY DEFAULT
+        
+        // $("#invoice_no").on("keyup", function(e) {
+        //     console.log($(this).val());
+        //     $.ajax({
+        //         url: site_url + "hr_finance/C_sales/check_invoiceno_exist",
+        //         type: 'POST',
+        //         data: {invoice_no: $(this).val()},
+        //         dataType: 'json', // added data type
+        //         success: function(data) {
+        //             console.log(data);
+        //             if(data)
+        //             {
+        //                 $("#check_invoiceno").show();
+        //             }else{
+        //                 $("#check_invoiceno").hide();
+        //             }
+        //         },
+        //         error: function(xhr, ajaxOptions, thrownError) {
+        //             console.log(xhr.status);
+        //             console.log(thrownError);
+        //         }
+        //     });
+        // });
 
-        /////////////////////////////////
-        $("#sale_table").on("click", "#removeItem", function() {
-            $(this).closest("tr").remove();
-            calc_gtotal();
-        });
+        // /////////////////////////////////
+        // $("#sale_table").on("click", "#removeItem", function() {
+        //     $(this).closest("tr").remove();
+        //     calc_gtotal();
+        // });
 
         ////////// CLEAR ALL TABLE
         $(".clear_all").on("click", function() {
@@ -549,22 +585,38 @@
             var grand_total = 0;
             var total_ded = 0;
             var total_charges = 0;
+            var total_payment_summary = 0;
             var products_total = 0;
 
             products_total = $('#sub_total_txt').val();
             total_ded = $("#sub_total_txt_deduction").val();
             total_charges = $("#sub_total_txt_charges").val();
+            total_payment_summary = $("#sub_total_txt_payment_summary").val();
             
             grand_total = (grand_total ? grand_total : 0);
             total_ded  = (total_ded ? total_ded : 0);
             total_charges = (total_charges ? total_charges : 0);
-
+            total_payment_summary = (total_payment_summary ? total_payment_summary : 0);
+            
             grand_total = ((parseFloat(products_total) + parseFloat(total_charges)) - parseFloat(total_ded));
+            balance = ((parseFloat(grand_total)-parseFloat(total_payment_summary)));
+            
             $('#grand_total').val(parseFloat(grand_total));
+            $('#net_amount').val(parseFloat(grand_total));
+            $('#balance').val(parseFloat(balance));
             $('#net_total').text(parseFloat(grand_total).toLocaleString('en-US', 2));
             $('#top_net_total').html('Grand Total:<h2 style="margin:0">'+parseFloat(grand_total).toLocaleString('en-US', 2)+'</h2>');
             
+            if(grand_total == balance)
+            {
+                $('#status').val("Paid");
+            }else if(grand_total > balance){
+                $('#status').val("Partial Paid");
+            }else{
+                $('#status').val("Unpaid");
+            }
         }
+        
         function calc_gtotal() {
             var total = 0;
             
@@ -589,12 +641,11 @@
 
                 var formData = new FormData(this);
                 var files = $('.payment_file')[0].files;
-                
-                if(files != undefined){
-                    
+                console.log(files.length);
+
+                if(files.length > 0){
+                    formData.append('payment_file',files[0]);
                 }
-                formData.append('payment_file',files[0]);
-               
                 
                    $.ajax({
                         type: "POST",
@@ -607,12 +658,16 @@
                             if(data == '1')
                             {
                                 toastr.success("Invoice saved successfully",'Success');
+                                clearall();
+                                clearall_charges();
+                                clearall_deduction();
                                 window.location.href = site_url+"hr_finance/C_sales/allSales";
+                            }else if(data == '2')
+                            {
+                                toastr.error("Invoice number exist!",'Error');
                             }
-                            clearall();
-                            clearall_charges();
-                            clearall_deduction();
-                            console.log(data);
+                            
+                            // console.log(data);
                         }
                     });
                 
@@ -1021,20 +1076,28 @@
             $('#amountid_' + counter_summary).select2();
             $('#summarypaymenttermsid_' + counter_summary).select2();
             $('#paymentmethodid_' + counter_summary).select2();
-            ///
             
+            ///
+            //GET TOTAL WHEN QTY CHANGE
+             $(".amount").on("keyup change", function(e) {
+                calc_payment_summary_gtotal();
+                calc_grand_total();
+                
+            });
+
         });
         $(".add_new_payment_summary").trigger("click"); //ADD NEW LINE WHEN PAGE LOAD BY DEFAULT
 
         /////////////////////////////////
         $("#payment_summary_table").on("click", "#removeItem", function() {
             $(this).closest("tr").remove();
-            calc_payment_summary_gtotal();
+            
         });
 
         ////////// CLEAR ALL TABLE
         $(".clear_all_payment_summary").on("click", function() {
             clearall_payment_summary();
+            calc_payment_summary_gtotal();
         });
         
         function clearall_payment_summary()
@@ -1050,30 +1113,30 @@
         //GET payment_terms DROPDOWN LIST
         function payment_termsDDL_1(index = 0) {
 
-                let payment_terms = '';
-                $.ajax({
-                    url: site_url + "hr_finance/C_payment_terms/payment_termsDDL",
-                    type: 'GET',
-                    dataType: 'json', // added data type
-                    success: function(data) {
-                        //console.log(data);
-                        let i = 0;
-                        payment_terms += '<option value="0">Payment Terms</option>';
+            let payment_terms = '';
+            $.ajax({
+                url: site_url + "hr_finance/C_payment_terms/payment_termsDDL",
+                type: 'GET',
+                dataType: 'json', // added data type
+                success: function(data) {
+                    //console.log(data);
+                    let i = 0;
+                    payment_terms += '<option value="0">Payment Terms</option>';
 
-                        $.each(data, function(index, value) {
+                    $.each(data, function(index, value) {
 
-                            payment_terms += '<option value="' + value.id + '">' + value.name+ '</option>';
+                        payment_terms += '<option value="' + value.id + '">' + value.name+ '</option>';
 
-                        });
+                    });
 
-                        $('#summarypaymenttermsid_' + index).html(payment_terms);
+                    $('#summarypaymenttermsid_' + index).html(payment_terms);
 
-                    },
-                    error: function(xhr, ajaxOptions, thrownError) {
-                        console.log(xhr.status);
-                        console.log(thrownError);
-                    }
-                });
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                }
+            });
         }
         ///
         //GET payment_terms DROPDOWN LIST
@@ -1125,12 +1188,11 @@
         /////////////ADD NEW LINES END HERE
         function calc_payment_summary_gtotal() {
             var total_chr = 0;
-            var net_total = 0;
-
-            $('.total_chr').each(function() {
+            
+            $('.amount').each(function() {
                 total_chr += parseFloat($(this).val());
             });
-
+            console.log(total_chr);
             sub_total_payment_summary = (total_chr ? total_chr : 0);
 
             //ASSIGN VALUE TO TEXTBOXES

@@ -131,9 +131,21 @@ class m_sales extends CI_Model{
     {   
         $this->db->order_by('CAST(SUBSTR(invoice_no,2) AS UNSIGNED) DESC');
         $this->db->select('SUBSTR(invoice_no,2) as invoice_no');
-        $this->db->where('company_id', $_SESSION['company_id']);
+        //$this->db->where('company_id', $_SESSION['company_id']);
         $query = $this->db->get('finance_sales',1);
         return $query->row()->invoice_no;
+    }
+    
+    function check_invoiceno_exist($invoice_no)
+    {   
+        $this->db->where('invoice_no',$invoice_no);
+        $query = $this->db->get('finance_sales');
+        
+        if($query->num_rows() > 0)
+        {
+            return true;
+        }
+        return false;
     }
     
     function get_last_payment_date_by_invoice($invoice_no)
@@ -171,6 +183,25 @@ class m_sales extends CI_Model{
         $this->db->delete('finance_sales_deduction',array('invoice_no'=>$invoice_no));
         
         $this->db->delete('prod_customer_payments',array('invoice_no'=>$invoice_no));
+
+        $this->load->helper("url");
+        $payment_summary = $this->get_sales_payment_summary_by_invoice($invoice_no);
+        
+        if (isset($_FILES['payment_file']) && $_FILES['payment_file']['error'] == 0) 
+        {
+            foreach($payment_summary as $values)
+            {
+                if($values['payment_method_file'] != '')
+                {   
+                    //DELETE THE PREVIOUSE PICTURE
+                    $file = FCPATH.'images/sales/'.$values['payment_method_file'];
+                    @unlink($file);
+                    /////////////
+                } 
+            }
+        }
+        $this->db->delete('finance_payment_summary',array('invoice_no'=>$invoice_no));
+
     }
 
     public function get_totalSalesByCategory()

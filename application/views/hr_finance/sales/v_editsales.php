@@ -45,15 +45,11 @@
         
         <div class="col-sm-4">
             
-            <label class="control-label col-sm-5" for="status">Status:</label>
+            <label class="control-label col-sm-5" for="net_amount">Amount:</label>
             <div class="col-sm-7">
-                <select class="form-control" id="status" name="status">
-                    <option value="Paid">Paid</option>
-                    <option value="Unpaid">Unpaid</option>
-                </select> 
-                
+                <input type="number" name="net_amount" id="net_amount" readonly="" class="form-control">
             </div>
-           
+
         </div>
 
     </div>
@@ -68,8 +64,22 @@
         </div>
         <!-- /.col-sm-12 -->
         
-        <div class="col-sm-4 text-right">
-            
+        <div class="col-sm-4">
+
+            <label class="control-label col-sm-5" for="balance">Balance:</label>
+            <div class="col-sm-7">
+                <input type="number" name="balance" id="balance" readonly="" class="form-control">
+            </div>
+            <label class="control-label col-sm-5" for="status" readonly="">Status:</label>
+            <div class="col-sm-7">
+                <select class="form-control" id="status" name="status">
+                    <option value="Paid">Paid</option>
+                    <option value="Unpaid">Unpaid</option>
+                    <option value="Partial Paid">Partial Paid</option>
+                </select> 
+                
+            </div>
+           
         </div>
 
     </div>
@@ -231,7 +241,7 @@
                     </tr> -->
                 </tfoot>
             </table>
-            <div id="top_net_total" class="text-right"></div>
+            <!-- <div id="top_net_total" class="text-right"></div> -->
             <table class="table table-striped table-bordered">
                 <tbody>
                     <tr>
@@ -279,6 +289,8 @@
                         <!-- <th class="text-right">Payment Summary Total ₱:</th>
                         <th class="text-right" id="sub_total">0.00</th>
                         <th><input type="text" name="sub_total_payment_summary" class="form-control text-right" id="sub_total_txt_charges" readonly="" value=""></th> -->
+                        <input type="hidden" name="sub_total_payment_summary" class="form-control text-right" id="sub_total_txt_payment_summary" readonly="" value=""> 
+                    
                     </tr> 
                     <!-- <tr>
                     
@@ -304,7 +316,7 @@
         
     </div><!-- close here -->
 
-    <?php echo form_submit('', 'Save & New', 'class="btn btn-success"'); ?>
+    <?php echo form_submit('', 'Update', 'class="btn btn-success"'); ?>
 </form>
 <!-- Modal -->
 <div class="modal fade" id="customerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -557,21 +569,34 @@
             var grand_total = 0;
             var total_ded = 0;
             var total_charges = 0;
+            var total_payment_summary = 0;
             var products_total = 0;
 
             products_total = $('#sub_total_txt').val();
             total_ded = $("#sub_total_txt_deduction").val();
             total_charges = $("#sub_total_txt_charges").val();
+            total_payment_summary = $("#sub_total_txt_payment_summary").val();
             
             grand_total = (grand_total ? grand_total : 0);
             total_ded  = (total_ded ? total_ded : 0);
             total_charges = (total_charges ? total_charges : 0);
-
+            total_payment_summary = (total_payment_summary ? total_payment_summary : 0);
+            
             grand_total = ((parseFloat(products_total) + parseFloat(total_charges)) - parseFloat(total_ded));
             $('#grand_total').val(parseFloat(grand_total));
+            $('#net_amount').val(parseFloat(grand_total));
+            $('#balance').val(parseFloat(balance));
             $('#net_total').text(parseFloat(grand_total).toLocaleString('en-US', 2));
             $('#top_net_total').html('Grand Total:<h2 style="margin:0">'+parseFloat(grand_total).toLocaleString('en-US', 2)+'</h2>');
             
+            if(balance == grand_total)
+            {
+                $('#status').val("Paid");
+            }else if(grand_total > balance || grand_total < balance ){
+                $('#status').val("Partial Paid");
+            }else{
+                $('#status').val("Unpaid");
+            }
         }
         function calc_gtotal() {
             var total = 0;
@@ -606,7 +631,7 @@
                 
                    $.ajax({
                         type: "POST",
-                        url: site_url + "hr_finance/C_sales/saleProducts",
+                        url: site_url + "hr_finance/C_sales/saleProducts/"+1+"/"+invoice_no,
                         data:formData,
                         cache: false,
                         processData: false,
@@ -614,13 +639,17 @@
                         success: function(data) {
                             if(data == '1')
                             {
-                                toastr.success("Invoice saved successfully",'Success');
+                                toastr.success("Invoice updated successfully",'Success');
+                                clearall();
+                                clearall_charges();
+                                clearall_deduction();
+
                                 window.location.href = site_url+"hr_finance/C_sales/allSales";
+                            }else if(data == '2')
+                            {
+                                toastr.error("Invoice number exist!",'Error');
                             }
-                            clearall();
-                            clearall_charges();
-                            clearall_deduction();
-                            console.log(data);
+                            
                         }
                     });
                 
@@ -629,10 +658,10 @@
         });
 
         ////
-        customerDDL();
+        //customerDDL();
         ////////////////////////
         //GET customer DROPDOWN LIST
-        function customerDDL() {
+        function customerDDL(customer_id='') {
 
         let customer_ddl = '';
         $.ajax({
@@ -646,7 +675,7 @@
 
                 $.each(data, function(index, value) {
 
-                    customer_ddl += '<option value="' + value.id + '">' + value.name+ '</option>';
+                    customer_ddl += '<option value="' + value.id + '" '+(value.id == customer_id ? "selected=''": "")+'>' + value.name+ '</option>';
 
                 });
 
@@ -987,10 +1016,10 @@
         //////////////////////////
         
         ////
-        payment_termsDDL();
+        //payment_termsDDL();
         ////////////////////////
         //GET payment_terms DROPDOWN LIST
-        function payment_termsDDL() {
+        function payment_termsDDL(payment_term_id='') {
 
         let payment_terms_ddl = '';
         $.ajax({
@@ -1004,7 +1033,7 @@
 
                 $.each(data, function(index, value) {
 
-                    payment_terms += '<option value="' + value.id + '" >' + value.name+ '</option>';
+                    payment_terms += '<option value="' + value.id + '" '+(value.id == payment_term_id ? "selected=''": "")+' >' + value.name+ '</option>';
 
                 });
 
@@ -1113,7 +1142,7 @@
                 type: 'GET',
                 dataType: 'json', // added data type
                 success: function(data) {
-                    console.log(data);
+                    //console.log(data);
                     let i = 0;
                     paymentMethod_ddl_1 += '<option value="0">Please Select</option>';
 
@@ -1138,9 +1167,9 @@
 
             let summary_status = '';
             //payment_terms += '<option value="0">Status</option>';
-            summary_status += '<option '+(value.id == status ? "selected=''": "")+' >Paid</option>';
-            summary_status += '<option '+(value.id == status ? "selected=''": "")+'>Unpaid</option>';
-            summary_status += '<option '+(value.id == status ? "selected=''": "")+'>Partial Paid</option>';
+            summary_status += '<option '+("Paid" == status ? "selected=''": "")+' >Paid</option>';
+            summary_status += '<option '+("Unpaid" == status ? "selected=''": "")+'>Unpaid</option>';
+            summary_status += '<option '+("Partial Paid" == status ? "selected=''": "")+'>Partial Paid</option>';
             $('#summarystatus_' + index).html(summary_status);
 
         
@@ -1185,18 +1214,14 @@
                 success: function(data) {
                     // console.log(data);
                     $.each(data, function(index, value) {
-                        $('#customer_id').val(null).trigger('change'); //Clearing selections
-                        // $('#payment_terms_id').val(null).trigger('change'); // Clearing selections
-                        
-                        $('#customer_id').val(value.customer_id).trigger('change');
-                        // $('#payment_terms_id').val(value.payment_terms_id).trigger('change');
+                        customerDDL(value.customer_id);
+                        payment_termsDDL(value.payment_terms_id);
                         $('#description').val(value.description);
                         $('#delivery_date').val(value.delivery_date);
                         $('#sale_date').val(value.sale_date);
                         $('#invoice_no').val(value.invoice_no);
                         $('#status').val(value.status);
-                        $('#payment_terms_id').val(value.payment_terms_id);
-                        
+                        $('#balance').val(value.balance);
                     });
                     
                 },
@@ -1348,18 +1373,19 @@
                 dataType: "JSON",
                 //data: {account_types:account_type},
                 success: function(data) {
-                    //console.log(data);
+                    console.log(data);
                     
                     $.each(data, function(index, value) {
                         counter_summary++;
             
                         var div = '<tr><td>' + counter_summary + '</td>' +
-                            '<td ><input type="number" min="1" class="form-control amount" id="amount_' + counter_summary + '" name="amount[]" value="'+(value.amount)+'" /></td>' +
+                            '<td><input type="number" min="1" class="form-control amount" id="amount_' + counter_summary + '" name="amount[]" value="'+(value.amount)+'" /></td>' +
                             '<td><select  class="form-control summary_payment_terms_id" id="summarypaymenttermsid_' + counter_summary + '" name="summary_payment_terms_id[]"></select></td>' +
-                            '<td><input type="date" min="1" class="form-control payment_date" id="paymentdate_' + counter_summary + '" name="payment_date[]" value="'+(value.payment_date)+'" ></td>' +
+                            '<td><input type="date" class="form-control payment_date" id="paymentdate_' + counter_summary + '" name="payment_date[]" value="'+(value.payment_date)+'" /></td>' +
                             '<td><select  class="form-control summary_status" id="summarystatus_' + counter_summary + '" name="summary_status[]"></select></td>' +
                             '<td><select  class="form-control payment_method_id" id="paymentmethodid_' + counter_summary + '" name="payment_method_id[]"></select></td>' +
-                            '<td><input type="file" class="form-control payment_file" id="paymentfile_' + counter_summary + '" name="payment_file[]"/></td>' +
+                            '<td><input type="hidden" class="form-control payment_file_old" id="paymentfileold_' + counter_summary + '" name="payment_file_old[]" value="'+(value.payment_method_file)+'" />'+
+                            '<input type="file" class="form-control payment_file" id="paymentfile_' + counter_summary + '" name="payment_file[]" /></td>' +
                             '<td><input type="text" class="form-control summary_note" id="summarynote_' + counter_summary + '" name="summary_note[]" value="'+(value.note)+'" /></td>' +
                             '<td><i id="removeItem" class="fa fa-trash-o fa-1x"  style="color:red;"></i></td></tr>';
                         $('.payment_summary_table').append(div);
@@ -1371,7 +1397,7 @@
                         //SELECT 2 DROPDOWN LIST   
                         $('#amountid_' + counter_summary).select2();
                         $('#summarypaymenttermsid_' + counter_summary).select2();
-                        $('#paymentmethodid_' + counter_summary).select2();
+                        //$('#paymentmethodid_' + counter_summary).select2();
                         ///
 
                         calc_payment_summary_gtotal();
