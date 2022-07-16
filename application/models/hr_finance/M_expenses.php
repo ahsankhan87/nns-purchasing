@@ -117,11 +117,27 @@ class m_expenses extends CI_Model{
        
     }
     
-    function delete($invoice_no)
+    function delete($expenses_id)
     {
-        $this->db->delete('finance_expenses',array('id'=>$invoice_no));
+        $this->load->helper("url");
+        $expenses = $this->get_expenses($expenses_id);
         
-        $this->db->delete('finance_expenses_items',array('id'=>$invoice_no));
+        if (isset($_FILES['receipted_file']) && $_FILES['receipted_file']['error'] == 0) 
+        {
+            foreach($expenses as $values)
+            {
+                if($values['receipted_file'] != '')
+                {   
+                    //DELETE THE PREVIOUSE PICTURE
+                    $file = FCPATH.'images/expenses/'.$values['receipted_file'];
+                    @unlink($file);
+                    /////////////
+                } 
+            }
+        }
+        $this->db->delete('finance_expenses',array('id'=>$expenses_id));
+        
+        $this->db->delete('finance_expenses_items',array('expense_id'=>$expenses_id));
        
     }
 

@@ -240,22 +240,17 @@
                         <th class="text-right lead" id="net_total">0.00</th>
                         <th><input type="hidden" name="net_total" id="net_total_txt" value=""></th>
                     </tr> -->
-                </tfoot>
-            </table>
-            <!-- <div id="top_net_total" class="text-right"></div> -->
-            <table class="table table-striped table-bordered">
-                <tbody>
                     <tr>
-                        <th></th><th></th><th></th><th></th>
-                        <th colspan="4"  class="text-right">
-                        </th>
+                        <th colspan="4" ></th>
+                        
                         <th class="text-right">Grand Total ₱:</th>
                         <!-- <th class="text-right" id="sub_total">0.00</th> -->
                         <th><input type="text" name="grand_total" class="form-control text-right" id="grand_total" readonly="" value=""></th>
                     </tr>
-                   
-                </tbody>
+                </tfoot>
             </table>
+            <!-- <div id="top_net_total" class="text-right"></div> -->
+            
         </div>
     </div><!-- close here -->
 
@@ -641,7 +636,7 @@
 
                 var formData = new FormData(this);
                 var files = $('.payment_file')[0].files;
-                console.log(files.length);
+                // console.log(files.length);
 
                 if(files.length > 0){
                     formData.append('payment_file',files[0]);

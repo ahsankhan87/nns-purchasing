@@ -72,11 +72,21 @@
                             echo '<td><a href="'.site_url('hr_finance/C_expenses/detail/'.$list['id']).'">₱'.number_format($total,2).'</a></td>';
                             echo '<td>' . $this->M_paymentMethod->get_paymentMethodName($list['payment_method_id']) . '</td>';
                             echo '<td>' . $list['approval'] . '</td>';
-                            echo '<td>' . $list['receipted'] . '</td>';
-                            echo '<td>' . $list['cross_checked'] . '</td>';
+                            $label_1 = ($list['receipted'] == "Yes" ? 'label label-success': 'label label-danger');
+                            $label_2 = ($list['cross_checked'] == "Yes" ? 'label label-success': 'label label-danger');
+                            
+                            if($list['receipted_file'] != "")
+                            {
+                                echo '<td><a href="'.base_url('images/expenses/'.$list['receipted_file']).'" target="_blank" class="'.$label_1.'">'.$list['receipted'].'</a></td>';
+                            }else{
+                                echo '<td><span class="'.$label_1.'">' . $list['receipted'] . '</span></td>';
+
+                            }
+                            echo '<td><span class="'.$label_2.'">' . $list['cross_checked'] . '</span></td>';
                             echo '<td>' . $list['note'] . '</td>';
                             echo '<td>';
-                            echo  anchor('hr_finance/C_expenses/delete/'.$list['id'],' <i class="fa fa-trash-o fa-fw"></i>','onclick="return confirm(\'Are you sure you want to delete?\')"');
+                            echo  anchor('hr_finance/C_expenses/edit/'.$list['id'],' <i class="fa fa-pencil-square-o fa-fw"></i>');
+                            echo  anchor('hr_finance/C_expenses/delete/'.$list['id'],'| <i class="fa fa-trash-o fa-fw"></i>','onclick="return confirm(\'Are you sure you want to delete?\')"');
                             echo '</td>';
                             echo '</tr>';
                         }
@@ -99,3 +109,13 @@
     <!-- /.col-sm-12 -->
 </div>
 <!-- /.row -->
+<style>
+    .red_color{
+        background-color: red;
+        color:#fff;
+    }
+    .green_color{
+        background-color: green;
+        color:#fff;
+    }
+</style>

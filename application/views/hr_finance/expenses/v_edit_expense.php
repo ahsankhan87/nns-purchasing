@@ -47,7 +47,6 @@
                 
             </div>
 
-          
             <label class="control-label col-sm-1" for="receipted">Receipted:</label>
             <div class="col-sm-3">
                 <select class="form-control select2me" id="receipted" name="receipted">
@@ -56,7 +55,7 @@
                     <option value="na">n/a</option>
                 </select> 
                 <input type="file" name="receipted_file" id="receipted_file">
-                
+                <input type="hidden" name="receipted_file_old" id="receipted_file_old">
             </div>
            
         </div>
@@ -78,11 +77,11 @@
                 <textarea name="description" id="description" class="form-control" ></textarea>
             </div>
 
-            <label class="control-label col-sm-1" for="">Amount:</label>
+            <label class="control-label col-sm-1" for="amount">Amount:</label>
             <div class="col-sm-3">
                 <input type="number" class="form-control" name="amount" id="amount">
             </div>
-            
+
             <label class="control-label col-sm-1" for="change">Change:</label>
             <div class="col-sm-3">
                 <input type="number" class="form-control" name="Change" id="change" readonly="">
@@ -134,7 +133,7 @@
                         <th><input type="hidden" name="total_tax" id="total_tax_txt" value=""></th>
                     </tr> -->
                     <!-- <tr>
-                        <th colspan="5"><?php echo form_submit('', 'Save', 'class="btn btn-success"'); ?></th>
+                        <th colspan="5"><?php echo form_submit('', 'Update', 'class="btn btn-success"'); ?></th>
                         <th class="text-right" >Grand Total</th>
                         <th class="text-right lead" id="net_total">0.00</th>
                         <th><input type="hidden" name="net_total" id="net_total_txt" value=""></th>
@@ -146,12 +145,13 @@
         
     </div><!-- close here -->
     
-    <?php echo form_submit('', 'Save', 'class="btn btn-success"'); ?>
+    <?php echo form_submit('', 'Update', 'class="btn btn-success"'); ?>
 </form>
 
 <script>
     $(document).ready(function() {
 
+        const expense_id = '<?php echo $expense_id; ?>/';
         const site_url = '<?php echo site_url($langs); ?>/';
         const path = '<?php echo base_url(); ?>';
         const date = '<?php echo date("Y-m-d") ?>';
@@ -160,7 +160,7 @@
         
         $("#expense_form").on("submit", function(e) {
             
-            var confirmexpense = confirm('Are you sure you want to save?');
+            var confirmexpense = confirm('Are you sure you want to update?');
            
             if (confirmexpense) {
                 
@@ -170,10 +170,10 @@
                 if(files.length > 0){
                     formData.append('receipted_file',files[0]);
                 }
-
-                  $.ajax({
+                
+                   $.ajax({
                         type: "POST",
-                        url: site_url + "hr_finance/C_expenses/expenseProducts",
+                        url: site_url + "hr_finance/C_expenses/expenseProducts/"+1+"/"+expense_id,
                         data:formData,
                         cache: false,
                         processData: false,
@@ -181,11 +181,14 @@
                         success: function(data) {
                             if(data == '1')
                             {
-                                toastr.success("Record saved successfully",'Success');
-                                window.location.href = site_url+"hr_finance/C_expenses/allExpenses";
+                                toastr.success("Record updated successfully",'Success');
                                 clearall_charges();
+                                window.location.href = site_url+"hr_finance/C_expenses/allExpenses";
+                            }else if(data == '2')
+                            {
+                                toastr.error("Error while updating!",'Error');
                             }
-                           
+                            
                         }
                     });
                 
@@ -251,6 +254,11 @@
             $('#subcategoryid_' + counter_chr).select2();
             ///
 
+            price_change();
+        });
+       // $(".add_new_charges").trigger("click"); //ADD NEW LINE WHEN PAGE LOAD BY DEFAULT
+
+        function price_change(){
             //GET TOTAL WHEN UNIT PRICE CHANGE
             $(".unit_price_chr").on("keyup change", function(e) {
                 var curId = this.id.split("_")[1];
@@ -261,8 +269,7 @@
                 calc_charges_gtotal();
             });
             
-        });
-        $(".add_new_charges").trigger("click"); //ADD NEW LINE WHEN PAGE LOAD BY DEFAULT
+        }
 
         /////////////////////////////////
         $("#charges_table").on("click", "#removeItem", function() {
@@ -289,7 +296,7 @@
         // chargesDDL();
         ////////////////////////
         //GET product DROPDOWN LIST
-        function chargesDDL(index = 0) {
+        function chargesDDL(index = 0,id='') {
 
             let charges_ddl = '';
             
@@ -304,7 +311,7 @@
 
                     $.each(data, function(index, value) {
 
-                        charges_ddl += '<option value="' + value.id + '">' + value.name+ '</option>';
+                        charges_ddl += '<option value="' + value.id + '" '+(value.id == id ? "selected=''": "")+' >' + value.name+ '</option>';
 
                     });
 
@@ -319,7 +326,7 @@
         }
         ///////////////////
         //GET product DROPDOWN LIST
-        function subCategoryDDL(index = 0) {
+        function subCategoryDDL(index = 0,id='') {
 
             let sub_category_ddl = '';
             $.ajax({
@@ -333,7 +340,7 @@
 
                     $.each(data, function(index, value) {
 
-                        sub_category_ddl += '<option value="' + value.id + '">' + value.name+ '</option>';
+                        sub_category_ddl += '<option value="' + value.id + '" '+(value.id == id ? "selected=''": "")+' >' + value.name+ '</option>';
 
                     });
 
@@ -352,17 +359,19 @@
         function calc_charges_gtotal() {
             var total_chr = 0;
             var amount = $("#amount").val();
-
+            
             $('.total_chr').each(function() {
                 total_chr += parseFloat($(this).val());
             });
 
             sub_total_charges = (total_chr ? total_chr : 0);
             amount = (amount ? amount : 0);
-
+            
             //ASSIGN VALUE TO TEXTBOXES
             $('#sub_total_txt_charges').val(parseFloat(sub_total_charges).toFixed(2));
             $('#change').val(sub_total_charges-amount);
+            //$('#total_tax_txt').val(parseFloat(total_tax));
+            // $('#net_total_txt').val(parseFloat(net_total));
             /////////////
 
         }
@@ -371,9 +380,9 @@
         //////////////////////////
         
         ///////////////////
-        paymentforDDL();
+        //paymentforDDL();
         //GET product DROPDOWN LIST
-        function paymentforDDL() {
+        function paymentforDDL(id='') {
 
             let paymentfor_ddl = '';
             $.ajax({
@@ -387,7 +396,7 @@
 
                     $.each(data, function(index, value) {
 
-                        paymentfor_ddl += '<option value="' + value.id + '">' + value.name+ '</option>';
+                        paymentfor_ddl += '<option value="' + value.id + '" '+(value.id == id ? "selected=''": "")+' >' + value.name+ '</option>';
 
                     });
 
@@ -403,9 +412,9 @@
         ///////////////////
        
         ///////////////////
-        paymentMethodDDL();
+        //paymentMethodDDL();
         //GET product DROPDOWN LIST
-        function paymentMethodDDL() {
+        function paymentMethodDDL(id='') {
 
             let paymentMethod_ddl = '';
             $.ajax({
@@ -419,7 +428,7 @@
 
                     $.each(data, function(index, value) {
 
-                        paymentMethod_ddl += '<option value="' + value.id + '">' + value.name+ '</option>';
+                        paymentMethod_ddl += '<option value="' + value.id + '" '+(value.id == id ? "selected=''": "")+' >' + value.name+ '</option>';
 
                     });
 
@@ -435,9 +444,9 @@
         ///////////////////
 
         ///////////////////
-        categoryDDL();
+        //categoryDDL();
         //GET product DROPDOWN LIST
-        function categoryDDL() {
+        function categoryDDL(id='') {
 
             let category_ddl = '';
             $.ajax({
@@ -451,7 +460,7 @@
 
                     $.each(data, function(index, value) {
 
-                        category_ddl += '<option value="' + value.id + '">' + value.name+ '</option>';
+                        category_ddl += '<option value="' + value.id + '" '+(value.id == id ? "selected=''": "")+' >' + value.name+ '</option>';
 
                     });
 
@@ -465,5 +474,83 @@
             });
         }
         ///////////////////
+
+        ///////////////////
+        ////UPDATE PORTION
+        //////////////////
+        get_expense_header_and_detail(expense_id);
+        //counter = 0;
+        function get_expense_header_and_detail(expense_id)
+        {
+            //GET expense 
+            $.ajax({
+                url: site_url + "hr_finance/C_expenses/getexpensesJSON/"+expense_id,
+                type: 'GET',
+                dataType: "JSON",
+                //data: {account_types:account_type},
+                //dataType: 'json', // added data type
+                success: function(data) {
+                    // console.log(data);
+                    $.each(data, function(index, value) {
+                        categoryDDL(value.category_id);
+                        paymentforDDL(value.payment_for_id);
+                        paymentMethodDDL(value.payment_method_id);
+                        $('#description').val(value.note);
+                        $('#date_issued').val(value.date_issued);
+                        $('#amount').val(value.amount);
+                        $('#receipted_file_old').val(value.receipted_file);
+                        
+                    });
+                    
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                }
+            });
+            //////
+
+            //GET expense ITEMS
+            $.ajax({
+                url: site_url + "hr_finance/C_expenses/getExpenseItemsJSON/"+expense_id,
+                type: 'GET',
+                dataType: "JSON",
+                //data: {account_types:account_type},
+                success: function(data) {
+                    // console.log(data);
+                    
+                    $.each(data, function(index, value) {
+                        counter_chr++;
+                        var div = '<tr><td>' + counter_chr + '</td>' +
+                            '<td width="25%"><select  class="form-control charge_id" id="chargeid_' + counter_chr + '" name="charge_id[]"></select></td>' +
+                            //'<td class="text-right"><input type="text"  class="form-control description_chr" id="descriptionchr_' + counter_chr + '" name="description_chr[]" value="" ></td>' +
+                            //'<td class="text-right" width="10%"><input type="number" min="1" class="form-control qty_chr" id="qtychr_' + counter_chr + '" name="qty_chr[]" value="1" autocomplete="off"></td>' +
+                            '<td class="text-right"><input type="number" class="form-control unit_price_chr" id="unitpricechr_' + counter_chr + '" name="unit_price_chr[]" value="'+value.amount+'" autocomplete="off">' +
+                            '<td width="20%"><select  class="form-control subcategory_id" id="subcategoryid_' + counter_chr + '" name="subcategory_id[]"></select></td>' +
+                            '<td class=""> <input type="number" class="form-control text-right total_chr" id="totalchr_' + counter_chr + '" name="total_chr[]" value="'+value.amount+'" readonly=""></td>' +
+                            '<td><i id="removeItem" class="fa fa-trash-o fa-1x"  style="color:red;"></i></td></tr>';
+                        $('.create_charges_table').append(div);
+
+                        chargesDDL(counter_chr,value.expense_item_id);
+                        subCategoryDDL(counter_chr,value.subcategory_id);
+                        
+                        //SELECT 2 DROPDOWN LIST   
+                        $('#chargeid_' + counter_chr).select2();
+                        $('#subcategoryid_' + counter_chr).select2();
+                        ///
+
+                        calc_charges_gtotal();
+                    });
+
+                    price_change();
+                    
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                }
+            });
+            /////
+        }
     });
 </script>

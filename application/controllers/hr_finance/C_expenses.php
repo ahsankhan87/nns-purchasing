@@ -80,7 +80,7 @@ class C_expenses extends MY_Controller
         $this->load->view('templates/footer');
     }
 
-    public function editexpenses($invoice_no)
+    public function edit($expense_id)
     {
         $data = array('langs' => $this->session->userdata('lang'));
 
@@ -88,22 +88,17 @@ class C_expenses extends MY_Controller
         $data['main'] = lang('edit') . ' ' . lang('expenses');
 
         $data['expenseType'] = ''; //$expenseType;//CASH, CREDIT, CASH RETURN AND CREDIT RETURN
-        $data['invoice_no'] = $invoice_no;
+        $data['expense_id'] = $expense_id;
         $data['edit'] = true;
         //$data['isEstimate'] = $isEstimate;
 
-        //$data['itemDDL'] = $this->M_items->get_allItemsforJSON();
-        $data['customersDDL'] = $this->M_customers->getCustomerDropDown();
-        $data['supplier_cust'] = $this->M_suppliers->get_cust_supp();
-        $data['emp_DDL'] = $this->M_employees->getEmployeeDropDown();
-
         $this->load->view('templates/header', $data);
-        $this->load->view('hr_finance/expenses/v_editexpensesProduct', $data);
+        $this->load->view('hr_finance/expenses/v_edit_expense', $data);
         $this->load->view('templates/footer');
     }
 
     //expense the projuct angularjs
-    public function expenseProducts()
+    public function expenseProducts($edit = null,$expense_id=null)
     {
         $total_amount = 0;
         $discount = 0;
@@ -114,12 +109,13 @@ class C_expenses extends MY_Controller
 
             if (count((array)$this->input->post('charge_id')) > 0) {
                 $this->db->trans_start();
-                //GET PREVIOISE INVOICE NO  
-                // @$prev_invoice_no = $this->M_expenses->getMAXexpenseInvoiceNo();
-                // //$number = (int) substr($prev_invoice_no,11)+1; // EXTRACT THE LAST NO AND INCREMENT BY 1
-                // //$new_invoice_no = 'POS'.date("Ymd").$number;
-                // $number = (int) $prev_invoice_no + 1; // EXTRACT THE LAST NO AND INCREMENT BY 1
-                // $new_invoice_no = 'S' . $number;
+                
+                //IF EDIT THEN DELETE ALL INVOICES AND INSERT AGAIN
+                if($edit != null)
+                {
+                    $this->delete($expense_id,false);
+                }
+
                 $date_issued = $this->input->post("date_issued");
                 //GET ALL ACCOUNT CODE WHICH IS TO BE POSTED AMOUNT
                 $user_id = $_SESSION['user_id'];
@@ -136,7 +132,19 @@ class C_expenses extends MY_Controller
                 $cross_checked = $this->input->post("cross_checked");
                 $total_amount =  $this->input->post("sub_total_charges");
                 
+                if (isset($_FILES['receipted_file']) && $_FILES['receipted_file']['error'] == 0) {
+
+                // uploads image in the folder images
+                    $temp = explode(".", $_FILES["receipted_file"]["name"]);
+                    $newfilename = substr(md5(time()), 0, 10) . '.' . end($temp);
+                    move_uploaded_file($_FILES['receipted_file']['tmp_name'], 'images/expenses/' . $newfilename);
+                    $receipted_file = $newfilename;
+                }else{
+                    $receipted_file = $this->input->post('receipted_file_old');
+                }
+
                 $data = array(
+                    //($edit != null ? 'id' : '') => ($edit != null ? $expense_id : ''),
                     'company_id' => $company_id,
                     'payment_for_id' => $payment_for_id,
                     'user_id' => $user_id,
@@ -150,7 +158,7 @@ class C_expenses extends MY_Controller
                     'receipted'=>$receipted,
                     'cross_checked'=>$cross_checked,
                     'note'=>$note,
-                    
+                    'receipted_file'=>$receipted_file,
                 );
                 $this->db->insert('finance_expenses', $data);
                 $expense_id = $this->db->insert_id();
@@ -238,79 +246,81 @@ class C_expenses extends MY_Controller
         }
     }
 
-    function getexpensesItemsJSON($invoice_no)
+    function getExpenseItemsJSON($expenses_id)
     {
-        $data = $this->M_expenses->get_expenses_items_only($invoice_no);
+        $data = $this->M_expenses->get_expenses_items_only($expenses_id);
+        print_r(json_encode($data));
 
-        $outp = "";
-        foreach ($data as $rs) {
-            //$tm =  json_decode($rs["teams_id"]);
-            //print_r($tm);
+        // $outp = "";
+        // foreach ($data as $rs) {
+        //     //$tm =  json_decode($rs["teams_id"]);
+        //     //print_r($tm);
 
-            if ($outp != "") {
-                $outp .= ",";
-            }
+        //     if ($outp != "") {
+        //         $outp .= ",";
+        //     }
 
-            $outp .= '{"item_id":"'  . $rs["item_id"] . '",';
-            $outp .= '"size_id":"'   . $rs["size_id"] . '",';
-            $outp .= '"unit_id":"'   . $rs["unit_id"] . '",';
-            $outp .= '"item_cost_price":"'   . $rs["item_cost_price"] . '",';
-            $outp .= '"item_unit_price":"'   . $rs["item_unit_price"] . '",';
-            $outp .= '"quantity_sold":"'   . $rs["quantity_sold"] . '",';
-            $outp .= '"discount_percent":"'   . $rs["discount_percent"] . '",';
-            $outp .= '"discount_value":"'   . $rs["discount_value"] . '",';
-            $outp .= '"tax_id":"'   . $rs["tax_id"] . '",';
-            $outp .= '"tax_rate":"'   . $rs["tax_rate"] . '",';
-            $outp .= '"tax_name":"",';
-            $outp .= '"inventory_acc_code":"'   . $rs["inventory_acc_code"] . '",';
-            $outp .= '"service":"'   . $rs["service"] . '",';
+        //     $outp .= '{"item_id":"'  . $rs["item_id"] . '",';
+        //     $outp .= '"size_id":"'   . $rs["size_id"] . '",';
+        //     $outp .= '"unit_id":"'   . $rs["unit_id"] . '",';
+        //     $outp .= '"item_cost_price":"'   . $rs["item_cost_price"] . '",';
+        //     $outp .= '"item_unit_price":"'   . $rs["item_unit_price"] . '",';
+        //     $outp .= '"quantity_sold":"'   . $rs["quantity_sold"] . '",';
+        //     $outp .= '"discount_percent":"'   . $rs["discount_percent"] . '",';
+        //     $outp .= '"discount_value":"'   . $rs["discount_value"] . '",';
+        //     $outp .= '"tax_id":"'   . $rs["tax_id"] . '",';
+        //     $outp .= '"tax_rate":"'   . $rs["tax_rate"] . '",';
+        //     $outp .= '"tax_name":"",';
+        //     $outp .= '"inventory_acc_code":"'   . $rs["inventory_acc_code"] . '",';
+        //     $outp .= '"service":"'   . $rs["service"] . '",';
 
-            $item_name = $this->M_items->get_ItemName($rs["item_id"]);
-            $outp .= '"name":"'   . @$item_name . '",';
+        //     $item_name = $this->M_items->get_ItemName($rs["item_id"]);
+        //     $outp .= '"name":"'   . @$item_name . '",';
 
             
-            $outp .= '"invoice_no":"' . $rs["invoice_no"]     . '"}';
-        }
+        //     $outp .= '"invoice_no":"' . $rs["invoice_no"]     . '"}';
+        // }
 
-        $outp = '[' . $outp . ']';
-        echo $outp;
+        // $outp = '[' . $outp . ']';
+        // echo $outp;
     }
 
 
-    function getexpensesJSON($invoice_no)
+    function getexpensesJSON($id)
     {
-        $data = $this->M_expenses->get_expenses_by_invoice($invoice_no);
+        $data = $this->M_expenses->get_expenses($id);
+        print_r(json_encode($data));
 
-        $outp = "";
-        foreach ($data as $rs) {
-            //$tm =  json_decode($rs["teams_id"]);
-            //print_r($tm);
+        // $outp = "";
+        // foreach ($data as $rs) {
+        //     //$tm =  json_decode($rs["teams_id"]);
+        //     //print_r($tm);
 
-            if ($outp != "") {
-                $outp .= ",";
-            }
+        //     if ($outp != "") {
+        //         $outp .= ",";
+        //     }
 
-            $outp .= '{"expense_time":"'  . $rs["expense_time"] . '",';
-            $outp .= '"expense_date":"'   . $rs["expense_date"] . '",';
-            $outp .= '"customer_id":"'   . $rs["customer_id"] . '",';
-            $outp .= '"employee_id":"'   . $rs["employee_id"] . '",';
-            $outp .= '"user_id":"'   . $rs["user_id"] . '",';
-            $outp .= '"register_mode":"'   . $rs["register_mode"] . '",';
-            $outp .= '"account":"'   . $rs["account"] . '",';
-            $outp .= '"description":"'   . $rs["description"] . '",';
-            $outp .= '"discount_value":"'   . $rs["discount_value"] . '",';
-            $outp .= '"total_amount":"'   . $rs["total_amount"] . '",';
-            $outp .= '"total_tax":"'   . $rs["total_tax"] . '",';
-            $outp .= '"paid":"'   . $rs["paid"] . '",';
-            $outp .= '"is_taxable":"'   . $rs["is_taxable"] . '",';
+        //     $outp .= '{"expense_time":"'  . $rs["expense_time"] . '",';
+        //     $outp .= '"expense_date":"'   . $rs["expense_date"] . '",';
+        //     $outp .= '"customer_id":"'   . $rs["customer_id"] . '",';
+        //     $outp .= '"employee_id":"'   . $rs["employee_id"] . '",';
+        //     $outp .= '"user_id":"'   . $rs["user_id"] . '",';
+        //     $outp .= '"register_mode":"'   . $rs["register_mode"] . '",';
+        //     $outp .= '"account":"'   . $rs["account"] . '",';
+        //     $outp .= '"description":"'   . $rs["description"] . '",';
+        //     $outp .= '"discount_value":"'   . $rs["discount_value"] . '",';
+        //     $outp .= '"total_amount":"'   . $rs["total_amount"] . '",';
+        //     $outp .= '"total_tax":"'   . $rs["total_tax"] . '",';
+        //     $outp .= '"paid":"'   . $rs["paid"] . '",';
+        //     $outp .= '"is_taxable":"'   . $rs["is_taxable"] . '",';
 
-            $outp .= '"exchange_rate":"'   . $rs["exchange_rate"] . '",';
-            $outp .= '"currency_id":"'   . $rs["currency_id"] . '",';
+        //     $outp .= '"exchange_rate":"'   . $rs["exchange_rate"] . '",';
+        //     $outp .= '"currency_id":"'   . $rs["currency_id"] . '",';
 
-            $outp .= '"invoice_no":"' . $rs["invoice_no"]     . '"}';
-        }
+        //     $outp .= '"invoice_no":"' . $rs["invoice_no"]     . '"}';
+        // }
 
-        $outp = '[' . $outp . ']';
-        echo $outp;
+        // $outp = '[' . $outp . ']';
+        // echo $outp;
     }
 }

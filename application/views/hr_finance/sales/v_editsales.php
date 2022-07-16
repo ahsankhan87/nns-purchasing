@@ -239,22 +239,17 @@
                         <th class="text-right lead" id="net_total">0.00</th>
                         <th><input type="hidden" name="net_total" id="net_total_txt" value=""></th>
                     </tr> -->
-                </tfoot>
-            </table>
-            <!-- <div id="top_net_total" class="text-right"></div> -->
-            <table class="table table-striped table-bordered">
-                <tbody>
                     <tr>
-                        <th></th><th></th><th></th><th></th>
-                        <th colspan="4"  class="text-right">
-                        </th>
+                        <th colspan="4" ></th>
+                        
                         <th class="text-right">Grand Total ₱:</th>
                         <!-- <th class="text-right" id="sub_total">0.00</th> -->
                         <th><input type="text" name="grand_total" class="form-control text-right" id="grand_total" readonly="" value=""></th>
                     </tr>
-                   
-                </tbody>
+                </tfoot>
             </table>
+            <!-- <div id="top_net_total" class="text-right"></div> -->
+            
         </div>
     </div><!-- close here -->
 
@@ -623,11 +618,10 @@
                 var formData = new FormData(this);
                 var files = $('.payment_file')[0].files;
                 
-                if(files != undefined){
-                    
-                }
-                formData.append('payment_file',files[0]);
+                if(files.length > 0){
+                    formData.append('payment_file',files[0]);
                
+                }
                 
                    $.ajax({
                         type: "POST",
@@ -696,7 +690,7 @@
             /* Serialize the submitted form control values to be sent to the web server with the request */
             var formValues = $(this).serialize();
 
-            console.log($('#item_id').val());
+            //console.log($('#item_id').val());
 
              if ($('#name').val() == 0) {
                 toastr.error("Please enter name", 'Error!');
@@ -1197,7 +1191,7 @@
             //////////////////////////
 
 
-         ///////////////////
+        ///////////////////
         ////UPDATE PORTION
         //////////////////
         get_sales_header_and_detail(invoice_no);
@@ -1373,7 +1367,7 @@
                 dataType: "JSON",
                 //data: {account_types:account_type},
                 success: function(data) {
-                    console.log(data);
+                    //console.log(data);
                     
                     $.each(data, function(index, value) {
                         counter_summary++;

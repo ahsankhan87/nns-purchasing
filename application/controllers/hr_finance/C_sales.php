@@ -94,9 +94,9 @@ class C_sales extends MY_Controller
         //$data['isEstimate'] = $isEstimate;
 
         //$data['itemDDL'] = $this->M_items->get_allItemsforJSON();
-        $data['customersDDL'] = $this->M_customers->getCustomerDropDown();
-        $data['supplier_cust'] = $this->M_suppliers->get_cust_supp();
-        $data['emp_DDL'] = $this->M_employees->getEmployeeDropDown();
+        // $data['customersDDL'] = $this->M_customers->getCustomerDropDown();
+        // $data['supplier_cust'] = $this->M_suppliers->get_cust_supp();
+        // $data['emp_DDL'] = $this->M_employees->getEmployeeDropDown();
 
         $this->load->view('templates/header', $data);
         $this->load->view('hr_finance/sales/v_editsales', $data);
