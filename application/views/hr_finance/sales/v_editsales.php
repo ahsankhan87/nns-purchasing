@@ -576,6 +576,7 @@
             total_ded  = (total_ded ? total_ded : 0);
             total_charges = (total_charges ? total_charges : 0);
             total_payment_summary = (total_payment_summary ? total_payment_summary : 0);
+            balance = ((parseFloat(grand_total)-parseFloat(total_payment_summary)));
             
             grand_total = ((parseFloat(products_total) + parseFloat(total_charges)) - parseFloat(total_ded));
             $('#grand_total').val(parseFloat(grand_total));
@@ -1070,7 +1071,8 @@
             $('#summarypaymenttermsid_' + counter_summary).select2();
             $('#paymentmethodid_' + counter_summary).select2();
             ///
-            
+            amount_changed();
+
         });
         //$(".add_new_payment_summary").trigger("click"); //ADD NEW LINE WHEN PAGE LOAD BY DEFAULT
 
@@ -1085,6 +1087,16 @@
             clearall_payment_summary();
         });
         
+        function amount_changed()
+        {
+            console.log('sahsan');
+            $(".amount").on("keyup change", function(e) {
+                calc_payment_summary_gtotal();
+                calc_grand_total();
+            });
+        
+        }
+       
         function clearall_payment_summary()
         {
             counter_summary = 0;
@@ -1393,6 +1405,7 @@
                         $('#summarypaymenttermsid_' + counter_summary).select2();
                         //$('#paymentmethodid_' + counter_summary).select2();
                         ///
+                        amount_changed();
 
                         calc_payment_summary_gtotal();
                         calc_grand_total();
