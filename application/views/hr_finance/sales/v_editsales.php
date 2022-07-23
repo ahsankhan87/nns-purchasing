@@ -68,7 +68,7 @@
 
             <label class="control-label col-sm-5" for="balance">Balance:</label>
             <div class="col-sm-7">
-                <input type="number" name="balance" id="balance" readonly="" class="form-control">
+                <input type="number" name="balance" id="balance" value="0" readonly="" class="form-control">
             </div>
             <label class="control-label col-sm-5" for="status" readonly="">Status:</label>
             <div class="col-sm-7">
@@ -280,12 +280,13 @@
                             <a href="#" class="btn btn-info btn-sm add_new_payment_summary" name="add_new">Add lines</a>
                             <a href="#" class="btn btn-info btn-sm clear_all_payment_summary" name="clear_all">Clear all</a>
                             <!-- <textarea name="description" id="description" class="form-control" placeholder="Description" cols="5" rows="6"></textarea> -->
+                        
+                            <input type="hidden" name="sub_total_payment_summary" class="form-control text-right" id="sub_total_txt_payment_summary" readonly="" value=""> 
                         </td>
                         <!-- <th class="text-right">Payment Summary Total ₱:</th>
                         <th class="text-right" id="sub_total">0.00</th>
                         <th><input type="text" name="sub_total_payment_summary" class="form-control text-right" id="sub_total_txt_charges" readonly="" value=""></th> -->
-                        <input type="hidden" name="sub_total_payment_summary" class="form-control text-right" id="sub_total_txt_payment_summary" readonly="" value=""> 
-                    
+                        
                     </tr> 
                     <!-- <tr>
                     
@@ -576,6 +577,8 @@
             total_ded  = (total_ded ? total_ded : 0);
             total_charges = (total_charges ? total_charges : 0);
             total_payment_summary = (total_payment_summary ? total_payment_summary : 0);
+            
+            grand_total = ((parseFloat(products_total) + parseFloat(total_charges)) - parseFloat(total_ded));
             balance = ((parseFloat(grand_total)-parseFloat(total_payment_summary)));
             
             grand_total = ((parseFloat(products_total) + parseFloat(total_charges)) - parseFloat(total_ded));
@@ -585,13 +588,14 @@
             $('#net_total').text(parseFloat(grand_total).toLocaleString('en-US', 2));
             $('#top_net_total').html('Grand Total:<h2 style="margin:0">'+parseFloat(grand_total).toLocaleString('en-US', 2)+'</h2>');
             
-            if(balance == grand_total)
+            
+            if(balance > 0 && balance == grand_total)
             {
-                $('#status').val("Paid");
-            }else if(grand_total > balance || grand_total < balance ){
-                $('#status').val("Partial Paid");
-            }else{
                 $('#status').val("Unpaid");
+            }else if(balance == 0){
+                $('#status').val("Paid");
+            }else{
+                $('#status').val("Partial Paid");
             }
         }
         function calc_gtotal() {
@@ -1067,9 +1071,9 @@
             summary_status(counter_summary);
             paymentMethodDDL(counter_summary);
             //SELECT 2 DROPDOWN LIST   
-            $('#amountid_' + counter_summary).select2();
-            $('#summarypaymenttermsid_' + counter_summary).select2();
-            $('#paymentmethodid_' + counter_summary).select2();
+            //$('#amountid_' + counter_summary).select2();
+            //$('#summarypaymenttermsid_' + counter_summary).select2();
+            //$('#paymentmethodid_' + counter_summary).select2();
             ///
             amount_changed();
 
@@ -1089,7 +1093,6 @@
         
         function amount_changed()
         {
-            console.log('sahsan');
             $(".amount").on("keyup change", function(e) {
                 calc_payment_summary_gtotal();
                 calc_grand_total();
@@ -1185,9 +1188,8 @@
         /////////////ADD NEW LINES END HERE
         function calc_payment_summary_gtotal() {
             var total_chr = 0;
-            var net_total = 0;
-
-            $('.total_chr').each(function() {
+            
+            $('.amount').each(function() {
                 total_chr += parseFloat($(this).val());
             });
 
@@ -1401,8 +1403,8 @@
                         paymentMethodDDL(counter_summary,value.payment_method);
 
                         //SELECT 2 DROPDOWN LIST   
-                        $('#amountid_' + counter_summary).select2();
-                        $('#summarypaymenttermsid_' + counter_summary).select2();
+                        //$('#amountid_' + counter_summary).select2();
+                        //$('#summarypaymenttermsid_' + counter_summary).select2();
                         //$('#paymentmethodid_' + counter_summary).select2();
                         ///
                         amount_changed();
@@ -1421,7 +1423,6 @@
 
         }//end function
 
-       
         ////////////
         //UPDATE END
     });

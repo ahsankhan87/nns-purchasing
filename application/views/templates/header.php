@@ -248,7 +248,7 @@ var path = '<?php echo base_url(); ?>';</script>
                 
 			    <li <?php echo ($url2 == 'Dashboard' || $url2 == 'pos' || $url2 == 'trans' || $url2 == 'reports' ? "class='active'" : '') ?>>
 					<a href="javascript:;">
-					<i class="icon-plus"></i>
+					<i class="fa fa-shopping-cart"  aria-hidden="true"></i>
 					<span class="title">Purchasing</span>
 					<span class="arrow "></span>
 					</a>
@@ -380,7 +380,7 @@ var path = '<?php echo base_url(); ?>';</script>
 				</li>
 				<li <?php echo ($url2 == 'rd' ? "class='active'" : '') ?>>
 					<a href="javascript:;">
-					<i class="icon-present"></i>
+					<i class="fa fa-building-o" aria-hidden="true"></i>
 					<span class="title">R&D</span>
 					<span class="arrow "></span>
 					</a>
@@ -403,7 +403,7 @@ var path = '<?php echo base_url(); ?>';</script>
 				</li>
 				<li <?php echo ($url2 == 'farm' ? "class='active'" : '') ?>>
 					<a href="javascript:;">
-					<i class="icon-present"></i>
+					<i class="fa fa-crop" aria-hidden="true"></i>
 					<span class="title">Farm</span>
 					<span class="arrow "></span>
 					</a>
@@ -453,7 +453,7 @@ var path = '<?php echo base_url(); ?>';</script>
 				</li>
 				<li <?php echo ($url2 == 'hr_finance' ? "class='active'" : '') ?>>
 					<a href="javascript:;">
-					<i class="icon-present"></i>
+					<i class="fa fa-book" aria-hidden="true"></i>
 					<span class="title">HR & Finance</span>
 					<span class="arrow "></span>
 					</a>

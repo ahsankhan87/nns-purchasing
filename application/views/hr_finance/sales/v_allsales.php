@@ -73,7 +73,7 @@
                         $total_amount = 0;
                         foreach ($sales as $key => $list) {
                             $total_balance += $list['balance'];
-                            $total_amount += $list['total_amount'];
+                            $total_amount += ($list['total_amount']+$list['charges_total']-$list['deduction_total']);
 
                             echo '<tr>';
                             //echo '<td>'.form_checkbox('p_id[]',$list['id'],false).'</td>';
@@ -87,7 +87,7 @@
                             echo '<td>'.anchor('production/C_customers/payment_detail/'.$list['customer_id'],'<span class="">'.$name.'</span>', '').'</td>';
 
                             echo '<td>' . $this->M_payment_terms->get_payment_termsName($list['payment_terms_id']) . '</td>';
-                            echo '<td>₱' . number_format($list['total_amount'],2) . '</td>';
+                            echo '<td>₱' . number_format(($list['total_amount']+$list['charges_total']-$list['deduction_total']),2) . '</td>';
                             echo '<td>' . $list['delivery_date'] . '</td>';
                             echo '<td>₱' . number_format($list['balance'],2) . '</td>';
                             $last_payment_date = $this->M_sales->get_last_payment_date_by_invoice($list['invoice_no']);

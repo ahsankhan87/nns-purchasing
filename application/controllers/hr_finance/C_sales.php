@@ -230,7 +230,7 @@ class C_sales extends MY_Controller
                         'invoice_no' => $new_invoice_no,
                         'customer_id' => $customer_id,
                         'description' => $narration,
-                        'debit' => ($status == "Unpaid" ? $net_total : 0),
+                        'debit' => ($status == "Unpaid" || $status == "Partial Paid"? $net_total : 0),
                         'credit' => ($status == "Paid" ? $net_total : 0),
                         'date' => $sale_date,
                         'payment_status' => $status,

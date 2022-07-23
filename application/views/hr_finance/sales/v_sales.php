@@ -18,7 +18,7 @@
         <div class="col-sm-4">
             <label class="control-label col-sm-5" for="payment_terms">Payment Terms:</label>
             <div class="col-sm-7">
-                <select class="form-control select2me" id="payment_terms" name="payment_terms">
+                <select class="form-control" id="payment_terms" name="payment_terms">
                    
                 </select> 
                 
@@ -69,12 +69,12 @@
             
             <label class="control-label col-sm-5" for="balance">Balance:</label>
             <div class="col-sm-7">
-                <input type="number" name="balance" id="balance" readonly="" class="form-control">
+                <input type="number" name="balance" id="balance" value="0"  readonly="" class="form-control">
             </div>
 
             <label class="control-label col-sm-5" for="status">Status:</label>
             <div class="col-sm-7">
-                <select class="form-control" id="status" name="status">
+                <select class="form-control" id="status" name="status" readonly="">
                     <option value="Paid">Paid</option>
                     <option value="Unpaid">Unpaid</option>
                     <option value="Partial Paid">Partial Paid</option>
@@ -602,13 +602,13 @@
             $('#net_total').text(parseFloat(grand_total).toLocaleString('en-US', 2));
             $('#top_net_total').html('Grand Total:<h2 style="margin:0">'+parseFloat(grand_total).toLocaleString('en-US', 2)+'</h2>');
             
-            if(grand_total == balance)
+            if(balance > 0 && balance == grand_total)
             {
-                $('#status').val("Paid");
-            }else if(grand_total > balance){
-                $('#status').val("Partial Paid");
-            }else{
                 $('#status').val("Unpaid");
+            }else if(balance == 0){
+                $('#status').val("Paid");
+            }else{
+                $('#status').val("Partial Paid");
             }
         }
         
@@ -1068,9 +1068,9 @@
             summary_status(counter_summary);
             paymentMethodDDL(counter_summary);
             //SELECT 2 DROPDOWN LIST   
-            $('#amountid_' + counter_summary).select2();
-            $('#summarypaymenttermsid_' + counter_summary).select2();
-            $('#paymentmethodid_' + counter_summary).select2();
+            //$('#amountid_' + counter_summary).select2();
+            //$('#summarypaymenttermsid_' + counter_summary).select2();
+            //$('#paymentmethodid_' + counter_summary).select2();
             
             ///
             //GET TOTAL WHEN QTY CHANGE
@@ -1187,7 +1187,7 @@
             $('.amount').each(function() {
                 total_chr += parseFloat($(this).val());
             });
-            console.log(total_chr);
+            //console.log(total_chr);
             sub_total_payment_summary = (total_chr ? total_chr : 0);
 
             //ASSIGN VALUE TO TEXTBOXES
