@@ -248,17 +248,17 @@ class C_sales extends MY_Controller
                     
                     if ($value != "") {
                         $charge_id  = htmlspecialchars(trim($value));
-                        $qty = $this->input->post('qty')[$key];
+                        $qty_chr = $this->input->post('qty_chr')[$key];
                         $description_chr = $this->input->post('description_chr')[$key];
-                        $price = $this->input->post('unit_price_chr')[$key];
+                        $price_chr = $this->input->post('unit_price_chr')[$key];
                         
                         $data = array(
                             'sale_id' => $sale_id,
                             'invoice_no' => $new_invoice_no,
                             'charges_id' => $charge_id,
                             'description' => $description_chr,
-                            'qty' => $qty,
-                            'price' => $price,
+                            'qty' => $qty_chr,
+                            'price' => $price_chr,
                             'sale_date' => $sale_date,
                             'date_created' => date("Y-m-d H:i:s"),
                         );
@@ -272,17 +272,17 @@ class C_sales extends MY_Controller
                     
                     if ($value != "") {
                         $deduction_id  = htmlspecialchars(trim($value));
-                        $qty = $this->input->post('qty_ded')[$key];
-                        $description_chr = $this->input->post('description_chr')[$key];
-                        $price = $this->input->post('unit_price_ded')[$key];
+                        $qty_ded = $this->input->post('qty_ded')[$key];
+                        $description_ded = $this->input->post('description_chr')[$key];
+                        $price_ded = $this->input->post('unit_price_ded')[$key];
                         
                         $data = array(
                             'sale_id' => $sale_id,
                             'invoice_no' => $new_invoice_no,
                             'deduction_id' => $deduction_id,
-                            'description' => $description_chr,
-                            'qty' => $qty,
-                            'price' => $price,
+                            'description' => $description_ded,
+                            'qty' => $qty_ded,
+                            'price' => $price_ded,
                             'sale_date' => $sale_date,
                             'date_created' => date("Y-m-d H:i:s"),
                         );

@@ -312,7 +312,7 @@
         
     </div><!-- close here -->
 
-    <?php echo form_submit('', 'Update', 'class="btn btn-success"'); ?>
+    <?php echo form_submit('', 'Update', 'id="btn_save" class="btn btn-success"'); ?>
 </form>
 <!-- Modal -->
 <div class="modal fade" id="customerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -616,13 +616,15 @@
 
         $("#sale_form").on("submit", function(e) {
             e.preventDefault();
-            var confirmSale = confirm('Are you sure you want to save?');
-           
+            $("#btn_save").attr('disabled','disabled');
+            
+            var confirmSale = confirm('Are you sure you want to update?');
+            
             if (confirmSale) {
+                console.log($('.payment_file')[0].files);
 
                 var formData = new FormData(this);
                 var files = $('.payment_file')[0].files;
-                
                 if(files.length > 0){
                     formData.append('payment_file',files[0]);
                
@@ -648,7 +650,7 @@
                             {
                                 toastr.error("Invoice number exist!",'Error');
                             }
-                            
+                            $("#btn_save").removeAttr('disabled','disabled');
                         }
                     });
                 
@@ -809,6 +811,7 @@
         $("#charges_table").on("click", "#removeItem", function() {
             $(this).closest("tr").remove();
             calc_charges_gtotal();
+            calc_grand_total();
         });
 
         ////////// CLEAR ALL TABLE
@@ -818,11 +821,12 @@
         
         function clearall_charges()
         {
-            counter_chr = 0;
-            calc_charges_gtotal();
             $('#sub_total_charges').html(parseFloat('0').toFixed(2));
             $("#charges_table > tbody").empty();
             
+            calc_charges_gtotal();
+            calc_grand_total();
+
             $(".add_new_charges").trigger("click");//add new line
         }
 
@@ -943,6 +947,7 @@
         $("#deduction_table").on("click", "#removeItem", function() {
             $(this).closest("tr").remove();
             calc_deduction_gtotal();
+            calc_grand_total();
         });
 
         ////////// CLEAR ALL TABLE
@@ -952,11 +957,11 @@
         
         function clearall_deduction()
         {
-            counter_ded = 0;
-            calc_deduction_gtotal();
             $('#sub_total_deduction').html(parseFloat('0').toFixed(2));
             $("#deduction_table > tbody").empty();
-            
+            calc_deduction_gtotal();
+            calc_grand_total();
+
             $(".add_new_deduction").trigger("click");//add new line
         }
 
@@ -1084,6 +1089,7 @@
         $("#payment_summary_table").on("click", "#removeItem", function() {
             $(this).closest("tr").remove();
             calc_payment_summary_gtotal();
+            calc_grand_total();
         });
 
         ////////// CLEAR ALL TABLE
@@ -1102,11 +1108,12 @@
        
         function clearall_payment_summary()
         {
-            counter_summary = 0;
-            calc_payment_summary_gtotal();
             $('#sub_total_payment_summary').html(parseFloat('0').toFixed(2));
             $("#payment_summary_table > tbody").empty();
             
+            calc_payment_summary_gtotal();
+            calc_grand_total();
+
             $(".add_new_payment_summary").trigger("click");//add new line
         }
         
@@ -1339,7 +1346,6 @@
                 //data: {account_types:account_type},
                 success: function(data) {
                     //console.log(data);
-                    
                     $.each(data, function(index, value) {
 
                         counter_ded++;
@@ -1381,8 +1387,11 @@
                 dataType: "JSON",
                 //data: {account_types:account_type},
                 success: function(data) {
-                    //console.log(data);
-                    
+                    console.log(data);
+                    if(data.length <= 0)
+                    {
+                        $(".add_new_payment_summary").trigger("click");//add new line
+                    }
                     $.each(data, function(index, value) {
                         counter_summary++;
             
