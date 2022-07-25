@@ -33,7 +33,7 @@
             $cr_total = (double)($list['credit']);
             echo '<tr valign="top">';
             echo '<td>'.date("m/d/Y",strtotime($list['date'])).'</td>';
-            echo '<td><a href="'.site_url('hr_finance/C_sales/detail/'.$list['invoice_no']).'">'.$list['invoice_no'].'</a></td>';
+            echo '<td><a href="'.site_url($langs.'/hr_finance/C_sales/detail/'.$list['invoice_no']).'">'.$list['invoice_no'].'</a></td>';
             echo '<td>'.$list['description'].'</td>';
             echo '<td>₱'.number_format(($dr_total == 0 ? $cr_total : $dr_total),2).'</td>';
             if($list['payment_status'] == 'Paid'){

@@ -81,7 +81,7 @@
                             echo '<td>'.$sno++.'</td>';
                             echo '<td>' . date('m/d/Y', strtotime($list['sale_date'])) . '</td>';
                             // echo '<td><a href="'.site_url('hr_finance/C_sales/detail/'.$list['invoice_no']).'">'.date('m/d/Y', strtotime($list['sale_date'])).'</a></td>';
-                            echo '<td><a href="'.site_url('hr_finance/C_sales/detail/'.$list['invoice_no']).'">'.$list['invoice_no'].'</a></td>';
+                            echo '<td><a href="'.site_url($langs.'/hr_finance/C_sales/detail/'.$list['invoice_no']).'">'.$list['invoice_no'].'</a></td>';
                             // echo '<td>' . $list['invoice_no'] . '</td>';
                             $name = $this->M_prod_customers->get_prod_customerName($list['customer_id']);
                             echo '<td>'.anchor('production/C_customers/payment_detail/'.$list['customer_id'],'<span class="">'.$name.'</span>', '').'</td>';
@@ -102,8 +102,8 @@
                             echo '<td> <span class="'.$label.'">' . $list['status'] . '</span></td>';
                             echo '<td>'.anchor('#','<span class="">View</span>', ' data-toggle="modal" data-target="#view_sales_'.$sno.'"').'</td>';
                             echo '<td>';
-                            echo  anchor('hr_finance/C_sales/editSales/'.$list['invoice_no'],' <i class="fa fa-pencil-square-o fa-fw"></i>');
-                            echo  anchor('hr_finance/C_sales/delete/'.$list['invoice_no'],' | <i class="fa fa-trash-o fa-fw"></i>','onclick="return confirm(\'Are you sure you want to delete?\')"');
+                            echo  anchor($langs.'/hr_finance/C_sales/editSales/'.$list['invoice_no'],' <i class="fa fa-pencil-square-o fa-fw"></i>');
+                            echo  anchor($langs.'/hr_finance/C_sales/delete/'.$list['invoice_no'],' | <i class="fa fa-trash-o fa-fw"></i>','onclick="return confirm(\'Are you sure you want to delete?\')"');
                             echo '</td>';
                             echo '</tr>';
                             ?>
