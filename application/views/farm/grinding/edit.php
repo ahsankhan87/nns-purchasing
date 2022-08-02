@@ -80,7 +80,7 @@ foreach($update_grinding as $row)
 <div class="form-group">
   <label class="control-label col-sm-2" for="Delivery">Delivery:</label>
   <div class="col-sm-10">
-    <input type="date" class="form-control" id="Delivery" name="delivery_date" value="<?php echo $row['delivery_date']; ?>" placeholder="Delivery" />
+    <input type="text" class="form-control" id="Delivery" name="delivery_date" value="" placeholder="Delivery" />
   </div>
 </div>
 

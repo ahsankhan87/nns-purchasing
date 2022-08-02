@@ -54,7 +54,7 @@
             echo '<td>'.$list['pond_no'].'</td>';
             echo '<td>'.number_format($list['unpressed_biomass'],5).'</td>';
             echo '<td>'.number_format($list['pressed_biomass'],5).'</td>';
-            echo '<td>'.$list['unit_id'].'</td>';
+            echo '<td>'.$this->M_units->get_unitName($list['unit_id']).'</td>';
             //echo '<td>'.$this->M_prod_customers->get_prod_customerName($list['customer_id']).'</td>';
             // echo '<td>'.date('m-d-Y',strtotime($list['delivery_date'])).'</td>';
             
