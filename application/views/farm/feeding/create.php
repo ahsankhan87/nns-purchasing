@@ -158,7 +158,7 @@ $(document).ready(function(){
 				$('#ibn_1').html(document_table);
 				$('#ibn_2').html(document_table);
 				$('#ibn_3').html(document_table);
-                $('#qty_1').html("cannot use more than "+parseFloat(balance).toFixed(2));
+        $('#qty_1').html("cannot use more than "+parseFloat(balance).toFixed(2));
 			},
 			error: function (xhr, ajaxOptions, thrownError) {
 				console.log(xhr.status);

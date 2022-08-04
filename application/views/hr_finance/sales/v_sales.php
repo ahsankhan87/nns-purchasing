@@ -509,10 +509,10 @@
         // });
 
         // /////////////////////////////////
-        // $("#sale_table").on("click", "#removeItem", function() {
-        //     $(this).closest("tr").remove();
-        //     calc_gtotal();
-        // });
+        $("#sale_table").on("click", "#removeItem", function() {
+            $(this).closest("tr").remove();
+            calc_gtotal();
+        });
 
         ////////// CLEAR ALL TABLE
         $(".clear_all").on("click", function() {

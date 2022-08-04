@@ -43,7 +43,7 @@ class C_feeding extends MY_Controller{
             
             //form Validation
             $this->form_validation->set_rules('item_id', 'Item', 'required');
-            $this->form_validation->set_error_delimiters('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><strong>', '</strong></div>');
+            $this->form_validation->set_error_delimiters('<div class="alert alert-danger"><a class="close" data-dismiss="alert">ï¿½</a><strong>', '</strong></div>');
             
             //after form Validation run
             if($this->form_validation->run())
@@ -156,7 +156,7 @@ class C_feeding extends MY_Controller{
         }
         // $data['productsDDL'] = $this->M_products->get_productsDDL();
         $data['inventoryDDL'] = $this->M_inventory->get_inventoryProductDDL();
-        $data['ibnDDL'] = $this->M_inventory->get_ibnDDL();
+        //$data['ibnDDL'] = $this->M_inventory->get_ibnDDL();
         $data['unitsDDL'] = $this->M_units->get_activeunitsDDL();
         
         $data['title'] = 'Add New Feeding';
@@ -175,7 +175,7 @@ class C_feeding extends MY_Controller{
         {
             //form Validation
             $this->form_validation->set_rules('item_id', 'Item', 'required');
-            $this->form_validation->set_error_delimiters('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><strong>', '</strong></div>');
+            $this->form_validation->set_error_delimiters('<div class="alert alert-danger"><a class="close" data-dismiss="alert">ï¿½</a><strong>', '</strong></div>');
             
             //after form Validation run
             if($this->form_validation->run())

@@ -165,7 +165,7 @@ class M_inventory extends CI_Model{
         $data = array();
         $data[''] = "--Please Select--";
         $this->db->select('prod_product_id,ibn');
-        
+        $this->db->where('(in_qty-out_qty-waste)  > 0');
         $query = $this->db->get_where('farm_inventory');
         
         if($query->num_rows() > 0)
