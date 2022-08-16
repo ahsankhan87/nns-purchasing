@@ -17,30 +17,30 @@
                     
             </div>
             
-                        <!--<div class="form-group">-->
-                         
-                        <!--     <label class="control-label col-sm-2" for="">Employee</label>-->
-                        <!--     <div class="col-sm-4">-->
-                        <!--        <?php echo form_dropdown('emp_id',$emp_DDL,'','class="form-control select2me"') ?>-->
-                                
-                        <!--     </div> -->
-                             
-                        <!--     <label class="control-label col-sm-2" for="">Register Mode</label>-->
-                        <!--     <div class="col-sm-4">-->
-                        <!--        <select class="form-control" name="register_mode">-->
-                        <!--            <option value="all">All</option>-->
-                        <!--            <option value="receive">Receive</option>-->
-                        <!--            <option value="return">Return</option>p-->
-                        <!--        </select>-->
-                        <!--     </div> -->
-                        <!--</div>-->
+                <!--<div class="form-group">-->
+                    
+                <!--     <label class="control-label col-sm-2" for="">Employee</label>-->
+                <!--     <div class="col-sm-4">-->
+                <!--        <?php echo form_dropdown('emp_id',$emp_DDL,'','class="form-control select2me"') ?>-->
                         
-                        <div class="form-group">
-                             
-                             <div class="col-sm-offset-2 col-sm-4">
-                              <button type="submit" class="btn btn-primary">Search</button>
-                            </div>
-                        </div>
+                <!--     </div> -->
+                        
+                <!--     <label class="control-label col-sm-2" for="">Register Mode</label>-->
+                <!--     <div class="col-sm-4">-->
+                <!--        <select class="form-control" name="register_mode">-->
+                <!--            <option value="all">All</option>-->
+                <!--            <option value="receive">Receive</option>-->
+                <!--            <option value="return">Return</option>p-->
+                <!--        </select>-->
+                <!--     </div> -->
+                <!--</div>-->
+                
+                <div class="form-group">
+                        
+                        <div class="col-sm-offset-2 col-sm-4">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </div>
+                </div>
                         
           
              </form>

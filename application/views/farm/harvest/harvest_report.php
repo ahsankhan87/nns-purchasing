@@ -40,7 +40,7 @@
                              <label class="control-label col-sm-2" for="">Status</label>
                              <div class="col-sm-4">
                                 <select class="form-control" name="status">
-                                    <option value="all">All</option>
+                                    <option value="All">All</option>
                                     <option value="Approved">Approved</option>
                                     <option value="Reject">Reject</option>p
                                 </select>

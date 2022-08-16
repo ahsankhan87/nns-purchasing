@@ -22,7 +22,7 @@ class C_feedingReport extends MY_Controller{
         $data['from_date'] = ($this->input->post('from_date') ? $this->input->post('from_date') : 0);
         $data['to_date'] = ($this->input->post('to_date') ? $this->input->post('to_date') : 0);
         // $data['status'] = ($this->input->post('status') ? $this->input->post('status') : 'All');
-        echo $data['from_date'] ;
+        //echo $data['from_date'] ;
         
         if($data['from_date'] && $data['to_date'])
         {

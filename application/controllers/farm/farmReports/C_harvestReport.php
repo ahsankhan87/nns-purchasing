@@ -23,7 +23,7 @@ class C_harvestReport extends MY_Controller{
         $data['to_date'] = ($this->input->post('to_date') ? $this->input->post('to_date') : 0);
         $data['status'] = ($this->input->post('status') ? $this->input->post('status') : 'All');
         
-        if($data['from_date'] && $data['to_date'])
+        if($data['from_date'] && $data['to_date'] && $data['status'])
         {
             $data['harvest'] = $this->M_harvest->get_harvest_report($data['from_date'],$data['to_date'],$data['status']);    
         }
