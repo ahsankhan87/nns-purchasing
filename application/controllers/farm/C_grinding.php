@@ -35,7 +35,7 @@ class C_grinding extends MY_Controller{
             
             //form Validation
             $this->form_validation->set_rules('harvest_date', 'Harvest Date', 'required');
-            $this->form_validation->set_error_delimiters('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><strong>', '</strong></div>');
+            $this->form_validation->set_error_delimiters('<div class="alert alert-danger"><a class="close" data-dismiss="alert">ï¿½</a><strong>', '</strong></div>');
             
             //after form Validation run
             if($this->form_validation->run())
@@ -47,7 +47,7 @@ class C_grinding extends MY_Controller{
                         'pond_no'=>$this->input->post('pond_no'),
                         'batch_code'=>$this->input->post('batch_code'),
                         'fsms'=>$this->input->post('fsms'),
-                        'delivery_date'=>$this->input->post('delivery_date'),
+                        'delivery_date'=>($this->input->post('delivery_date') == '' ? 'no date yet' : $this->input->post('delivery_date')),
                         'unit_id'=>$this->input->post('unit_id'),
                         'date_created'=>date("Y-m-d H:i:s"),
                      );
@@ -83,7 +83,7 @@ class C_grinding extends MY_Controller{
         {
             //form Validation
             $this->form_validation->set_rules('harvest_date', 'Harvest Date', 'required');
-            $this->form_validation->set_error_delimiters('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><strong>', '</strong></div>');
+            $this->form_validation->set_error_delimiters('<div class="alert alert-danger"><a class="close" data-dismiss="alert">ï¿½</a><strong>', '</strong></div>');
             
             //after form Validation run
             if($this->form_validation->run())

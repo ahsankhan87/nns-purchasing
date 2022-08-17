@@ -90,6 +90,7 @@ if(count((array)@$harvest))
                                 <thead>
                                     <tr>
                                         <th></th>
+                                        <th>Harvest Date</th>
                                         <th>Pond Number</th>
                                         <th>Unpressed Biomass</th>
                                         <th>Pressed Biomass</th>
@@ -109,6 +110,7 @@ if(count((array)@$harvest))
                                 
                                 echo '<tr valign="top">';
                                 echo '<td class="text-center"></td>';
+                                echo '<td class="text-center">'.date('m/d/Y',strtotime($list['harvest_date'])).'</td>';
                                 echo '<td class="text-center">'.$list['pond_no'].'</td>';
                                 echo '<td class="text-center">'.number_format($list['unpressed_biomass'],5).'</td>';
                                 echo '<td class="text-center">'.number_format($list['pressed_biomass'],5).'</td>';

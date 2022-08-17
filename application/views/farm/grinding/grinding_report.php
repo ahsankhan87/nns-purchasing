@@ -41,10 +41,10 @@
                              <div class="col-sm-4">
                                 <select class="form-control" name="status">
                                     <option value="All">All</option>
-                                     <option value="Pending">Pending</option>
+                                    <option value="Pending">Pending</option>
                                     <option value="Approved">Approved</option>
                                     <option value="Reject">Reject</option>
-                                     <option value="Quarantine">Quarantine</option>
+                                    <option value="Quarantine">Quarantine</option>
                                 </select>
                              </div> 
                         
@@ -114,7 +114,6 @@ if(count((array)@$grinding))
                                 echo '<td class="text-center">'.number_format($list['total_qty'],5).'</td>';
                                 echo '<td class="text-center">'.$unit_name.'</td>';
                                 echo '</tr>';
-                                
                                 
                             }
                             

@@ -92,11 +92,11 @@ if(count((array)@$feeding))
                             <?php
                             $unit_price =0;
                             $cost_price=0;
-                            //var_dump($this->M_receivings->get_totalCostByCategory_id());
+                            // var_dump($feeding);
                             foreach($feeding as $key => $list)
                             {
                                 $unit_name = $this->M_units->get_unit($list['unit_id'])[0]['name'];
-                                $product = $this->M_items->get_ItemName($list['item_id']);
+                                $product = $this->M_products->get_productName($list['item_id']);
                                 
                                 echo '<tr valign="top">';
                                 echo '<td class="text-center"></td>';
