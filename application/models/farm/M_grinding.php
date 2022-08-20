@@ -40,7 +40,7 @@ class M_grinding extends CI_Model{
         }
         
       $this->db->select('grinding_date,pond_no,unit_id,SUM(qty) as total_qty');
-      $this->db->group_by('pond_no,unit_id');
+      $this->db->group_by('pond_no');
        
        $query = $this->db->get('farm_grinding');
        return $query->result_array();

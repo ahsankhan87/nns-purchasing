@@ -57,8 +57,8 @@ class M_harvest extends CI_Model{
             $this->db->where("harvest_date BETWEEN '$from_date' AND '$to_date'");
         }
         
-    //   $this->db->select('date,item_id,unit_id,SUM(ibn_qty_1+ibn_qty_2+ibn_qty_3) as total_qty');
-      $this->db->group_by('pond_no,unit_id');
+      $this->db->select('pond_no,unit_id,SUM(unpressed_biomass) as unpressed_biomass,SUM(pressed_biomass) as pressed_biomass,status');
+      $this->db->group_by('pond_no');
        
        $query = $this->db->get('farm_harvest');
        return $query->result_array();

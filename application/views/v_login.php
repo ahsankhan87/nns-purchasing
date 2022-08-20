@@ -68,13 +68,12 @@
                 echo '<span>'.$this->session->flashdata('message').'</span>';
                 echo '</div>';
             }
-            if($this->session->flashdata('errors'))
+            if($this->session->flashdata('error'))
             {
                 echo "<div class='alert alert-danger fade in'>";
-                echo '<span>'. $this->session->flashdata('errors').'</span>';
+                echo '<span>'. $this->session->flashdata('error').'</span>';
                 echo "</div>";
             }
-            
             
         ?>
         <div id="success-msg" class="alert alert-success display-hide">

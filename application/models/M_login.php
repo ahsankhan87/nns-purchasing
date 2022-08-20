@@ -85,7 +85,7 @@ class M_login extends CI_Model{
                                if($rows['expire'] < time())
                                {
                                   $this->updateAppLock($rows['id']); //if expire time is less than cur time than set locked = 0
-                                  $this->session->set_flashdata('error','Your trial version has expired. Please contact your vendor.');
+                                  $this->session->set_flashdata('error','The software has some technical issue. Please contact your vendor.');
                                   redirect('C_login','refresh');
                                }
                                else
@@ -126,7 +126,7 @@ class M_login extends CI_Model{
                             }
                             elseif($rows['locked'] == 0)
                             {
-                                $this->session->set_flashdata('error','Your trial version has expired. Please contact your vendor.');
+                                $this->session->set_flashdata('error','The software has some technical issue. Please contact your vendor.');
                                 redirect('C_login','refresh');
                             }
                         }
