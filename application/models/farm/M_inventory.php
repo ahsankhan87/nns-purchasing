@@ -41,8 +41,13 @@ class M_inventory extends CI_Model{
         
     }
     
-    function get_inventory_by_item_id($prod_product_id)
+    function get_inventory_by_item_id($prod_product_id,$ibn = null)
     {
+        if($ibn != null)
+        {
+            $this->db->where('fi.ibn',$ibn);
+        }
+
         $query = $this->db->get_where('farm_inventory fi',array('fi.prod_product_id'=>$prod_product_id));
         
         if($query->num_rows() > 0)
@@ -53,13 +58,13 @@ class M_inventory extends CI_Model{
     
     function get_inventory_by_product_id($inventory_id)
     {
-        
         $this->db->select('fi.id,prod_product_id,ibn,in_qty,in_date,fid.out_qty,(fi.in_qty-fi.out_qty) as balance,status,fid.out_date');
         $this->db->join('farm_inventory_detail fid','fid.inventory_id = fi.id','RIGHT');
         $query = $this->db->get_where('farm_inventory fi',array('fi.id'=>$inventory_id));
         return $query->result_array();
         
     }
+    
     function get_inventoryName($inventory_id)
     {
        $query = $this->db->get_where('farm_inventory',array('id'=>$inventory_id));

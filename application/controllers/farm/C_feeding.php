@@ -26,11 +26,9 @@ class C_feeding extends MY_Controller{
         $this->load->view('templates/footer');
     }
     
-    public function get_ibn_by_item_id($item_id)
+    public function get_ibn_by_item_id($item_id,$ibn=null)
 	{
-	    
-        echo json_encode($this->M_inventory->get_inventory_by_item_id($item_id));
-        
+        echo json_encode($this->M_inventory->get_inventory_by_item_id($item_id,$ibn));
     }
 
     
