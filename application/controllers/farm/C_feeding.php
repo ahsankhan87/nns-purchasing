@@ -66,11 +66,11 @@ class C_feeding extends MY_Controller{
                     $this->session->set_flashdata('message','Feeding Added');
                     $feeding_id = $this->db->insert_id();
                         
-                        if($this->input->post('ibn_qty_1') > 0)
+                        if((double)$this->input->post('ibn_qty_1') > 0)
                         {
-                            $old_out_qty = $this->M_inventory->get_outqty_by_ibn($this->input->post('ibn_1'));
+                            $old_out_qty = (double) $this->M_inventory->get_outqty_by_ibn($this->input->post('ibn_1'));
                             $data = array(  
-                                'out_qty'=>($old_out_qty+$this->input->post('ibn_qty_1')),
+                                'out_qty'=>((double)$old_out_qty+(double)$this->input->post('ibn_qty_1')),
                                 'out_date'=>$this->input->post('date'),
                              );
                             
@@ -94,7 +94,7 @@ class C_feeding extends MY_Controller{
                         {
                             $old_out_qty_2 = @$this->M_inventory->get_outqty_by_ibn($this->input->post('ibn_2'));
                             $data = array(  
-                                'out_qty'=>($old_out_qty_2+$this->input->post('ibn_qty_2')),
+                                'out_qty'=>((double)$old_out_qty_2+(double)$this->input->post('ibn_qty_2')),
                                 'out_date'=>$this->input->post('date'),
                              );
                             
@@ -119,7 +119,7 @@ class C_feeding extends MY_Controller{
                         {
                             $old_out_qty_3 = @$this->M_inventory->get_outqty_by_ibn($this->input->post('ibn_3'));
                             $data = array(  
-                                'out_qty'=>($old_out_qty_3+$this->input->post('ibn_qty_3')),
+                                'out_qty'=>((double)$old_out_qty_3+(double)$this->input->post('ibn_qty_3')),
                                 'out_date'=>$this->input->post('date'),
                              );
                             
@@ -150,6 +150,7 @@ class C_feeding extends MY_Controller{
             //$this->M_feeding->add_feeding();
             
             redirect('farm/C_feeding','refresh');
+            //die;
         }
         }
         // $data['productsDDL'] = $this->M_products->get_productsDDL();
@@ -305,7 +306,7 @@ class C_feeding extends MY_Controller{
             {
                 $old_out_qty = $this->M_inventory->get_outqty_by_ibn($list['ibn_1']);
                 $data1 = array(  
-                    'out_qty'=>$old_out_qty-$list['ibn_qty_1'],
+                    'out_qty'=>((double)$old_out_qty-(double)$list['ibn_qty_1']),
                     // 'out_date'=>$this->input->post('date'),
                  );
                 
@@ -317,7 +318,7 @@ class C_feeding extends MY_Controller{
             { 
                 $old_out_qty = $this->M_inventory->get_outqty_by_ibn($list['ibn_2']);
                 $data2 = array(  
-                    'out_qty'=>$old_out_qty-$list['ibn_qty_2'],
+                    'out_qty'=>((double)$old_out_qty-(double)$list['ibn_qty_2']),
                     // 'out_date'=>$this->input->post('date'),
                  );
                 
@@ -327,7 +328,7 @@ class C_feeding extends MY_Controller{
             {
                 $old_out_qty = $this->M_inventory->get_outqty_by_ibn($list['ibn_3']);
                 $data3 = array(  
-                    'out_qty'=>$old_out_qty-$list['ibn_qty_3'],
+                    'out_qty'=>((double)$old_out_qty-(double)$list['ibn_qty_3']),
                     // 'out_date'=>$this->input->post('date'),
                  );
                 

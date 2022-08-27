@@ -151,7 +151,7 @@
             
             if(balance > 0)
             {
-              document_table += '<option value="' + value.ibn + '">';
+              document_table += '<option value="' + value.id + '">';
               document_table += value.ibn;
               document_table += '</option>';
 

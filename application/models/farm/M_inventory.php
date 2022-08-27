@@ -45,7 +45,7 @@ class M_inventory extends CI_Model{
     {
         if($ibn != null)
         {
-            $this->db->where('fi.ibn',$ibn);
+            $this->db->where('fi.id',$ibn);
         }
 
         $query = $this->db->get_where('farm_inventory fi',array('fi.prod_product_id'=>$prod_product_id));
