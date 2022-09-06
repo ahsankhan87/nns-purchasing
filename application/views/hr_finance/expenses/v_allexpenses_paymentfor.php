@@ -71,10 +71,17 @@
                             echo '<td><a href="'.site_url('hr_finance/C_expenses/detail/'.$list['id']).'">₱'.number_format($total,2).'</a></td>';
                             echo '<td>' . $this->M_paymentMethod->get_paymentMethodName($list['payment_method_id']) . '</td>';
                             echo '<td>' . $list['approval'] . '</td>';
-                            $label_1 = ($list['receipted'] == "Yes" ? 'green_color': 'red_color');
-                            $label_2 = ($list['cross_checked'] == "Yes" ? 'green_color': 'red_color');
-                            echo '<td class="'.$label_1.'">' . $list['receipted'] . '</td>';
-                            echo '<td class="'.$label_2.'">' . $list['cross_checked'] . '</td>';
+                            $label_1 = ($list['receipted'] == "Yes" ? 'label label-success': 'label label-danger');
+                            $label_2 = ($list['cross_checked'] == "Yes" ? 'label label-success': 'label label-danger');
+                            
+                            if($list['receipted_file'] != "")
+                            {
+                                echo '<td><a href="'.base_url('images/expenses/'.$list['receipted_file']).'" target="_blank" class="'.$label_1.'">'.$list['receipted'].'</a></td>';
+                            }else{
+                                echo '<td><span class="'.$label_1.'" title="no file">' . $list['receipted'] . '</span></td>';
+
+                            }
+                            echo '<td><span class="'.$label_2.'">' . $list['cross_checked'] . '</span></td>';
                             echo '<td>' . $list['note'] . '</td>';
                             echo '</tr>';
 

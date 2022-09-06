@@ -79,7 +79,7 @@
                             {
                                 echo '<td><a href="'.base_url('images/expenses/'.$list['receipted_file']).'" target="_blank" class="'.$label_1.'">'.$list['receipted'].'</a></td>';
                             }else{
-                                echo '<td><span class="'.$label_1.'">' . $list['receipted'] . '</span></td>';
+                                echo '<td><span class="'.$label_1.'" title="no file">' . $list['receipted'] . '</span></td>';
 
                             }
                             echo '<td><span class="'.$label_2.'">' . $list['cross_checked'] . '</span></td>';

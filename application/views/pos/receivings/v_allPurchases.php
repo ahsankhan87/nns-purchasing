@@ -94,7 +94,7 @@
            
             $supplier_name = $this->M_suppliers->get_supplierName($list['supplier_id']);
             echo '<td>'.@$supplier_name.'</td>';
-            echo '<td>'.$list['symbol'].number_format($list['total_amount'],2).'</td>';
+            echo '<td>'.$list['symbol'].number_format($list['net_amount'],2).'</td>';
             //echo '<td>'.$list['symbol'].'</td>';
             if($list['payment_status'] == 'Paid'){
                 

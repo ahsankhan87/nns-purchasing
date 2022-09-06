@@ -42,7 +42,7 @@ class M_receivings extends CI_Model{
             $this->db->where('receiving_date <=',$to_date);
         }
         
-        $this->db->select('r.receiving_id,r.invoice_no,r.receiving_date,r.total_amount,r.total_tax,(total_amount+r.total_tax) AS net_amount,
+        $this->db->select('r.receiving_id,r.invoice_no,r.receiving_date,r.total_amount,r.total_tax,(total_amount+r.total_tax+r.shipping_cost) AS net_amount,
         r.supplier_id,r.account,r.employee_id,r.shipping,r.delivery_status,r.payment_status,r.currency_id,c.code,c.symbol,s.name as supplier,
         r.msds,r.coa,r.flowchart,r.forme,r.halal,r.supplier_invoice_no,r.eta,r.etd,r.awb,r.quotation,r.delivery_date,r.fan,r.ssdt,r.supplier_pi,r.payment_date,r.quotation_file');
         $this->db->join('pos_supplier as s','s.id = r.supplier_id','left');

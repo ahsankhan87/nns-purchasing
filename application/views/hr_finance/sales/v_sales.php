@@ -390,7 +390,7 @@
                 '<td width="25%"><select  class="form-control product_id" id="productid_' + counter + '" name="product_id[]"></select></td>' +
                 '<td class="text-right"><input type="text"  class="form-control content" id="content_' + counter + '" name="content[]" value="" readonly="" ></td>' +
                 '<td class="text-right" width="10%"><input type="number" min="1" class="form-control qty" id="qty_' + counter + '" name="qty[]" value="1" autocomplete="off"></td>' +
-                '<td class="text-right"><input type="number" class="form-control unit_price" id="unitprice_' + counter + '" name="unit_price[]" autocomplete="off">' +
+                '<td class="text-right"><input type="number" class="form-control unit_price" id="unitprice_' + counter + '" name="unit_price[]" step="0.001" autocomplete="off">' +
                 '<input type="hidden" cost_price" id="costprice_' + counter + '" name="cost_price[]">'+
                 '<input type="hidden" item_type" id="itemtype_' + counter + '" name="item_type[]"></td>'+
                 '<input type="hidden" tax_id" id="taxid_' + counter + '" name="tax_id[]"></td>'+
@@ -778,8 +778,8 @@
             var div = '<tr><td>' + counter_chr + '</td>' +
                 '<td width="25%"><select  class="form-control charge_id" id="chargeid_' + counter_chr + '" name="charge_id[]"></select></td>' +
                 '<td class="text-right"><input type="text"  class="form-control description_chr" id="descriptionchr_' + counter_chr + '" name="description_chr[]" value="" ></td>' +
-                '<td class="text-right" width="10%"><input type="number" min="1" class="form-control qty_chr" id="qtychr_' + counter_chr + '" name="qty_chr[]" value="1" autocomplete="off"></td>' +
-                '<td class="text-right"><input type="number" class="form-control unit_price_chr" id="unitpricechr_' + counter_chr + '" name="unit_price_chr[]" autocomplete="off">' +
+                '<td class="text-right" width="10%"><input type="number" min="1" class="form-control qty_chr" id="qtychr_' + counter_chr + '" name="qty_chr[]" value="1"  step="0.001" autocomplete="off"></td>' +
+                '<td class="text-right"><input type="number" class="form-control unit_price_chr" id="unitpricechr_' + counter_chr + '" name="unit_price_chr[]"  step="0.001"autocomplete="off">' +
                 '<td class=""> <input type="number" class="form-control text-right total_chr" id="totalchr_' + counter_chr + '" name="total_chr[]" readonly=""></td>' +
                 '<td><i id="removeItem" class="fa fa-trash-o fa-1x"  style="color:red;"></i></td></tr>';
             $('.create_charges_table').append(div);
@@ -905,7 +905,7 @@
                 '<td width="25%"><select  class="form-control deduction_id" id="deductionid_' + counter_ded + '" name="deduction_id[]"></select></td>' +
                 '<td class="text-right"><input type="text"  class="form-control description_ded" id="descriptionded_' + counter_ded + '" name="description_ded[]" value="" ></td>' +
                 '<td class="text-right" width="10%"><input type="number" min="1" class="form-control qty_ded" id="qtyded_' + counter_ded + '" name="qty_ded[]" value="1" autocomplete="off"></td>' +
-                '<td class="text-right"><input type="number" class="form-control unit_price_ded" id="unitpriceded_' + counter_ded + '" name="unit_price_ded[]" autocomplete="off">' +
+                '<td class="text-right"><input type="number" class="form-control unit_price_ded" id="unitpriceded_' + counter_ded + '" name="unit_price_ded[]" step="0.001" autocomplete="off">' +
                 '<td class=""> <input type="number" class="form-control text-right total_ded" id="totalded_' + counter_ded + '" name="total_ded[]" readonly=""></td>' +
                 '<td><i id="removeItem" class="fa fa-trash-o fa-1x"  style="color:red;"></i></td></tr>';
             $('.create_deduction_table').append(div);
@@ -1062,7 +1062,7 @@
             counter_summary++;
             
             var div = '<tr><td>' + counter_summary + '</td>' +
-                '<td ><input type="number" min="1" class="form-control amount" id="amount_' + counter_summary + '" name="amount[]"/></td>' +
+                '<td ><input type="number" min="1" class="form-control amount" id="amount_' + counter_summary + '" name="amount[]"/ step="0.001"></td>' +
                 '<td><select  class="form-control summary_payment_terms_id" id="summarypaymenttermsid_' + counter_summary + '" name="summary_payment_terms_id[]"></select></td>' +
                 '<td><input type="date" min="1" class="form-control payment_date" id="paymentdate_' + counter_summary + '" name="payment_date[]" ></td>' +
                 '<td><select  class="form-control summary_status" id="summarystatus_' + counter_summary + '" name="summary_status[]"></select></td>' +

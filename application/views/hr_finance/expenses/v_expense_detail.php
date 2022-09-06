@@ -20,8 +20,8 @@
         <tbody class="text-center">
             <tr>
                 <?php
-                echo '<td>Payment For</td>';
-                echo '<td>'.$this->M_paymentfor->get_paymentforName($expenses[0]['payment_for_id']).'</td>';
+                echo '<th>Payment For</th>';
+                echo '<th>'.$this->M_paymentfor->get_paymentforName($expenses[0]['payment_for_id']).'</th>';
                 ?>    
             </tr>
             <tr>

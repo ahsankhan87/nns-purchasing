@@ -161,10 +161,10 @@ class C_sales extends MY_Controller
                 $status = $this->input->post("status");
                 $sub_total_deduction = $this->input->post("sub_total_deduction");
                 $sub_total_charges = $this->input->post("sub_total_charges");
-                $balance = $this->input->post("balance");
+                $balance = (double)$this->input->post("balance");
 
                 $total_amount =  ($this->input->post("sub_total") - $discount);
-                $net_total = ($total_amount-$sub_total_deduction+$sub_total_charges);
+                $net_total = ((double)$total_amount-(double)$sub_total_deduction+(double)$sub_total_charges);
 
                 $data = array(
                     'company_id' => $company_id,
