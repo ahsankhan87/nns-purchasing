@@ -15,9 +15,8 @@ class M_employees extends CI_Model{
         $this->db->where('status',$status);
        }
 
-        if($id === FALSE)
+        if($id == FALSE)
         {
-            
             $this->db->order_by('id','desc');
             $query = $this->db->get_where('hr_employees');
             $data = $query->result_array();

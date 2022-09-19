@@ -134,7 +134,7 @@ $autoload['language'] = array();
 */
 $autoload['model'] = array('pos/M_items','pos/M_units','pos/M_suppliers','pos/M_samples','pos/M_category','pos/M_pos_reports','pos/M_receivings',
                            'accounts/M_groups','accounts/M_ledgers','accounts/M_entries','accounts/M_reports',
-                           'pos/M_companies','M_login','M_dashboard','M_modules','pos/M_employees','pos/M_customers',
+                           'pos/M_companies','M_login','M_dashboard','M_modules','pos/M_customers',
                            'accounts/M_fyear','pos/M_currencies','M_logs','M_users','pos/M_payments',
                            'pos/M_shipping_terms','pos/M_sourcings',
                            'pos/M_claims','pos/M_logistics_fees','pos/M_purchase_requests',
@@ -143,5 +143,5 @@ $autoload['model'] = array('pos/M_items','pos/M_units','pos/M_suppliers','pos/M_
                            'rd/M_samples_schedule',
                            'hr_finance/M_sales','hr_finance/M_expenses','hr_finance/M_expenseItems','hr_finance/M_paymentfor',
                            'hr_finance/M_paymentMethod','hr_finance/M_expenseSubCategory','hr_finance/M_payment_terms',
-                           'hr_finance/M_sales_charges','hr_finance/M_sales_deductions',
+                           'hr_finance/M_sales_charges','hr_finance/M_sales_deductions','hr_finance/M_employees',
                            );

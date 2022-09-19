@@ -16,12 +16,7 @@
     }
     ?>
     <p><?php echo anchor('hr_finance/C_employees/create','<i class="fa fa-plus"></i> '.lang('add_new'),'class="btn btn-primary"'); ?></p>
-    
-    <?php
-    if(count($employees))
-    {
-        
-    ?>
+   
     <div class="portlet">
 			<div class="portlet-title">
 				<div class="caption">
@@ -52,6 +47,7 @@
            </thead>
            <tbody class='text-center'> 
               <?php
+              // var_dump($employees);
               foreach($employees as $key => $list)
               {
                   echo '<tr>';
@@ -117,7 +113,7 @@
               }
               echo '</tbody></table>';
               
-              }
+             
               ?>
         </div>
 		</div>

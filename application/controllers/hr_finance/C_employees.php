@@ -8,7 +8,6 @@ class C_employees extends MY_Controller{
        $this->lang->load('index');
     } 
     
-
     function index($status = '')
     {
         $data = array('langs' => $this->session->userdata('lang'));
