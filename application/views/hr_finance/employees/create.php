@@ -36,9 +36,9 @@
                     echo form_open('hr_finance/C_employees/create',$attributes);
                     ?>
 					<div class="form-body">
-						<h3 class="form-section">Basic Information</h3>
+						<h3 class="form-section">Employee Basic Information</h3>
                         
-						<div class="row">
+						<!-- <div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
 									<label class="control-label">Upload Picture (jpg,png,gif)</label>
@@ -46,23 +46,25 @@
 									
 								</div>
 							</div>
-							<!--/span-->
-						</div>
+							
+						</div> -->
 
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
-									<label class="control-label">First Name</label>
+									<label class="col-sm-3 col-form-label">First Name</label>
+									<div class="col-sm-9">
 									<input type="text" id="firstName" name="first_name" class="form-control" required="" value="<?php echo set_value('first_name') ?>"  placeholder="First Name"/>
-									
+									</div>
 								</div>
 							</div>
 							<!--/span-->
 							<div class="col-md-6">
 								<div class="form-group">
-									<label class="control-label">Middle Name</label>
-									<input type="text" id="mName" name="middle_name" class="form-control" value="<?php echo set_value('middle_name') ?>"  placeholder="Middle Name" />
-								
+									<label class="control-label col-sm-3 ">Middle Name</label>
+									<div class="col-sm-9">
+										<input type="text" id="mName" name="middle_name" class="form-control" value="<?php echo set_value('middle_name') ?>"  placeholder="Middle Name" />
+									</div>
 								</div>
 							</div>
 							<!--/span-->
@@ -71,9 +73,10 @@
                         <div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
-									<label class="control-label">Last Name</label>
-									<input type="text" id="lastName" name="last_name" class="form-control" value="<?php echo set_value('last_name') ?>"  placeholder="Last Name" />
-								
+									<label class="control-label col-sm-3">Last Name</label>
+									<div class="col-sm-9">
+										<input type="text" id="lastName" name="last_name" class="form-control" value="<?php echo set_value('last_name') ?>"  placeholder="Last Name" />
+									</div>
 								</div>
 							</div>
 							<!--/span-->
@@ -98,12 +101,13 @@
 							<!--/span-->
 							<div class="col-md-6">
 								<div class="form-group">
-									<label class="control-label">Gender</label>
-									<select class="form-control" name="gender" <?php echo set_value('gender') ?> >
+									<label class="control-label col-sm-3">Gender</label>
+									<div class="col-sm-9">
+										<select class="form-control" name="gender" <?php echo set_value('gender') ?> >
 										<option value="male">Male</option>
 										<option value="female">Female</option>
-									</select>
-									
+										</select>
+									</div>
 								</div>
 							</div>
 							<!--/span-->
@@ -183,8 +187,7 @@
 							</div>
 						</div>
 					
-					
-					<h3 class="form-section">Employment Details</h3>
+					<h3 class="form-section">Contact Information</h3>
                         
 						<div class="row">
                             <div class="col-md-6">
@@ -258,6 +261,89 @@
                             </div>
 							<!--/span-->
 							
+						</div>
+						<!--/row-->
+						<h3>Employee Detail</h3>
+						 
+						<div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+									<label class="control-label">Employee No.</label>
+									<input type="text" name="emp_no" class="form-control" placeholder="Employee No."  value="<?php echo set_value('emp_no') ?>" />
+                                </div>
+                            </div>
+							<!--/span-->
+							<div class="col-md-6">
+								<div class="form-group">
+								<label class="control-label">Position</label>
+									<input type="text" name="position" class="form-control" placeholder="Position"  value="<?php echo set_value('position') ?>" />
+								</div>
+							</div>
+							<!--/span-->
+						</div>
+						<!--/row-->
+
+						<h3>Salary & Allowances</h3>
+						 
+						 <div class="row">
+							 <div class="col-md-6">
+								 <div class="form-group">
+									 <label class="control-label">Employee No.</label>
+									 <input type="text" name="emp_no" class="form-control" placeholder="Employee No."  value="<?php echo set_value('emp_no') ?>" />
+								 </div>
+							 </div>
+							 <!--/span-->
+							 <div class="col-md-6">
+								 <div class="form-group">
+								 <label class="control-label">Position</label>
+									 <input type="text" name="position" class="form-control" placeholder="Position"  value="<?php echo set_value('position') ?>" />
+								 </div>
+							 </div>
+							 <!--/span-->
+						 </div>
+						 <!--/row-->
+
+						<h3>Accounts</h3>
+						 
+						<div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+									<label class="control-label">Employee No.</label>
+									<input type="text" name="emp_no" class="form-control" placeholder="Employee No."  value="<?php echo set_value('emp_no') ?>" />
+                                </div>
+                            </div>
+							<!--/span-->
+							<div class="col-md-6">
+								<div class="form-group">
+								<label class="control-label">Position</label>
+									<input type="text" name="position" class="form-control" placeholder="Position"  value="<?php echo set_value('position') ?>" />
+								</div>
+							</div>
+							<!--/span-->
+						</div>
+						<!--/row-->
+
+						<h3>NCR</h3>
+						 
+						<div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group row">
+									<label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+									<div class="col-sm-10">
+										<input type="password" class="form-control" id="inputPassword" placeholder="Password">
+									</div>
+                                </div>
+                            </div>
+							<!--/span-->
+							<div class="col-md-6">
+								<div class="form-group">
+								<label class="control-label col-sm-2">Position</label>
+								<div class="col-sm-10">
+									<input type="text" name="position" class="form-control" placeholder="Position"  value="<?php echo set_value('position') ?>" />
+								</div>
+								</div>
+							</div>
+							<!--/span-->
 						</div>
 						<!--/row-->
 					</div>

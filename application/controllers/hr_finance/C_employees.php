@@ -67,7 +67,7 @@ class C_employees extends MY_Controller{
                         $data['errors'] = $this->upload->display_errors();
                         $this->session->set_flashdata('error',$data['errors']);
                         // redirect('hr_finance/C_employees/create','refresh');
-                        $this->load->view('hr_finance/employees/create_1',$data);
+                        $this->load->view('hr_finance/employees/create',$data);
                     }else {
                         $this->upload->do_upload('picture');
                         $uploaddata = $this->upload->data();
@@ -164,7 +164,7 @@ class C_employees extends MY_Controller{
             
                
             $this->load->view('templates/header',$data);
-            $this->load->view('hr_finance/employees/create_1',$data);
+            $this->load->view('hr_finance/employees/create',$data);
             $this->load->view('templates/footer');
         //}
     }
@@ -184,8 +184,8 @@ class C_employees extends MY_Controller{
             {
                 if($_FILES['picture']['size'] != 0)
                 {
-                    $config['upload_path']          = './images/employees/';
-                    $config['allowed_types']        = 'gif|jpg|png|jpeg';
+                    $config['upload_path'] = './images/employees/';
+                    $config['allowed_types'] = 'gif|jpg|png|jpeg';
                     $config['max_width']  = '1024';
                     $config['max_height']  = '768';
                     $config['overwrite'] = TRUE;
@@ -198,7 +198,6 @@ class C_employees extends MY_Controller{
                     //if not uploaded then display error
                     if(!$this->upload->do_upload('picture'))
                     {
-                        
                         $data['errors'] = $this->upload->display_errors();
                         $this->session->set_flashdata('message',$data['errors']);
                         redirect('hr_finance/C_employees/edit/'.$this->input->post('id'),'refresh');
@@ -209,7 +208,6 @@ class C_employees extends MY_Controller{
                         $filename = $uploaddata['file_name'];
                     
                     }
-                    
                     
                 }else {
                     $filename = $this->input->post('picture_old');
@@ -311,7 +309,6 @@ class C_employees extends MY_Controller{
             
             //$data['areaDDL'] = $this->M_areas->get_activeareasDDL();
             $data['employee'] = $this->M_employees->get_employees($id);
-            
             
             $this->load->view('templates/header',$data);
             $this->load->view('hr_finance/employees/edit_1',$data);
