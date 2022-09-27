@@ -61,9 +61,9 @@
 							<!--/span-->
 							<div class="col-md-6">
 								<div class="form-group">
-									<label class="control-label col-sm-3 ">Middle Name</label>
+									<label class="control-label col-sm-3">Date of Birth</label>
 									<div class="col-sm-9">
-										<input type="text" id="mName" name="middle_name" class="form-control" value="<?php echo set_value('middle_name') ?>"  placeholder="Middle Name" />
+										<input type="date" name="dob" class="form-control" placeholder="dd/mm/yyyy"  value="<?php echo set_value('dob') ?>" />
 									</div>
 								</div>
 							</div>
@@ -73,29 +73,10 @@
                         <div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
-									<label class="control-label col-sm-3">Last Name</label>
+									<label class="control-label col-sm-3 ">Middle Name</label>
 									<div class="col-sm-9">
-										<input type="text" id="lastName" name="last_name" class="form-control" value="<?php echo set_value('last_name') ?>"  placeholder="Last Name" />
+										<input type="text" id="mName" name="middle_name" class="form-control" value="<?php echo set_value('middle_name') ?>"  placeholder="Middle Name" />
 									</div>
-								</div>
-							</div>
-							<!--/span-->
-							<div class="col-md-6">
-								<div class="form-group">
-									<label class="control-label">Suffix</label>
-									<input type="text" id="suffix" name="suffix" class="form-control" value="<?php echo set_value('suffix') ?>"  placeholder="Suffix" />
-								
-								</div>
-							</div>
-							<!--/span-->
-						</div>
-						<!--/row-->
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<label class="control-label">Nickname</label>
-									<input type="text" id="nick_name" name="nick_name" class="form-control" value="<?php echo set_value('nick_name') ?>"  placeholder="Nickname" />
-								
 								</div>
 							</div>
 							<!--/span-->
@@ -106,6 +87,7 @@
 										<select class="form-control" name="gender" <?php echo set_value('gender') ?> >
 										<option value="male">Male</option>
 										<option value="female">Female</option>
+										<option value="other">Other</option>
 										</select>
 									</div>
 								</div>
@@ -113,40 +95,75 @@
 							<!--/span-->
 						</div>
 						<!--/row-->
+						
 						<div class="row">
-                           <div class="col-md-6">
+							
+							<div class="col-md-6">
 								<div class="form-group">
-									<label class="control-label">Date of Birth</label>
-									<input type="date" name="dob" class="form-control" placeholder="dd/mm/yyyy"  value="<?php echo set_value('dob') ?>" />
+									<label class="control-label col-sm-3">Last Name</label>
+									<div class="col-sm-9">
+										<input type="text" id="lastName" name="last_name" class="form-control" value="<?php echo set_value('last_name') ?>"  placeholder="Last Name" />
+									</div>
 								</div>
 							</div>
 							<!--/span-->
 							<div class="col-md-6">
                                 <div class="form-group">
-									<label class="control-label">Civil Status</label>
-									<select class="form-control" name="marital_status" <?php echo set_value('marital_status') ?> >
-										<option value="Single">Single</option>
-										<option value="Married">Married</option>
-									</select>
-									
+									<label class="control-label col-sm-3">Status</label>
+									<div class="col-sm-9">
+										<select class="form-control" name="status" <?php echo set_value('status') ?> >
+											<option value="M1">M1</option>
+										</select>
+									</div>
                                 </div>
                             </div>
 							<!--/span-->
 							
 						</div>
 						<!--/row-->
+						<h3 class="form-section">Contact Information</h3>
+						
+						<div class="row">
+                            <div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label col-sm-3">Address</label>
+									<div class="col-sm-9">
+										<textarea name="address" class="form-control"></textarea>
+									</div>
+                                </div>
+							</div>
+						</div>
+					
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
-								<label class="control-label" for="Contact">Contact No:</label>
-                                    <input type="number" class="form-control" id="" name="contact" value="<?php echo set_value('contact') ?>"  placeholder="Contact No" />
+								<label class="control-label col-sm-3" for="Contact">Contact No:</label>
+								<div class="col-sm-9">
+									<input type="number" class="form-control" id="" name="contact" value="<?php echo set_value('contact') ?>"  placeholder="Contact No" />
+								</div>
 								</div>
 							</div>
 							<!--/span-->
 							<div class="col-md-6">
 								<div class="form-group">
-                                  <label class="control-label" for="Email">Email:</label>
-                                    <input type="email" class="form-control" id="Email" name="email"  value="<?php echo set_value('email') ?>"  placeholder="Email" />
+								<label class="control-label col-sm-3" for="emergency_contact">Emergency Contact No:</label>
+								<div class="col-sm-9">
+									<input type="number" class="form-control" id="" name="emergency_contact" value="<?php echo set_value('emergency_contact') ?>"  placeholder="Emergency Contact No" />
+								</div>
+								</div>
+							</div>
+							<!--/span-->
+						</div>
+						<!--/row-->
+						
+						<div class="row">
+							
+							<div class="col-md-6">
+								<div class="form-group">
+                                  <label class="control-label col-sm-3" for="Email">Email:</label>
+								  <div class="col-sm-9">
+									<input type="email" class="form-control" id="Email" name="email"  value="<?php echo set_value('email') ?>"  placeholder="Email" />
+                                	</div>
                                 </div>
 							</div>
 							<!--/span-->
@@ -176,33 +193,84 @@
 						
                         
                         <!--/row-->
-						<div class="row">
-                            
-                           
-                            <div class="col-md-6">
-								<div class="form-group">
-									<label>Address</label>
-									<textarea name="address" class="form-control"></textarea>
-                                </div>
-							</div>
-						</div>
-					
-					<h3 class="form-section">Contact Information</h3>
+						
+					<h3 class="form-section">Employement Details</h3>
                         
 						<div class="row">
-                            <div class="col-md-6">
+                            
+							<div class="col-md-6">
+								<div class="form-group">
+								<label class="control-label col-sm-3">Position</label>
+								<div class="col-sm-9">
+									<input type="text" name="position" class="form-control" placeholder="Position"  value="<?php echo set_value('position') ?>" />
+								</div>
+								</div>
+							</div>
+							<!--/span-->
+							<div class="col-md-6">
                                 <div class="form-group">
-									<label class="control-label">Employee No.</label>
-									<input type="text" name="emp_no" class="form-control" placeholder="Employee No."  value="<?php echo set_value('emp_no') ?>" />
+									<label class="control-label col-sm-3">Employement Status</label>
+									<div class="col-sm-9">
+										<select class="form-control" name="status" <?php echo set_value('status') ?> >
+										<option value="Regular">Regular</option>
+										
+									</select>
+                                </div>
+                                </div>
+                            </div>
+							<!--/span-->
+						</div>
+						<!--/row-->
+
+						<div class="row">
+							<div class="col-md-6">
+                                <div class="form-group">
+									<label class="control-label col-sm-3">Department</label>
+									<div class="col-sm-9">
+										<input type="text" name="department" class="form-control" placeholder="Department"  value="<?php echo set_value('department') ?>" />
+                                </div>
                                 </div>
                             </div>
 							<!--/span-->
 							<div class="col-md-6">
 								<div class="form-group">
-								<label class="control-label">Position</label>
-									<input type="text" name="position" class="form-control" placeholder="Position"  value="<?php echo set_value('position') ?>" />
+									<label class="control-label col-sm-3">Employement Date</label>
+									<div class="col-sm-9">
+										<input type="date" name="hire_date" class="form-control" placeholder="dd/mm/yyyy"  value="<?php echo set_value('hire_date') ?>" />
+								</div>
 								</div>
 							</div>
+							<!--/span-->
+							
+						</div>
+						<!--/row-->
+						<div class="row">
+                            
+							<div class="col-md-6">
+								<div class="form-group">
+								<label class="control-label col-sm-3">Contract</label>
+								<div class="col-sm-9">
+									<select class="form-control" name="status" <?php echo set_value('status') ?> >
+										<option value="Yes">Yes</option>
+										<option value="No">No</option>
+										
+									</select>
+								</div>
+								</div>
+							</div>
+							<!--/span-->
+							<div class="col-md-6">
+                                <div class="form-group">
+									<label class="control-label col-sm-3">Poineer</label>
+									<div class="col-sm-9">
+										<select class="form-control" name="poineer" <?php echo set_value('poineer') ?> >
+											<option value="Yes">Yes</option>
+											<option value="No">No</option>
+										
+										</select>
+                                	</div>
+                                </div>
+                            </div>
 							<!--/span-->
 						</div>
 						<!--/row-->
@@ -211,21 +279,20 @@
                             
 							<div class="col-md-6">
 								<div class="form-group">
-									<label class="control-label">Hire Date</label>
-									<input type="date" name="hire_date" class="form-control" placeholder="dd/mm/yyyy"  value="<?php echo set_value('hire_date') ?>" />
+								<label class="control-label col-sm-3">Regular Working Hours</label>
+								<div class="col-sm-9">
+									<input type="time" name="from_time" class="form-control">
+									<input type="time" name="to_time" class="form-control">
+								</div>
 								</div>
 							</div>
 							<!--/span-->
-							<div class="col-md-6">
-                                <div class="form-group">
-									<label class="control-label">SSS</label>
-									<input type="text" name="sss" class="form-control" placeholder="SSS"  value="<?php echo set_value('sss') ?>" />
-                                </div>
-                            </div>
-							<!--/span-->
+							
 						</div>
 						<!--/row-->
-						
+
+					<h3 class="form-section">Accounts</h3>
+
 						<div class="row">
                             
 							<div class="col-md-6">
