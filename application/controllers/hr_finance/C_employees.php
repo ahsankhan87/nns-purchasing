@@ -50,53 +50,70 @@ class C_employees extends MY_Controller{
             //after form Validation run
             if($this->form_validation->run())
             {
-                    $config['upload_path']          = './images/employees/';
-                    $config['allowed_types']        = 'gif|jpg|png|jpeg';
-                    $config['max_width']  = '1024';
-                    $config['max_height']  = '768';
-                    $config['overwrite'] = TRUE;
-                    $config['encrypt_name'] = FALSE;
-                    $config['remove_spaces'] = TRUE;
-                    $config['file_name'] = time();
-                    $this->load->library('upload', $config);
-                    $this->upload->initialize($config);
+                    // $config['upload_path']          = './images/employees/';
+                    // $config['allowed_types']        = 'gif|jpg|png|jpeg';
+                    // $config['max_width']  = '1024';
+                    // $config['max_height']  = '768';
+                    // $config['overwrite'] = TRUE;
+                    // $config['encrypt_name'] = FALSE;
+                    // $config['remove_spaces'] = TRUE;
+                    // $config['file_name'] = time();
+                    // $this->load->library('upload', $config);
+                    // $this->upload->initialize($config);
 
-                    //if not uploaded then display error
-                    if(!$this->upload->do_upload('picture'))
-                    {
-                        $data['errors'] = $this->upload->display_errors();
-                        $this->session->set_flashdata('error',$data['errors']);
-                        // redirect('hr_finance/C_employees/create','refresh');
-                        $this->load->view('hr_finance/employees/create',$data);
-                    }else {
-                        $this->upload->do_upload('picture');
-                        $uploaddata = $this->upload->data();
-                        $filename = $uploaddata['file_name'];
+                    // //if not uploaded then display error
+                    // if(!$this->upload->do_upload('picture'))
+                    // {
+                    //     $data['errors'] = $this->upload->display_errors();
+                    //     $this->session->set_flashdata('error',$data['errors']);
+                    //     // redirect('hr_finance/C_employees/create','refresh');
+                    //     $this->load->view('hr_finance/employees/create',$data);
+                    // }else {
+                    //     $this->upload->do_upload('picture');
+                    //     $uploaddata = $this->upload->data();
+                    //     $filename = $uploaddata['file_name'];
                     
-                    }
+                    // }
 
                 $data = array(
                 'first_name' => $this->input->post('first_name', true),
                 'last_name' => $this->input->post('last_name', true),
                 'middle_name' => $this->input->post('middle_name', true),
-                'suffix' => $this->input->post('suffix', true),
-                'nick_name' => $this->input->post('nick_name', true),
-                'picture' => @$filename,
+                // 'suffix' => $this->input->post('suffix', true),
+                // 'nick_name' => $this->input->post('nick_name', true),
+                //'picture' => @$filename,
                 // 'city' => $this->input->post('city', true),
                 // 'country' => $this->input->post('country', true),
                 'email' => $this->input->post('email', true),
                 'address' => $this->input->post('address', true),
                 'contact' => $this->input->post('contact', true),
+                'emergency_contact' => $this->input->post('emergency_contact', true),
                 'dob' => $this->input->post('dob', true),
+                'gender' => $this->input->post('gender', true),
                 'hire_date' => $this->input->post('hire_date', true),
-                //'cnic' => $this->input->post('cnic', true),
+                'employment_status' => $this->input->post('employment_status', true),
+                'contract' => $this->input->post('contract', true),
+                'poineer' => $this->input->post('poineer', true),
                 'status' => $this->input->post('status', true),
-                'marital_status' => $this->input->post('marital_status', true),
-                'emp_no' => $this->input->post('emp_no', true),
+                // 'marital_status' => $this->input->post('marital_status', true),
+                // 'emp_no' => $this->input->post('emp_no', true),
                 'position' => $this->input->post('position', true),
-                'phic' => $this->input->post('phil_health', true),
+                'department' => $this->input->post('department', true),
+                'working_hour_from' => $this->input->post('working_hour_from', true),
+                'working_hour_to' => $this->input->post('working_hour_to', true),
+
+                'basic_salary' => $this->input->post('basic_salary', true),
+                'food_allow' => $this->input->post('food_allow', true),
+                'transportation_allow' => $this->input->post('transportation_allow', true),
+                'other_allow' => $this->input->post('other_allow', true),
+                
+                'phic' => $this->input->post('phic', true),
                 'pag_ibig' => $this->input->post('pag_ibig', true),
                 'sss' => $this->input->post('sss', true),
+                'bpi_account' => $this->input->post('bpi_account', true),
+                'card_number' => $this->input->post('card_number', true),
+                'tracking_number' => $this->input->post('tracking_number', true),
+                'tin' => $this->input->post('tin', true),
                 
                 );
                 //$this->db->insert(' hr_employees', $data);
@@ -182,70 +199,86 @@ class C_employees extends MY_Controller{
             //after form Validation run
             if($this->form_validation->run())
             {
-                if($_FILES['picture']['size'] != 0)
-                {
-                    $config['upload_path'] = './images/employees/';
-                    $config['allowed_types'] = 'gif|jpg|png|jpeg';
-                    $config['max_width']  = '1024';
-                    $config['max_height']  = '768';
-                    $config['overwrite'] = TRUE;
-                    $config['encrypt_name'] = FALSE;
-                    $config['remove_spaces'] = TRUE;
-                    $config['file_name'] = time();
-                    $this->load->library('upload', $config);
-                    $this->upload->initialize($config);
+                // if($_FILES['picture']['size'] != 0)
+                // {
+                //     $config['upload_path'] = './images/employees/';
+                //     $config['allowed_types'] = 'gif|jpg|png|jpeg';
+                //     $config['max_width']  = '1024';
+                //     $config['max_height']  = '768';
+                //     $config['overwrite'] = TRUE;
+                //     $config['encrypt_name'] = FALSE;
+                //     $config['remove_spaces'] = TRUE;
+                //     $config['file_name'] = time();
+                //     $this->load->library('upload', $config);
+                //     $this->upload->initialize($config);
 
-                    //if not uploaded then display error
-                    if(!$this->upload->do_upload('picture'))
-                    {
-                        $data['errors'] = $this->upload->display_errors();
-                        $this->session->set_flashdata('message',$data['errors']);
-                        redirect('hr_finance/C_employees/edit/'.$this->input->post('id'),'refresh');
-                        // $this->load->view('hr_finance/employees/edit',$data);
-                    }else {
-                        $this->upload->do_upload('picture');
-                        $uploaddata = $this->upload->data();
-                        $filename = $uploaddata['file_name'];
+                //     //if not uploaded then display error
+                //     if(!$this->upload->do_upload('picture'))
+                //     {
+                //         $data['errors'] = $this->upload->display_errors();
+                //         $this->session->set_flashdata('message',$data['errors']);
+                //         redirect('hr_finance/C_employees/edit/'.$this->input->post('id'),'refresh');
+                //         // $this->load->view('hr_finance/employees/edit',$data);
+                //     }else {
+                //         $this->upload->do_upload('picture');
+                //         $uploaddata = $this->upload->data();
+                //         $filename = $uploaddata['file_name'];
                     
-                    }
+                //     }
                     
-                }else {
-                    $filename = $this->input->post('picture_old');
-                }
+                // }else {
+                //     $filename = $this->input->post('picture_old');
+                // }
             
                 $data = array(
                     'first_name' => $this->input->post('first_name', true),
                     'last_name' => $this->input->post('last_name', true),
                     'middle_name' => $this->input->post('middle_name', true),
-                    'suffix' => $this->input->post('suffix', true),
-                    'nick_name' => $this->input->post('nick_name', true),
-                    'picture' => @$filename,
+                    // 'suffix' => $this->input->post('suffix', true),
+                    // 'nick_name' => $this->input->post('nick_name', true),
+                    //'picture' => @$filename,
                     // 'city' => $this->input->post('city', true),
                     // 'country' => $this->input->post('country', true),
                     'email' => $this->input->post('email', true),
                     'address' => $this->input->post('address', true),
                     'contact' => $this->input->post('contact', true),
+                    'emergency_contact' => $this->input->post('emergency_contact', true),
                     'dob' => $this->input->post('dob', true),
+                    'gender' => $this->input->post('gender', true),
                     'hire_date' => $this->input->post('hire_date', true),
-                    //'cnic' => $this->input->post('cnic', true),
+                    'employment_status' => $this->input->post('employment_status', true),
+                    'contract' => $this->input->post('contract', true),
+                    'poineer' => $this->input->post('poineer', true),
                     'status' => $this->input->post('status', true),
-                    'marital_status' => $this->input->post('marital_status', true),
-                    'emp_no' => $this->input->post('emp_no', true),
+                    // 'marital_status' => $this->input->post('marital_status', true),
+                    // 'emp_no' => $this->input->post('emp_no', true),
                     'position' => $this->input->post('position', true),
-                    'phic' => $this->input->post('phil_health', true),
+                    'department' => $this->input->post('department', true),
+                    'working_hour_from' => $this->input->post('working_hour_from', true),
+                    'working_hour_to' => $this->input->post('working_hour_to', true),
+    
+                    'basic_salary' => $this->input->post('basic_salary', true),
+                    'food_allow' => $this->input->post('food_allow', true),
+                    'transportation_allow' => $this->input->post('transportation_allow', true),
+                    'other_allow' => $this->input->post('other_allow', true),
+                    
+                    'phic' => $this->input->post('phic', true),
                     'pag_ibig' => $this->input->post('pag_ibig', true),
                     'sss' => $this->input->post('sss', true),
-                    
+                    'bpi_account' => $this->input->post('bpi_account', true),
+                    'card_number' => $this->input->post('card_number', true),
+                    'tracking_number' => $this->input->post('tracking_number', true),
+                    'tin' => $this->input->post('tin', true),
                 );
                 //$this->db->update(' hr_employees', $data, array('id'=>$_POST['id']));
             
                     //DELETE OLD PICTURE FROM DRIVE
-                    if($_FILES['picture']['size'] != 0)
-                    {   //DELETE THE PREVIOUSE PICTURE
-                        $old_picture = $uploaddata['file_path'].$this->input->post('picture_old');
-                        @unlink($old_picture);
-                        /////////////
-                    }
+                    // if($_FILES['picture']['size'] != 0)
+                    // {   //DELETE THE PREVIOUSE PICTURE
+                    //     $old_picture = $uploaddata['file_path'].$this->input->post('picture_old');
+                    //     @unlink($old_picture);
+                    //     /////////////
+                    // }
 
                 if($this->db->update('hr_employees', $data, array('id'=>$this->input->post('id',true)))){
                     
@@ -311,7 +344,7 @@ class C_employees extends MY_Controller{
             $data['employee'] = $this->M_employees->get_employees($id);
             
             $this->load->view('templates/header',$data);
-            $this->load->view('hr_finance/employees/edit_1',$data);
+            $this->load->view('hr_finance/employees/edit',$data);
             $this->load->view('templates/footer');
         //}
     }

@@ -461,11 +461,11 @@ var path = '<?php echo base_url(); ?>';</script>
 					    
 						<li <?php echo ($url3 == 'C_sales' || $url3 == 'C_payment_terms' || $url3 == 'C_sales_charges' || $url3 == 'C_sales_deductions' ? "class='active'" : '') ?>>
 							<a href="javascript:;">
-							<i class="fa fa-bar-chart-o fa"></i> Sales <span class="arrow"></span>
+							<i class="fa fa-shopping-cart" aria-hidden="true"></i> Sales <span class="arrow"></span>
 							</a>
 							<ul class="sub-menu">
 								<li <?php echo ($url4 == 'allSales' ? "class='active'" : '') ?>>
-									<a href="<?php echo site_url('hr_finance/C_sales/allSales') ?>"><i class="icon-share"></i> All Sales</a>
+									<a href="<?php echo site_url('hr_finance/C_sales/allSales') ?>"><i class="fa fa-shopping-cart" aria-hidden="true"></i> All Sales</a>
 								</li>
 								<li <?php echo ($url3 == 'C_sales_charges' ? "class='active'" : '') ?>>
 									<a href="<?php echo site_url('hr_finance/C_sales_charges/') ?>"><i class="icon-settings"></i> Sales Charges</a>
@@ -504,31 +504,14 @@ var path = '<?php echo base_url(); ?>';</script>
 							</ul>
 						</li>
 						
-						<!-- <li <?php echo ($url3 == 'C_feeding' ? "class='active'" : '') ?>>
-					        <a href="<?php echo site_url('farm/C_feeding') ?>"><i class="icon-time"></i> OT Tracking</a>
-					    </li> -->
-						
 						<li <?php echo ($url3 == 'C_employees' ? "class='active'" : '') ?>>
-					        <a href="<?php echo site_url('hr_finance/C_employees') ?>"><i class="icon-time"></i> Employees</a>
+					        <a href="<?php echo site_url('hr_finance/C_employees') ?>"><i class="fa fa-users" aria-hidden="true"></i> Employees</a>
 					    </li>
 					    
-					    <!-- <li <?php echo ($url3 == 'farmReports' ? "class='active'" : '') ?>>
-							<a href="javascript:;">
-							<i class="fa fa-bar-chart-o fa"></i> Reports <span class="arrow"></span>
-							</a>
-							<ul class="sub-menu">
-								<li <?php echo ($url4 == 'C_feedingReport' ? "class='active'" : '') ?>>
-									<a href="<?php echo site_url('farm/farmReports/C_feedingReport') ?>"><i class="icon-graph"></i> Feeding Report</a>
-								</li>
-								<li <?php echo ($url4 == 'C_harvestReport' ? "class='active'" : '') ?>>
-									<a href="<?php echo site_url('farm/farmReports/C_harvestReport') ?>"><i class="icon-share"></i> Harvest Report</a>
-								</li>
-								<li <?php echo ($url4 == 'C_grindingReport' ? "class='active'" : '') ?>>
-									<a href="<?php echo site_url('farm/farmReports/C_grindingReport') ?>"><i class="icon-settings"></i> Grinding Report</a>
-								</li>
-								
-							</ul>
-						</li> -->
+						<li <?php echo ($url3 == 'C_time_requests' ? "class='active'" : '') ?>>
+					        <a href="<?php echo site_url('hr_finance/C_time_requests') ?>"><i class="fa fa-users" aria-hidden="true"></i> Time Requests</a>
+					    </li>
+					    
 					</ul>
 				</li>
 			</ul>

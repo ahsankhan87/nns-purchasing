@@ -433,7 +433,7 @@
                     </div>
 				</div>
                 <div class="text-right">
-                    <a href="<?php echo site_url("hr/C_employees/edit/".$values['id']); ?>" class="btn btn-warning">Edit</a>
+                    <a href="<?php echo site_url("hr_finance/C_employees/edit/".$values['id']); ?>" class="btn btn-warning">Edit</a>
                 </div>
 				
 			</div>
@@ -509,7 +509,7 @@
   
     let document_table = '';
     $.ajax({
-          url: site_url+"/hr/C_employees/get_employees_documents/"+emp_id,
+          url: site_url+"/hr_finance/C_employees/get_employees_documents/"+emp_id,
           type: 'GET',
           dataType: 'json', // added data type
           success: function(data) 
@@ -564,7 +564,7 @@
             console.log(picture);
             $.ajax({
                 method:"POST",
-                url: site_url+"/hr/C_employees/delete_emp_document/"+ del_id+'/'+picture,
+                url: site_url+"/hr_finance/C_employees/delete_emp_document/"+ del_id+'/'+picture,
                 cache: false,
                 success:function(result){
                     if (result) {
@@ -634,7 +634,7 @@
             console.log(site_url);
             
                 $.ajax({  
-                     url:site_url+"/hr/C_employees/create_emp_document",  
+                     url:site_url+"/hr_finance/C_employees/create_emp_document",  
                      method:"POST",  
                      data:formData,
                     cache: false,

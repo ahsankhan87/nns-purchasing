@@ -209,9 +209,9 @@
 							<!--/span-->
 							<div class="col-md-6">
                                 <div class="form-group">
-									<label class="control-label col-sm-3">Employement Status</label>
+									<label class="control-label col-sm-3">Employment Status</label>
 									<div class="col-sm-9">
-										<select class="form-control" name="status" <?php echo set_value('status') ?> >
+										<select class="form-control" name="employment_status" <?php echo set_value('employment_status') ?> >
 										<option value="Regular">Regular</option>
 										
 									</select>
@@ -291,125 +291,144 @@
 						</div>
 						<!--/row-->
 
-					<h3 class="form-section">Accounts</h3>
-
-						<div class="row">
-                            
-							<div class="col-md-6">
-								<div class="form-group">
-									<label class="control-label">Philhealth</label>
-									<input type="text" name="phil_health" class="form-control" placeholder="Philhealth"  value="<?php echo set_value('phil_health') ?>" />
-								</div>
-							</div>
-							<!--/span-->
-							<div class="col-md-6">
-                                <div class="form-group">
-									<label class="control-label">Pag-ibig</label>
-									<input type="text" name="pag_ibig" class="form-control" placeholder="Pag-ibig"  value="<?php echo set_value('pag_ibig') ?>" />
-                                </div>
-                            </div>
-							<!--/span-->
-						</div>
-						<!--/row-->
-
-						<div class="row">
-                           
-							<div class="col-md-6">
-                                <div class="form-group">
-									<label class="control-label">Active Status</label>
-									<select class="form-control" name="status" <?php echo set_value('status') ?> >
-										<option value="Active">Active</option>
-										<option value="Inactive">Inactive</option>
-										<option value="Resign">Resign</option>
-										<option value="Deceased">Deceased</option>
-									</select>
-									
-                                </div>
-                            </div>
-							<!--/span-->
-							
-						</div>
-						<!--/row-->
-						<h3>Employee Detail</h3>
-						 
-						<div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-									<label class="control-label">Employee No.</label>
-									<input type="text" name="emp_no" class="form-control" placeholder="Employee No."  value="<?php echo set_value('emp_no') ?>" />
-                                </div>
-                            </div>
-							<!--/span-->
-							<div class="col-md-6">
-								<div class="form-group">
-								<label class="control-label">Position</label>
-									<input type="text" name="position" class="form-control" placeholder="Position"  value="<?php echo set_value('position') ?>" />
-								</div>
-							</div>
-							<!--/span-->
-						</div>
-						<!--/row-->
-
 						<h3>Salary & Allowances</h3>
 						 
 						 <div class="row">
-							 <div class="col-md-6">
-								 <div class="form-group">
-									 <label class="control-label">Employee No.</label>
-									 <input type="text" name="emp_no" class="form-control" placeholder="Employee No."  value="<?php echo set_value('emp_no') ?>" />
-								 </div>
-							 </div>
-							 <!--/span-->
-							 <div class="col-md-6">
-								 <div class="form-group">
-								 <label class="control-label">Position</label>
-									 <input type="text" name="position" class="form-control" placeholder="Position"  value="<?php echo set_value('position') ?>" />
-								 </div>
+							 <div class="col-md-12">
+								 <table class="table table-bordered">
+									<thead>
+										<tr>
+											<th>Basic Salary</th>
+											<th>Food Allowance</th>
+											<th>Transportation Allowance</th>
+											<th>Other Allowance</th>
+											<th>Monthly Total</th>
+										</tr>
+									</thead>	
+								 	<tbody>
+										<tr>
+											<th><input type="text" name="bpi_account" class="form-control" value="<?php echo set_value('bpi_account') ?>" /></th>
+											<th><input type="text" name="bpi_account" class="form-control" value="<?php echo set_value('bpi_account') ?>" /></th>
+											<th><input type="text" name="bpi_account" class="form-control" value="<?php echo set_value('bpi_account') ?>" /></th>
+											<th><input type="text" name="bpi_account" class="form-control" value="<?php echo set_value('bpi_account') ?>" /></th>
+											<th><input type="text" name="bpi_account" class="form-control" readonly value="<?php echo set_value('bpi_account') ?>" /></th>
+										</tr>
+									</tbody>
+								 </table>
 							 </div>
 							 <!--/span-->
 						 </div>
 						 <!--/row-->
 
-						<h3>Accounts</h3>
-						 
+					<h3 class="form-section">Accounts</h3>
+
 						<div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-									<label class="control-label">Employee No.</label>
-									<input type="text" name="emp_no" class="form-control" placeholder="Employee No."  value="<?php echo set_value('emp_no') ?>" />
-                                </div>
-                            </div>
-							<!--/span-->
 							<div class="col-md-6">
 								<div class="form-group">
-								<label class="control-label">Position</label>
-									<input type="text" name="position" class="form-control" placeholder="Position"  value="<?php echo set_value('position') ?>" />
+									<label class="control-label col-sm-3">BPI Account</label>
+									<div class="col-sm-9">
+										<input type="text" name="bpi_account" class="form-control" placeholder="BPI Account"  value="<?php echo set_value('bpi_account') ?>" />
+									</div>
 								</div>
 							</div>
+							<!--/span-->
+							<div class="col-md-6">
+                                <div class="form-group">
+									<label class="control-label col-sm-3">TIN</label>
+									<div class="col-sm-9">
+										<input type="text" name="tin" class="form-control" placeholder="TIN"  value="<?php echo set_value('tin') ?>" />
+                               
+										</div>
+								</div>
+                            </div>
 							<!--/span-->
 						</div>
 						<!--/row-->
-
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label col-sm-3">Card Number</label>
+									<div class="col-sm-9">
+										<input type="text" name="card_number" class="form-control" placeholder="Card Number"  value="<?php echo set_value('card_number') ?>" />
+									</div>
+								</div>
+							</div>
+							<!--/span-->
+							<div class="col-md-6">
+                                <div class="form-group">
+									<label class="control-label col-sm-3">SSS</label>
+									<div class="col-sm-9">
+										<input type="text" name="sss" class="form-control" placeholder="SSS"  value="<?php echo set_value('sss') ?>" />
+                               
+										</div>
+								</div>
+                            </div>
+							<!--/span-->
+						</div>
+						<!--/row-->
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label col-sm-3">Tracking Number</label>
+									<div class="col-sm-9">
+										<input type="text" name="tracking_number" class="form-control" placeholder="Tracking Number"  value="<?php echo set_value('tracking_number') ?>" />
+									</div>
+								</div>
+							</div>
+							<!--/span-->
+							<div class="col-md-6">
+                                <div class="form-group">
+									<label class="control-label col-sm-3">PHIC</label>
+									<div class="col-sm-9">
+										<input type="text" name="phic" class="form-control" placeholder="PHIC"  value="<?php echo set_value('phic') ?>" />
+                               
+										</div>
+								</div>
+                            </div>
+							<!--/span-->
+						</div>
+						<!--/row-->
+						<div class="row">
+                           
+							<div class="col-md-6">
+                                <div class="form-group">
+									<label class="control-label col-sm-3">Pag-ibig</label>
+									<div class="col-sm-9">
+										<input type="text" name="pag_ibig" class="form-control" placeholder="Pag-ibig"  value="<?php echo set_value('pag_ibig') ?>" />
+                               
+										</div>
+								</div>
+                            </div>
+							<!--/span-->
+							
+						</div>
+						<!--/row-->
+						
+						
 						<h3>NCR</h3>
 						 
 						<div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group row">
-									<label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
-									<div class="col-sm-10">
-										<input type="password" class="form-control" id="inputPassword" placeholder="Password">
-									</div>
-                                </div>
+                            <div class="col-md-12">
+								<table class="table table-bordered">
+									<thead>
+										<tr>
+											<th>Date Issued</th>
+											<th>Warning Level</th>
+											<th>View</th>
+											<th>Note</th>
+										</tr>
+									</thead>	
+									<tbody>
+										<tr>
+											<th><input type="text" name="ncr_date_issued" class="form-control" value="<?php echo set_value('ncr_date_issued') ?>" /></th>
+											<th><input type="text" name="ncr_warning_level" class="form-control" value="<?php echo set_value('ncr_warning_level') ?>" /></th>
+											<th>View</th>
+											<th>Add Note</th>
+										</tr>
+									</tbody>
+								</table>
                             </div>
-							<!--/span-->
-							<div class="col-md-6">
-								<div class="form-group">
-								<label class="control-label col-sm-2">Position</label>
-								<div class="col-sm-10">
-									<input type="text" name="position" class="form-control" placeholder="Position"  value="<?php echo set_value('position') ?>" />
-								</div>
-								</div>
-							</div>
+							
 							<!--/span-->
 						</div>
 						<!--/row-->

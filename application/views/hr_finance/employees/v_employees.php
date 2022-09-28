@@ -36,11 +36,12 @@
             <tr >
                <th>ID</th>
                 <th>Name</th>
-                <th>Age</th>
+                
                 <th>Position</th>
-                <th>Contact No.</th>
-                <th>Length of Service</th>
-                <th>Active Status</th>
+                <th>Years of Service</th>
+                <th>Attendance</th>
+                <th>Time Requests</th>
+                <!-- <th>Active Status</th> -->
                 
                 <th><?php echo lang('action'); ?></th>
             </tr>
@@ -67,16 +68,17 @@
                       // shows the total amount of days (not divided into years, months and days like above)
                       // echo "difference " . $interval->days . " days ";
                   
-                  echo '<td>'. $interval->y . " y/o ".'</td>';
+                  //echo '<td>'. $interval->y . " y/o ".'</td>';
                   //echo '<td>'.$this->M_areas->get_areaName($list['area_id']).'</td>';
                   echo '<td>'.$list['position'].'</td>';
-                  echo '<td>'.$list['contact'].'</td>';
+                  // echo '<td>'.$list['contact'].'</td>';
 
                       $date1 = new DateTime($list['hire_date']);
                       $date2 = new DateTime(date("Y-m-d"));
                       
                       $interval = $date1->diff($date2);
                   echo '<td>'.$interval->y . " years ".'</td>';
+                  
                   if($list['status'] == "Active"){
                     $label = 'badge badge-success';
                     $status = "Active";
@@ -91,10 +93,11 @@
                     $status = "Deceased";
 
                   }
-                  echo '<td> <span class="'.$label.'">'.$status.'</span></td>';
+                  // echo '<td> <span class="'.$label.'">'.$status.'</span></td>';
                   //echo '<td><button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#employee-payment-Modal">Pay Salary</button></td>';
                   // echo '<td><a href="'.site_url('hr_finance/C_employees/paymentModal/'. $list['id']).'" class="btn btn-warning btn-sm" >Pay Salary</a></td>';
-            
+                  echo '<td>View</td>';
+                  echo '<td>View</td>';
                   echo '<td>';
                   //echo  anchor(site_url('up_employee_images/upload_images/'.$list['id']),' upload Images');
                   // if($this->session->userdata('role') == 'admin')
