@@ -692,7 +692,17 @@ CREATE TABLE `hr_employees` (
   `pag_ibig` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `sss` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_on` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_on` datetime NOT NULL
+  `updated_on` datetime NOT NULL,
+  `poineer` tinyint(1) DEFAULT NULL,
+ `ncr` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `working_hour_from` time DEFAULT NULL,
+ `working_hour_to` time DEFAULT NULL,
+ `basic_salary` decimal(18,0) DEFAULT NULL,
+ `food_allow` decimal(18,0) DEFAULT NULL,
+ `other_allow` decimal(18,0) DEFAULT NULL,
+ `transportation_allow` decimal(18,0) DEFAULT NULL,
+ `tracking_number` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `card_number` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -7180,3 +7190,21 @@ CREATE TABLE `finance_dispatch` (
  `date_updated` datetime DEFAULT NULL,
  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+CREATE TABLE `hr_emp_time_requests` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `date_issued` date DEFAULT NULL,
+ `issued_by` varchar(200) DEFAULT NULL,
+ `emp_id` int(11) DEFAULT NULL,
+ `req_period_from` date DEFAULT NULL,
+ `req_period_to` date DEFAULT NULL,
+ `type` varchar(100) DEFAULT NULL,
+ `gm_approved` tinyint(1) DEFAULT NULL,
+ `om_approved` tinyint(1) DEFAULT NULL,
+ `dm_approved` tinyint(1) DEFAULT NULL,
+ `hr_noted` tinyint(1) DEFAULT NULL,
+ `ac_noted` tinyint(1) DEFAULT NULL,
+ `note` text,
+ `date_created` datetime DEFAULT NULL,
+ `date_updated` datetime DEFAULT NULL,
+ PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8
