@@ -144,5 +144,5 @@ $autoload['model'] = array('pos/M_items','pos/M_units','pos/M_suppliers','pos/M_
                            'hr_finance/M_sales','hr_finance/M_expenses','hr_finance/M_expenseItems','hr_finance/M_paymentfor',
                            'hr_finance/M_paymentMethod','hr_finance/M_expenseSubCategory','hr_finance/M_payment_terms',
                            'hr_finance/M_sales_charges','hr_finance/M_sales_deductions','hr_finance/M_employees',
-                           'hr_finance/M_time_requests',
+                           'hr_finance/M_time_requests','hr_finance/M_dispatch',
                            );

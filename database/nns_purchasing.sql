@@ -2699,7 +2699,7 @@ INSERT INTO `pos_items` (`item_id`, `company_id`, `name`, `category_id`, `item_t
 (895, 21, 'Label - GR8-C (163 mm x 42 mm) PP Silver + UV + Emboss', 8, '', '', NULL, 0, '', '', 0, '2021-04-07 06:30:50'),
 (896, 21, 'Capsules - Natural Transparent Veggie #00', 3, '', '', NULL, 0, '', '', 0, '2021-04-14 05:55:56'),
 (897, 21, 'Fresh Bamboo Essential Oil (Indonesia) - Bambusoideae', 10, '', '', NULL, 0, '', '', 0, '2021-04-20 06:53:34'),
-(898, 21, 'Packaging Tape (43 microns) - 2" x 100m', 2, '', '', NULL, 0, '', '', 0, '2021-04-20 08:35:24'),
+(898, 21, 'Packaging Tape (43 microns) - 2 x 100m', 2, '', '', NULL, 0, '', '', 0, '2021-04-20 08:35:24'),
 (899, 21, 'Eucalyptus Radiata Essential Oil (Australia)', 10, '', '', NULL, 0, '', '', 0, '2021-04-21 08:31:06'),
 (900, 21, 'Inhaler + Cotton Wick (White)', 2, '', '', NULL, 0, '', '', 0, '2021-04-27 06:34:05'),
 (901, 21, 'Stevia', 3, '', '', NULL, 0, '', '', 0, '2021-04-27 06:35:33'),
@@ -2765,7 +2765,7 @@ INSERT INTO `pos_items` (`item_id`, `company_id`, `name`, `category_id`, `item_t
 (961, 21, 'Myrtle Essential Oil (France)', 10, '', '', NULL, 0, '', '', 0, '2022-01-21 08:58:41'),
 (962, 21, 'Blackberry Juice Powder', 3, '', '', NULL, 0, '', '', 0, '2022-01-24 08:21:14'),
 (963, 21, 'ZKTeco Biometrics Fingerprint Time Attendance Face Recognition (MB20 Series)', 9, '', '', NULL, 0, '', '', 0, '2022-01-25 08:26:17'),
-(964, 21, 'Bubble Wrap (Bullet Type) 40" x 100m Roll', 2, '', '', NULL, 0, '', '', 0, '2022-01-25 08:28:10'),
+(964, 21, 'Bubble Wrap (Bullet Type) 40 x 100m Roll', 2, '', '', NULL, 0, '', '', 0, '2022-01-25 08:28:10'),
 (965, 21, 'Digital Table Scale - 3 kg x .2g (ATW Series - 210 mm x 280 mm)', 9, '', '', NULL, 0, '', '', 0, '2022-01-28 08:34:04'),
 (966, 21, 'Digital Table Scale - 15 kg x 1g (ATW Series - 210 mm x 280 mm)', 9, '', '', NULL, 0, '', '', 0, '2022-01-28 08:34:50'),
 (967, 21, 'Digital Platform Scale - 200 kg x 20g (KW02W - 420 mm x 520 mm)', 9, '', '', NULL, 0, '', '', 0, '2022-01-28 08:36:03'),
@@ -2783,7 +2783,7 @@ INSERT INTO `pos_items` (`item_id`, `company_id`, `name`, `category_id`, `item_t
 (979, 21, 'MPN12 - D12 (85 mm x 125 mm x 25u)', 2, '', '', NULL, 0, '', '', 0, '2022-02-04 09:20:00'),
 (980, 21, 'MPN13 - C07 (80 mm x 120 mm x 25u)', 2, '', '', NULL, 0, '', '', 0, '2022-02-04 09:21:09'),
 (981, 21, 'MPN14 - HD120 (91 mm x 135 mm x 25u)', 2, '', '', NULL, 0, '', '', 0, '2022-02-04 09:22:14'),
-(982, 21, 'PVC Roll Form - 12" x 25u', 2, '', '', NULL, 0, '', '', 0, '2022-02-04 09:23:23'),
+(982, 21, 'PVC Roll Form - 12 x 25u', 2, '', '', NULL, 0, '', '', 0, '2022-02-04 09:23:23'),
 (983, 21, 'MPN15 - Amber Glass Capseal (37 mm x 25 mm x 35u)', 2, '', '', NULL, 0, '', '', 0, '2022-02-04 09:25:33'),
 (984, 21, 'Capsules - Brown Bovine Gelatin #00', 3, '', '', NULL, 0, '', '', 0, '2022-02-15 06:16:10'),
 (985, 21, 'Window Blinds (46" Width x 72" Length - 2 Cuts) Dark Grey', 9, '', '', NULL, 0, '', '', 0, '2022-02-23 07:03:49'),
@@ -7164,3 +7164,19 @@ ALTER TABLE `users`
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 
 ALTER TABLE `finance_expenses` ADD `receipted_file` VARCHAR(100) NULL AFTER `note`;
+
+CREATE TABLE `finance_dispatch` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `dispatch_date` date DEFAULT NULL,
+ `product_id` int(11) DEFAULT NULL,
+ `content` text DEFAULT NULL,
+ `custom_content` text DEFAULT NULL,
+ `quantity` double(18,4) DEFAULT NULL,
+ `type` varchar(100) DEFAULT NULL,
+ `customer_id` int(11) DEFAULT NULL,
+ `recipient` varchar(150) DEFAULT NULL,
+ `approved_by` varchar(100) DEFAULT NULL,
+ `date_created` datetime DEFAULT NULL,
+ `date_updated` datetime DEFAULT NULL,
+ PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
