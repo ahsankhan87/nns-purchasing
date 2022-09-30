@@ -702,7 +702,7 @@ CREATE TABLE `hr_employees` (
  `other_allow` decimal(18,0) DEFAULT NULL,
  `transportation_allow` decimal(18,0) DEFAULT NULL,
  `tracking_number` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
- `card_number` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+ `card_number` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
