@@ -41,14 +41,6 @@ class M_employees extends CI_Model{
         return $data;
     }
    
-    public function get_emp_name($id)
-    {
-        $options = array('id'=> $id );
-        
-        $query = $this->db->get_where('hr_employees',$options);
-        return $query->row();
-    }
-    
     public function get_empName($id)
     {
         $options = array('id'=> $id );
@@ -63,7 +55,7 @@ class M_employees extends CI_Model{
     }
     
     //get all employees and also only one employee and active and inactive too.
-    public function get_activeEmployees($id = FALSE, $limit = 1000000, $offset = 0)
+    public function get_active_employees($id = FALSE, $limit = 1000000, $offset = 0)
     {
         if($id === FALSE)
         {
@@ -73,7 +65,7 @@ class M_employees extends CI_Model{
                 $this->db->offset($offset);
             }
             
-            $options = array('status'=>'active' );
+            $options = array('status'=>'Yes' );
         
             $this->db->order_by('id','desc');
             $query = $this->db->get_where('hr_employees',$options);
@@ -82,9 +74,21 @@ class M_employees extends CI_Model{
         }
         
         $this->db->order_by('id','desc');
-        $options = array('id'=> $id,'status'=>'active' );
+        $options = array('id'=> $id,'status'=>'Yes' );
         
         $query = $this->db->get_where('hr_employees',$options);
+        $data = $query->result_array();
+        return $data;
+    }
+    
+    public function get_active_employeesBYHireDate($month)
+    {
+        //$this->db->order_by('id','asc');
+       
+        $this->db->where('DATE_FORMAT(hire_date, "%Y-%m") <=',$month);
+        // $this->db->where('status',"Yes");
+        
+        $query = $this->db->get_where('hr_employees');
         $data = $query->result_array();
         return $data;
     }
@@ -149,7 +153,7 @@ class M_employees extends CI_Model{
     public function search($search){
         
         $this->db->like('name',$search);
-        $options = array('status'=>'active' );
+        $options = array('status'=>'Yes' );
         $query = $this->db->get_where('hr_employees',$options);
         $data = $query->result_array();
         return $data;
@@ -225,12 +229,12 @@ class M_employees extends CI_Model{
     
     function inactivate($id)
     {
-        $query = $this->db->update('hr_employees',array('status'=>'inactive'),array('id'=>$id));
+        $query = $this->db->update('hr_employees',array('status'=>'No'),array('id'=>$id));
     }
     
     function activate($id)
     {
-        $query = $this->db->update('hr_employees',array('status'=>'active'),array('id'=>$id));
+        $query = $this->db->update('hr_employees',array('status'=>'Yes'),array('id'=>$id));
     }
 }
 ?>

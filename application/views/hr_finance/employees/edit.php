@@ -293,8 +293,8 @@ if($this->session->flashdata('message'))
 								<div class="form-group">
 								<label class="control-label col-sm-3">Regular Working Hours</label>
 								<div class="col-sm-9">
-									<input type="time" name="from_time" class="form-control">
-									<input type="time" name="to_time" class="form-control">
+									<input type="time" name="working_hour_from" class="form-control">
+									<input type="time" name="working_hour_to" class="form-control">
 								</div>
 								</div>
 							</div>
