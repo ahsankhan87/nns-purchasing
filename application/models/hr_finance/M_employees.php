@@ -122,7 +122,7 @@ class M_employees extends CI_Model{
         $data = array();
         $data[0]= 'Select Employee';
         
-        $query = $this->db->get_where('hr_employees',array('status'=>'active' ));
+        $query = $this->db->get_where('hr_employees');
         
         if ($query->num_rows() > 0)
         {

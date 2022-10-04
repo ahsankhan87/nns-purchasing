@@ -7,13 +7,14 @@
             $this->load->database();
         }
         
-        public function get_emp_attendance_days($month)
+        public function get_emp_attendance_days($emp_id,$month)
         {
-            $this->db->select('dated');
+            // $this->db->select('dated');
             $this->db->from('hr_employees_attendance');
-            $this->db->group_by('dated');
+            //$this->db->group_by('dated');
             // $this->db->where(array('company_id'=>$_SESSION['company_id']));
-            $this->db->like('dated',$month,'right');
+            $this->db->where('dated',$month);
+            $this->db->where('emp_id',$emp_id);
             
             $query = $this->db->get();
             return $query->result_array();

@@ -15,12 +15,20 @@ class C_employees_attendance extends MY_Controller {
         $data['title'] = 'Employees Attendance Report';
         $data['main'] = 'Employees Attendance Report';
         
-        $data['cur_month']=($this->input->post('cur_month') ? $this->input->post('cur_month') : date('Y-m'));
+        if(count($_POST) > 0)
+        {
+            $emp_id = $this->input->post('emp_id');
+            $cur_date = ($this->input->post('cur_month') ? $this->input->post('cur_date') : date('Y-m-d'));
+           
+            $data['cur_date']=$cur_date;
+            $data['main_small'] = '<br />'.date('m/d/Y',strtotime($cur_date));
+            
+            // $data['employees'] = $this->M_employees->get_active_employeesBYHireDate($data['cur_month']);
+            $data['emp_attendance'] =  $this->M_employee_attendance->get_emp_attendance_days($emp_id,$cur_date);
+
+        }
         
-        $data['main_small'] = '<br />'.date('F Y',strtotime($data['cur_month']));
-        
-        $data['attendance_days'] =  $this->M_employee_attendance->get_emp_attendance_days($data['cur_month']);
-        $data['employees'] = $this->M_employees->get_active_employeesBYHireDate($data['cur_month']);
+        $data['employeesDDL'] = $this->M_employees->getEmployeeDropDown();
         
         $this->load->view('templates/header',$data);
         $this->load->view('hr_finance/employees/attendance/list',$data);
@@ -186,6 +194,23 @@ class C_employees_attendance extends MY_Controller {
         // $this->load->view('templates/template', $data);
     }
     
+    public function view_all()
+    {
+        $data = array('langs' => $this->session->userdata('lang'));
+        
+        //fetch employees data to populate the select field
+        $data['employees'] = $this->M_employees->get_employees();
+        
+        $data['title'] = 'Employees Attendance';   
+        $data['main'] = 'Employees Attendance';
+        
+        
+        $this->load->view('templates/header',$data);
+        $this->load->view('hr_finance/employees/attendance/v_all_emp_attendance',$data);
+        $this->load->view('templates/footer');
+
+    }
+
     public function search()
     {
         $data = array('langs' => $this->session->userdata('lang'));
