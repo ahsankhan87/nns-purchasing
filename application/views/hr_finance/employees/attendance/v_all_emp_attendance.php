@@ -27,10 +27,10 @@ if ($this->session->flashdata('error')) {
 				</div>
 			</div>
 			<div class="portlet-body">
-				<form class="form-inline" method="post" action="<?php echo site_url('hr_finance/C_employees_attendance')?>" role="form">
+				<form class="form-inline" method="post" action="<?php echo site_url('hr_finance/C_employees_attendance/view_all')?>" role="form">
         			<div class="form-group">
         				<label for="exampleInputEmail2">Select Month</label>
-        				<input type="month" class="form-control" name="cur_month" value="<?php echo date("Y-m"); ?>" placeholder="Select/Enter Month ie. 2017-01">
+        				<input type="date" class="form-control" name="cur_date" value="<?php echo date("Y-m-d"); ?>">
         			</div>
                     <!--
         			<div class="form-group">
@@ -54,10 +54,11 @@ if(count(@$employees))
 
 <div class="row">
     <div class="col-sm-12">
-    
+        <div><h5>Date: <?php echo date("m/d/Y",strtotime($cur_date));?></h5></div>
         <table class="table table-striped table-bordered table-hover" id="">
             <thead>
                 <tr>
+                    <th>Name</th>    
                     <th>Time In</th>
                     <th>Time Out</th>
                     <th>Full Day</th>
@@ -77,13 +78,24 @@ if(count(@$employees))
             
             foreach($employees as $list)
             {
-                echo '<tr>';
+                echo '<tr class="text-center">';
                 echo '<td>'.$list['first_name'].'</td>';
                 $employee_id = $list['id'];
-                
-                foreach($attendance_days as $days)
+                $emp_attendance = $this->M_employee_attendance->get_emp_attendance_days($employee_id,$cur_date);
+                foreach($emp_attendance as $list_1)
                 {
-                    echo '<td>'. $this->M_employee_attendance->get_employee_attendance($employee_id,$days['dated']).'</td>';
+                    echo '<td>'.date("h:i A", strtotime($list_1['time_in'])).'</td>';
+                    echo '<td>'.date("h:i A", strtotime($list_1['time_out'])).'</td>';
+                    echo '<td>'.($list_1['full_day'] ? "Yes" : "No").'</td>';
+                    echo '<td>'.($list_1['overtime'] ? "Yes" : "No").'</td>';
+                    echo '<td>'.($list_1['weekend'] ? "Yes" : "No").'</td>';
+                    echo '<td>'.($list_1['holiday'] ? "Yes" : "No").'</td>';
+                    echo '<td>'.($list_1['quarantine'] ? "Yes" : "No").'</td>';
+                    echo '<td>'.($list_1['undertime'] ? "Yes" : "No").'</td>';
+                    echo '<td>'.($list_1['late'] ? "Yes" : "No").'</td>';
+                    echo '<td>'.($list_1['absent'] ? "Yes" : "No").'</td>';
+                    echo '<td>'.($list_1['leave'] ? "Yes" : "No").'</td>';
+                    
                 }
                 
                 echo '</tr>';

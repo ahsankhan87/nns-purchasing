@@ -509,15 +509,15 @@ var path = '<?php echo base_url(); ?>';</script>
 					    </li>
 					    
 						<li <?php echo ($url3 == 'C_time_requests' ? "class='active'" : '') ?>>
-					        <a href="<?php echo site_url('hr_finance/C_time_requests') ?>"><i class="fa fa-users" aria-hidden="true"></i> Time Requests</a>
+					        <a href="<?php echo site_url('hr_finance/C_time_requests') ?>"><i class="fa fa-clock-o" aria-hidden="true"></i> Time Requests</a>
 					    </li>
 					    
 						<li <?php echo ($url3 == 'C_employees_attendance' ? "class='active'" : '') ?>>
-					        <a href="<?php echo site_url('hr_finance/C_employees_attendance') ?>"><i class="fa fa-users" aria-hidden="true"></i> Attendance</a>
+					        <a href="<?php echo site_url('hr_finance/C_employees_attendance') ?>"><i class="fa fa-clock-o" aria-hidden="true"></i> Attendance</a>
 					    </li>
 					    
 						<li <?php echo ($url3 == 'C_dispatch' ? "class='active'" : '') ?>>
-					        <a href="<?php echo site_url('hr_finance/C_dispatch') ?>"><i class="fa fa-users" aria-hidden="true"></i> Dispatch</a>
+					        <a href="<?php echo site_url('hr_finance/C_dispatch') ?>"><i class="fa fa-truck" aria-hidden="true"></i> Dispatch</a>
 					    </li>
 					    
 					</ul>

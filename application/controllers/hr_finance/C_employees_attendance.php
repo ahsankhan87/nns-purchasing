@@ -18,8 +18,9 @@ class C_employees_attendance extends MY_Controller {
         if(count($_POST) > 0)
         {
             $emp_id = $this->input->post('emp_id');
-            $cur_date = ($this->input->post('cur_month') ? $this->input->post('cur_date') : date('Y-m-d'));
+            $cur_date = $this->input->post('cur_date');
            
+            $data['emp_id']=$emp_id;
             $data['cur_date']=$cur_date;
             $data['main_small'] = '<br />'.date('m/d/Y',strtotime($cur_date));
             
@@ -199,10 +200,12 @@ class C_employees_attendance extends MY_Controller {
         $data = array('langs' => $this->session->userdata('lang'));
         
         //fetch employees data to populate the select field
-        $data['employees'] = $this->M_employees->get_employees();
-        
         $data['title'] = 'Employees Attendance';   
         $data['main'] = 'Employees Attendance';
+        
+        $data['employees'] = $this->M_employees->get_employees();
+        $cur_date = ($this->input->post('cur_date') ? $this->input->post('cur_date') : date("Y-m-d"));
+        $data['cur_date']=$cur_date;
         
         
         $this->load->view('templates/header',$data);

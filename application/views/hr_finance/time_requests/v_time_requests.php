@@ -63,11 +63,11 @@
             echo ($list['req_period_to'] == "0000-00-00" ? "" : " to ".date('m/d/Y',strtotime($list['req_period_to'])));
             echo '</td>';
             echo '<td>'.$list['type'].'</td>';
-            echo '<td>'.$list['gm_approved'].'</td>';
-            echo '<td>'.$list['om_approved'].'</td>';
-            echo '<td>'.$list['dm_approved'].'</td>';
-            echo '<td>'.$list['hr_noted'].'</td>';
-            echo '<td>'.$list['ac_noted'].'</td>';
+            echo '<td>'.($list['gm_approved'] ? "Yes" : "No").'</td>';
+            echo '<td>'.($list['om_approved'] ? "Yes" : "No").'</td>';
+            echo '<td>'.($list['dm_approved'] ? "Yes" : "No").'</td>';
+            echo '<td>'.($list['hr_noted'] ? "Yes" : "No").'</td>';
+            echo '<td>'.($list['ac_noted'] ? "Yes" : "No").'</td>';
             echo '<td>'.$list['note'].'</td>';
             
             // if($list['fsms'] == 'Approved')
