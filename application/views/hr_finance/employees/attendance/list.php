@@ -54,7 +54,7 @@ if ($this->session->flashdata('error')) {
 <!-- END DAte Search-->
 
 <?php 
-if(count(@$emp_attendance))
+if(count((array) @$emp_attendance))
 {
 ?>
 
