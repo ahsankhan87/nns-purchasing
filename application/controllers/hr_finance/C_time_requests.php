@@ -26,6 +26,24 @@ class C_time_requests extends MY_Controller{
         $this->load->view('templates/footer');
     }
     
+    function detail($emp_id)
+    {
+        $data = array('langs' => $this->session->userdata('lang'));
+        
+        $start_date = FY_START_DATE; //date("Y-m-d", strtotime("last year"));
+        $to_date = FY_END_DATE; //date("Y-m-d");
+        $fiscal_dates = "(From: ".date('d-m-Y',strtotime($start_date)) ." To:" .date('d-m-Y',strtotime($to_date)).")";
+        
+        $data['title'] = 'List of time_requests';
+        $data['main'] = 'List of time_requests';
+        
+        $data['time_requests'] = $this->M_time_requests->get_time_requests_by_emp($emp_id,$start_date,$to_date);
+        
+        $this->load->view('templates/header',$data);
+        $this->load->view('hr_finance/time_requests/v_time_requests',$data);
+        $this->load->view('templates/footer');
+    }
+    
     function create()
     {
         $data = array('langs' => $this->session->userdata('lang'));

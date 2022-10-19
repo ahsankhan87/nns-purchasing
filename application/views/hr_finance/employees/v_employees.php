@@ -97,7 +97,7 @@
                   //echo '<td><button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#employee-payment-Modal">Pay Salary</button></td>';
                   // echo '<td><a href="'.site_url('hr_finance/C_employees/paymentModal/'. $list['id']).'" class="btn btn-warning btn-sm" >Pay Salary</a></td>';
                   echo '<td>View</td>';
-                  echo '<td>View</td>';
+                  echo '<td>'.anchor('hr_finance/C_time_requests/detail/'.$list['id'],'View').'</td>';
                   echo '<td>';
                   //echo  anchor(site_url('up_employee_images/upload_images/'.$list['id']),' upload Images');
                   // if($this->session->userdata('role') == 'admin')

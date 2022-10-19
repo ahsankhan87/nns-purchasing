@@ -29,6 +29,28 @@ class M_time_requests extends CI_Model{
        return $query->result_array();
     }
     
+    function get_time_requests_by_emp($emp_id = FALSE, $from_date = null, $to_date=null)
+    {
+        if($from_date != null)
+        {
+            $this->db->where('date_created >=',$from_date);
+        }
+        
+        if($to_date != null)
+        {
+            $this->db->where('date_created <=',$to_date);
+        }
+        
+        if($emp_id == FALSE)
+        {
+            $query = $this->db->get_where('hr_emp_time_requests');
+            return $query->result_array();
+        }
+        
+       $query = $this->db->get_where('hr_emp_time_requests',array('emp_id'=>$emp_id));
+       return $query->result_array();
+    }
+    
     function get_time_requests_report($from_date=null,$to_date=null,$status)
     {
        if($status != 'All'){

@@ -57,7 +57,7 @@
             echo '<td>'.$list['id'].'</td>';
             echo '<td>'.date('m/d/Y',strtotime($list['date_issued'])).'</td>';
             echo '<td>'.$list['issued_by'].'</td>';
-            echo '<td>'.$list['emp_id'].'</td>';
+            echo '<td>'.anchor('hr_finance/C_time_requests/detail/'.$list['emp_id'],$this->M_employees->get_empName($list['emp_id'])).'</td>';
             echo '<td>';
             echo ($list['req_period_from'] == "0000-00-00" ? "" : date('m/d/Y',strtotime($list['req_period_from'])));
             echo ($list['req_period_to'] == "0000-00-00" ? "" : " to ".date('m/d/Y',strtotime($list['req_period_to'])));
