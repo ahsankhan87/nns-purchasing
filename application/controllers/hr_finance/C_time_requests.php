@@ -16,8 +16,8 @@ class C_time_requests extends MY_Controller{
         $to_date = FY_END_DATE; //date("Y-m-d");
         $fiscal_dates = "(From: ".date('d-m-Y',strtotime($start_date)) ." To:" .date('d-m-Y',strtotime($to_date)).")";
         
-        $data['title'] = 'List of time_requests';
-        $data['main'] = 'List of time_requests';
+        $data['title'] = 'List of Time Requests';
+        $data['main'] = 'List of Time Requests';
         
         $data['time_requests'] = $this->M_time_requests->get_time_requests(FALSE,$start_date,$to_date);
         
@@ -34,8 +34,8 @@ class C_time_requests extends MY_Controller{
         $to_date = FY_END_DATE; //date("Y-m-d");
         $fiscal_dates = "(From: ".date('d-m-Y',strtotime($start_date)) ." To:" .date('d-m-Y',strtotime($to_date)).")";
         
-        $data['title'] = 'List of time_requests';
-        $data['main'] = 'List of time_requests';
+        $data['title'] = 'List of Time Requests';
+        $data['main'] = 'List of Time Requests';
         
         $data['time_requests'] = $this->M_time_requests->get_time_requests_by_emp($emp_id,$start_date,$to_date);
         
@@ -75,7 +75,7 @@ class C_time_requests extends MY_Controller{
                      );
                   
                   if($this->db->insert('hr_emp_time_requests',$data)) {
-                    $this->session->set_flashdata('message','time_requests Added');
+                    $this->session->set_flashdata('message','Time Requests Added');
                     }else{
                     $data['flash_message'] = false;
                     }
@@ -89,8 +89,8 @@ class C_time_requests extends MY_Controller{
         // $data['productsDDL'] = $this->M_products->get_productsDDL();
         $data['employeesDDL'] = $this->M_employees->getEmployeeDropDown();
         
-        $data['title'] = 'Add New time_requests';
-        $data['main'] = 'Add New time_requests';
+        $data['title'] = 'Add New Time Requests';
+        $data['main'] = 'Add New Time Requests';
         
         $this->load->view('templates/header',$data);
         $this->load->view('hr_finance/time_requests/create',$data);
@@ -127,7 +127,7 @@ class C_time_requests extends MY_Controller{
                      );
                   
                   if($this->db->update('hr_emp_time_requests',$data,array('id'=>$_POST['id']))) {
-                    $this->session->set_flashdata('message','time_requests Updated');
+                    $this->session->set_flashdata('message','Time Requests Updated');
                     }else{
                     $data['flash_message'] = false;
                     }
@@ -137,8 +137,8 @@ class C_time_requests extends MY_Controller{
             redirect('hr_finance/C_time_requests','refresh');
         }
         }
-        $data['title'] = 'Update time_requests';
-        $data['main'] = 'Update time_requests';
+        $data['title'] = 'Update Time Requests';
+        $data['main'] = 'Update Time Requests';
         
         $data['update_time_requests'] = $this->M_time_requests->get_time_requests($id);      
         //$data['productsDDL'] = $this->M_products->get_productsDDL();
@@ -152,7 +152,7 @@ class C_time_requests extends MY_Controller{
     function delete($id)
     {
         $this->M_time_requests->delete_time_requests($id);
-        $this->session->set_flashdata('message','time_requests Deleted');
+        $this->session->set_flashdata('message','Time Requests Deleted');
         redirect('hr_finance/C_time_requests','refresh');
     }
 }

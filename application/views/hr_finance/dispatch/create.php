@@ -11,7 +11,7 @@
     <div class="form-group">
       <label class="control-label col-sm-2" for="dispatch_date">Dispatch Date:</label>
       <div class="col-sm-10">
-        <input type="date" class="form-control" id="dispatch_date" name="dispatch_date" value="<?php echo set_value("dispatch_date"); ?>" placeholder="Date" />
+        <input type="date" class="form-control" id="dispatch_date" name="dispatch_date" value="<?php echo date("Y-m-d"); ?>" placeholder="Date" />
       </div>
     </div>
 
@@ -19,7 +19,7 @@
       <label class="control-label col-sm-2" for="product_id">Product:<span class="required">* </span></label>
       <div class="col-sm-10">
         <!-- <input type="text" class="form-control" id="name" name="item" placeholder="Product" value="<?php echo set_value('Employee') ?>"/> -->
-        <?php echo form_dropdown('product_id', $productsDDL, set_value('product_id'), 'class="form-control select2me"'); ?>
+        <?php echo form_dropdown('product_id', $productsDDL, set_value('product_id'), 'class="form-control select2me product_id"'); ?>
       </div>
     </div>
 
@@ -40,7 +40,7 @@
     <div class="form-group">
       <label class="control-label col-sm-2" for="quantity">Quantity:</label>
       <div class="col-sm-10">
-        <input type="text" class="form-control" id="quantity" name="quantity" value="<?php echo set_value("quantity"); ?>"  placeholder="Quantity" />
+        <input type="number" class="form-control" id="quantity" name="quantity" value="<?php echo set_value("quantity"); ?>"  placeholder="Quantity" />
       </div>
     </div>
 
@@ -107,3 +107,35 @@
   <!-- /.col-sm-12 -->
 </div>
 <!-- /.row -->
+<script>
+   $(document).ready(function() {
+
+      const site_url = '<?php echo site_url($langs); ?>/';
+      const path = '<?php echo base_url(); ?>';
+      const date = '<?php echo date("Y-m-d") ?>';
+
+      ////// LOAD COST PRICE, UNIT PRICE, TAX WHEN PRODUCT DROPDOWN CHANGE
+      $('.product_id').on('change', function(event) {
+            // event.preventDefault();
+            var productid = $(this).val();
+            
+            $.ajax({
+                url: site_url + "production/C_products/productDDL/" + productid,
+                type: 'GET',
+                dataType: 'json', // added data type
+                success: function(data) {
+
+                  $('#content').val(data[0].content);
+                    
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                }
+            });
+
+
+        });
+
+  });
+</script>

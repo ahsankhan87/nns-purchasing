@@ -319,11 +319,11 @@ if($this->session->flashdata('message'))
 									</thead>	
 								 	<tbody>
 										<tr>
-											<th><input type="text" name="bpi_account" class="form-control" value="<?php echo $values['bpi_account'] ?>" /></th>
-											<th><input type="text" name="bpi_account" class="form-control" value="<?php echo $values['bpi_account'] ?>" /></th>
-											<th><input type="text" name="bpi_account" class="form-control" value="<?php echo $values['bpi_account'] ?>" /></th>
-											<th><input type="text" name="bpi_account" class="form-control" value="<?php echo $values['bpi_account'] ?>" /></th>
-											<th><input type="text" name="bpi_account" class="form-control" readonly value="<?php echo $values['bpi_account'] ?>" /></th>
+											<th><input type="number" name="basic_salary" class="form-control" value="<?php echo $values['basic_salary'] ?>" /></th>
+											<th><input type="number" name="food_allow" class="form-control" value="<?php echo $values['food_allow'] ?>" /></th>
+											<th><input type="number" name="transportation_allow" class="form-control" value="<?php echo $values['transportation_allow'] ?>" /></th>
+											<th><input type="number" name="other_allow" class="form-control" value="<?php echo $values['other_allow'] ?>" /></th>
+											<th><input type="number" name="monthly_total" class="form-control" value="<?php echo $values['monthly_total'] ?>" /></th>
 										</tr>
 									</tbody>
 								 </table>

@@ -106,6 +106,7 @@ class C_employees extends MY_Controller{
                 'food_allow' => $this->input->post('food_allow', true),
                 'transportation_allow' => $this->input->post('transportation_allow', true),
                 'other_allow' => $this->input->post('other_allow', true),
+                'monthly_total' => $this->input->post('monthly_total', true),
                 
                 'phic' => $this->input->post('phic', true),
                 'pag_ibig' => $this->input->post('pag_ibig', true),
@@ -261,6 +262,7 @@ class C_employees extends MY_Controller{
                     'food_allow' => $this->input->post('food_allow', true),
                     'transportation_allow' => $this->input->post('transportation_allow', true),
                     'other_allow' => $this->input->post('other_allow', true),
+                    'monthly_total' => $this->input->post('monthly_total', true),
                     
                     'phic' => $this->input->post('phic', true),
                     'pag_ibig' => $this->input->post('pag_ibig', true),

@@ -11,7 +11,7 @@
     <div class="form-group">
       <label class="control-label col-sm-2" for="date_issued">Date Issued:</label>
       <div class="col-sm-10">
-        <input type="date" class="form-control" id="date_issued" name="date_issued" value="<?php echo set_value("date_issued"); ?>" placeholder="Date Issued" />
+        <input type="date" class="form-control" id="date_issued" name="date_issued" value="<?php echo date("Y-m-d"); ?>" placeholder="Date Issued" />
       </div>
     </div>
 

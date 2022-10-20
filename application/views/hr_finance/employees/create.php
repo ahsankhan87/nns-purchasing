@@ -236,7 +236,7 @@
 								<div class="form-group">
 									<label class="control-label col-sm-3">Employement Date</label>
 									<div class="col-sm-9">
-										<input type="date" name="hire_date" class="form-control" placeholder="dd/mm/yyyy"  value="<?php echo set_value('hire_date') ?>" />
+										<input type="date" name="hire_date" class="form-control" placeholder="dd/mm/yyyy"  value="<?php echo date("Y-m-d"); ?>" />
 								</div>
 								</div>
 							</div>
@@ -307,11 +307,11 @@
 									</thead>	
 								 	<tbody>
 										<tr>
-											<th><input type="text" name="bpi_account" class="form-control" value="<?php echo set_value('bpi_account') ?>" /></th>
-											<th><input type="text" name="bpi_account" class="form-control" value="<?php echo set_value('bpi_account') ?>" /></th>
-											<th><input type="text" name="bpi_account" class="form-control" value="<?php echo set_value('bpi_account') ?>" /></th>
-											<th><input type="text" name="bpi_account" class="form-control" value="<?php echo set_value('bpi_account') ?>" /></th>
-											<th><input type="text" name="bpi_account" class="form-control" readonly value="<?php echo set_value('bpi_account') ?>" /></th>
+											<th><input type="number" name="basic_salary" class="form-control" value="<?php echo set_value('basic_salary') ?>" /></th>
+											<th><input type="number" name="food_allow" class="form-control" value="<?php echo set_value('food_allow') ?>" /></th>
+											<th><input type="number" name="transportation_allow" class="form-control" value="<?php echo set_value('transportation_allow') ?>" /></th>
+											<th><input type="number" name="other_allow" class="form-control" value="<?php echo set_value('other_allow') ?>" /></th>
+											<th><input type="number" name="monthly_total" class="form-control" value="<?php echo set_value('monthly_total') ?>" /></th>
 										</tr>
 									</tbody>
 								 </table>
@@ -445,3 +445,61 @@
     <!-- /.col-sm-12 -->
 </div>
 <!-- /.row -->
+
+<script>
+   $(document).ready(function() {
+
+      const site_url = '<?php echo site_url($langs); ?>/';
+      const path = '<?php echo base_url(); ?>';
+      const date = '<?php echo date("Y-m-d") ?>';
+
+	  $(".discount").on("keyup change", function(e) {
+
+			var curId = this.id.split("_")[1];
+			var qty = parseFloat($('#qty_' + curId).val());
+			var price = parseFloat($('#unitprice_' + curId).val());
+			var discount = 0;//(parseFloat($('#discount_' + curId).val()) ? parseFloat($('#discount_' + curId).val()) : 0);
+			var total = (qty * price ? qty * price - discount : 0).toFixed(2);
+			$('#total_' + curId).val(total);
+
+			calc_gtotal();
+		});
+
+		/////////////ADD NEW LINES END HERE
+        function calc_grand_total() {
+            var grand_total = 0;
+            var total_ded = 0;
+            var total_charges = 0;
+            var total_payment_summary = 0;
+            var products_total = 0;
+
+            products_total = $('#sub_total_txt').val();
+            total_ded = $("#sub_total_txt_deduction").val();
+            total_charges = $("#sub_total_txt_charges").val();
+            total_payment_summary = $("#sub_total_txt_payment_summary").val();
+            
+            grand_total = (grand_total ? grand_total : 0);
+            total_ded  = (total_ded ? total_ded : 0);
+            total_charges = (total_charges ? total_charges : 0);
+            total_payment_summary = (total_payment_summary ? total_payment_summary : 0);
+            
+            grand_total = ((parseFloat(products_total) + parseFloat(total_charges)) - parseFloat(total_ded));
+            balance = ((parseFloat(grand_total)-parseFloat(total_payment_summary)));
+            
+            $('#grand_total').val(parseFloat(grand_total));
+            $('#net_amount').val(parseFloat(grand_total));
+            $('#balance').val(parseFloat(balance));
+            $('#net_total').text(parseFloat(grand_total).toLocaleString('en-US', 2));
+            $('#top_net_total').html('Grand Total:<h2 style="margin:0">'+parseFloat(grand_total).toLocaleString('en-US', 2)+'</h2>');
+            
+            if(balance > 0 && balance == grand_total)
+            {
+                $('#status').val("Unpaid");
+            }else if(balance == 0){
+                $('#status').val("Paid");
+            }else{
+                $('#status').val("Partial Paid");
+            }
+        }
+  });
+</script>
