@@ -22,7 +22,7 @@ class C_employees extends MY_Controller{
         $this->load->view('templates/footer');
     }
     
-    function empDetail($emp_id)
+    function employeeDetail($emp_id)
     {
         $data = array('langs' => $this->session->userdata('lang'));
         
@@ -33,6 +33,20 @@ class C_employees extends MY_Controller{
         
         $this->load->view('templates/header',$data);
         $this->load->view('hr_finance/employees/v_detail',$data);
+        $this->load->view('templates/footer');
+    }
+    
+    function employeeByPosition($position)
+    {
+        $data = array('langs' => $this->session->userdata('lang'));
+        
+        $data['title'] = 'Employee Detail';
+        $data['main'] = 'Employee Detail';
+        
+        $data['employees']= $this->M_employees->get_employees_by_position($position);
+        
+        $this->load->view('templates/header',$data);
+        $this->load->view('hr_finance/employees/v_empByPosition',$data);
         $this->load->view('templates/footer');
     }
     
@@ -97,7 +111,7 @@ class C_employees extends MY_Controller{
                 'status' => $this->input->post('status', true),
                 // 'marital_status' => $this->input->post('marital_status', true),
                 // 'emp_no' => $this->input->post('emp_no', true),
-                'position' => $this->input->post('position', true),
+                'position_id' => $this->input->post('position_id', true),
                 'department' => $this->input->post('department', true),
                 'working_hour_from' => $this->input->post('working_hour_from', true),
                 'working_hour_to' => $this->input->post('working_hour_to', true),
@@ -179,7 +193,7 @@ class C_employees extends MY_Controller{
             $data['main'] = 'Add New Employee';
             
             //$data['areaDDL'] = $this->M_areas->get_activeareasDDL();
-            
+            $data['positionsDDL'] = $this->M_positions->get_activepositionsDDL();
                
             $this->load->view('templates/header',$data);
             $this->load->view('hr_finance/employees/create',$data);
@@ -253,7 +267,7 @@ class C_employees extends MY_Controller{
                     'status' => $this->input->post('status', true),
                     // 'marital_status' => $this->input->post('marital_status', true),
                     // 'emp_no' => $this->input->post('emp_no', true),
-                    'position' => $this->input->post('position', true),
+                    'position_id' => $this->input->post('position_id', true),
                     'department' => $this->input->post('department', true),
                     'working_hour_from' => $this->input->post('working_hour_from', true),
                     'working_hour_to' => $this->input->post('working_hour_to', true),
@@ -344,7 +358,8 @@ class C_employees extends MY_Controller{
             
             //$data['areaDDL'] = $this->M_areas->get_activeareasDDL();
             $data['employee'] = $this->M_employees->get_employees($id);
-            
+            $data['positionsDDL'] = $this->M_positions->get_activepositionsDDL();
+             
             $this->load->view('templates/header',$data);
             $this->load->view('hr_finance/employees/edit',$data);
             $this->load->view('templates/footer');

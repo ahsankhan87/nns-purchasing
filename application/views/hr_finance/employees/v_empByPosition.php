@@ -70,8 +70,7 @@
                   
                   //echo '<td>'. $interval->y . " y/o ".'</td>';
                   //echo '<td>'.$this->M_areas->get_areaName($list['area_id']).'</td>';
-                  //echo '<td>'.$list['position'].'</td>';
-                  echo '<td><a href="'.site_url('hr_finance/C_employees/employeeByPosition/'. $list['position_id']).'">'.$this->M_positions->get_positionsName($list['position_id']).'</a></td>';
+                  echo '<td>'.$this->M_positions->get_positionsName($list['position_id']).'</td>';
                   // echo '<td>'.$list['contact'].'</td>';
 
                       $date1 = new DateTime($list['hire_date']);

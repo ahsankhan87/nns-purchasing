@@ -48,7 +48,7 @@ if($this->session->flashdata('message'))
                     //echo form_hidden('picture_old',$values['picture']);
                     ?>
 					<div class="form-body">
-						<h3 class="form-section">Employee Basic Information</h3>
+						<div class="lead form-section">Employee Basic Information</div>
                         
 						<!-- <div class="row">
 							<div class="col-md-6">
@@ -133,7 +133,7 @@ if($this->session->flashdata('message'))
 							
 						</div>
 						<!--/row-->
-						<h3 class="form-section">Contact Information</h3>
+						<div class="lead form-section">Contact Information</div>
 						
 						<div class="row">
                             <div class="col-md-6">
@@ -206,7 +206,7 @@ if($this->session->flashdata('message'))
                         
                         <!--/row-->
 						
-					<h3 class="form-section">Employement Details</h3>
+						<div class="lead form-section">Employement Details</div>
                         
 						<div class="row">
                             
@@ -214,7 +214,9 @@ if($this->session->flashdata('message'))
 								<div class="form-group">
 								<label class="control-label col-sm-3">Position</label>
 								<div class="col-sm-9">
-									<input type="text" name="position" class="form-control" placeholder="Position"  value="<?php echo $values['position'] ?>" />
+									<!-- <input type="text" name="position" class="form-control" placeholder="Position"  value="<?php echo $values['position'] ?>" /> -->
+									<?php echo form_dropdown('position_id',$positionsDDL,$values['position_id'],'class="select2me form-control"');?>
+
 								</div>
 								</div>
 							</div>
@@ -303,7 +305,7 @@ if($this->session->flashdata('message'))
 						</div>
 						<!--/row-->
 
-						<h3>Salary & Allowances</h3>
+						<div class="lead form-section">Salary & Allowances</div>
 						 
 						 <div class="row">
 							 <div class="col-md-12">
@@ -332,7 +334,7 @@ if($this->session->flashdata('message'))
 						 </div>
 						 <!--/row-->
 
-					<h3 class="form-section">Accounts</h3>
+						 <div class="lead form-section">Accounts</div>
 
 						<div class="row">
 							<div class="col-md-6">
@@ -417,7 +419,7 @@ if($this->session->flashdata('message'))
 						<!--/row-->
 						
 						
-						<h3>NCR</h3>
+						<div class="lead form-section">NCR</div>
 						 
 						<div class="row">
                             <div class="col-md-12">

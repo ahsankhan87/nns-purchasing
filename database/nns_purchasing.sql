@@ -7213,3 +7213,15 @@ CREATE TABLE `hr_emp_time_requests` (
 CREATE TABLE `hr_employees_attendance` ( `id` int(11) NOT NULL AUTO_INCREMENT, `emp_id` int(30) NOT NULL, `status` varchar(20) NOT NULL, `dated` date NOT NULL, `time_in` time NULL, `time_out` time NULL, `remarks` varchar(250) NULL, `full_day` tinyint(1) NULL, `overtime` tinyint(1) NULL, `weekend` tinyint(1) NULL, `holiday` tinyint(1) NULL, `quarantine` tinyint(1) NULL, `undertime` tinyint(1) NULL, `late` tinyint(1) NULL, `absent` tinyint(1) NULL, `leave` tinyint(1) NULL, `date_created` datetime NULL, `date_updated` datetime NULL, PRIMARY KEY (`id`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8
 
 ALTER TABLE `hr_employees` ADD `monthly_total` DOUBLE(18,3) NULL AFTER `card_number`;
+
+CREATE TABLE `hr_positions` (
+ `id` int(13) NOT NULL AUTO_INCREMENT,
+ `job_category_id` int(11) DEFAULT NULL,
+ `name` varchar(200) NOT NULL,
+ `note` varchar(400) DEFAULT NULL,
+ `status` tinyint(1) DEFAULT NULL,
+ `date_created` datetime DEFAULT NULL,
+ PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8
+
+ALTER TABLE `hr_employees` CHANGE `position` `position_id` INT(11) NULL DEFAULT NULL;

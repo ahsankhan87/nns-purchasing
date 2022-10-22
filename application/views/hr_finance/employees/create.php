@@ -36,7 +36,7 @@
                     echo form_open('hr_finance/C_employees/create',$attributes);
                     ?>
 					<div class="form-body">
-						<h3 class="form-section">Employee Basic Information</h3>
+						<div class="lead form-section">Employee Basic Information</div>
                         
 						<!-- <div class="row">
 							<div class="col-md-6">
@@ -121,7 +121,7 @@
 							
 						</div>
 						<!--/row-->
-						<h3 class="form-section">Contact Information</h3>
+						<div class="lead form-section">Contact Information</div>
 						
 						<div class="row">
                             <div class="col-md-6">
@@ -194,7 +194,7 @@
                         
                         <!--/row-->
 						
-					<h3 class="form-section">Employement Details</h3>
+					<div class="form-section lead">Employement Details</div>
                         
 						<div class="row">
                             
@@ -202,7 +202,9 @@
 								<div class="form-group">
 								<label class="control-label col-sm-3">Position</label>
 								<div class="col-sm-9">
-									<input type="text" name="position" class="form-control" placeholder="Position"  value="<?php echo set_value('position') ?>" />
+									<!-- <input type="text" name="position" class="form-control" placeholder="Position"  value="<?php echo set_value('position') ?>" /> -->
+									
+									<?php echo form_dropdown('position_id',$positionsDDL,set_value('position_id'),'class="select2me form-control"');?>
 								</div>
 								</div>
 							</div>
@@ -291,7 +293,7 @@
 						</div>
 						<!--/row-->
 
-						<h3>Salary & Allowances</h3>
+						<div class="lead form-section">Salary & Allowances</div>
 						 
 						 <div class="row">
 							 <div class="col-md-12">
@@ -320,7 +322,7 @@
 						 </div>
 						 <!--/row-->
 
-					<h3 class="form-section">Accounts</h3>
+					<div class="lead form-section"">Accounts</div>
 
 						<div class="row">
 							<div class="col-md-6">
@@ -405,7 +407,7 @@
 						<!--/row-->
 						
 						
-						<h3>NCR</h3>
+						<div class="lead form-section">NCR</div>
 						 
 						<div class="row">
                             <div class="col-md-12">

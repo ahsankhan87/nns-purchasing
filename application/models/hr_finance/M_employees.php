@@ -30,7 +30,17 @@ class M_employees extends CI_Model{
         $data = $query->result_array();
         return $data;
     }
-   
+   //get all employees and also only one employee and active and inactive too.
+   public function get_employees_by_position($position_id)
+   {
+       $this->db->order_by('id','desc');
+       $options = array('position_id'=> $position_id );
+       
+       $query = $this->db->get_where('hr_employees',$options);
+       $data = $query->result_array();
+       return $data;
+   }
+  
     //get all employees and also only one employee and active and inactive too.
     public function get_employees_documents($emp_id)
     {
