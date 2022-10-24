@@ -36,7 +36,6 @@
             <tr >
                <th>ID</th>
                 <th>Name</th>
-                
                 <th>Position</th>
                 <th>Years of Service</th>
                 <th>Attendance</th>
@@ -56,7 +55,7 @@
                   echo '<td>'.$list['id'].'</td>';
                   
                   //echo '<td>'.$list['account_code'].'</td>';  
-                  echo '<td><a href="'.site_url('hr_finance/C_employees/empDetail/'. $list['id']).'">'.$list['first_name'] . ' '. $list['last_name'].'</a></td>';
+                  echo '<td><a href="'.site_url('hr_finance/C_employees/employeeDetail/'. $list['id']).'">'.$list['first_name'] . ' '. $list['last_name'].'</a></td>';
                   // echo '<td>'.$list['first_name']. ' '. $list['last_name'].'</td>';
                   
                       $date1 = new DateTime($list['dob']);

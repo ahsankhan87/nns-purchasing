@@ -504,8 +504,20 @@ var path = '<?php echo base_url(); ?>';</script>
 							</ul>
 						</li>
 						
-						<li <?php echo ($url3 == 'C_employees' ? "class='active'" : '') ?>>
-					        <a href="<?php echo site_url('hr_finance/C_employees') ?>"><i class="fa fa-users" aria-hidden="true"></i> Employees</a>
+						<li <?php echo ($url3 == 'C_employees' || $url3 == 'C_positions' ? "class='active'" : '') ?>>
+					        
+							<a href="javascript:;">
+							<i class="fa fa-users"></i> Employees <span class="arrow"></span>
+							</a>
+							<ul class="sub-menu">
+								<li <?php echo ($url4 == 'allExpenses' ? "class='active'" : '') ?>>
+								<a href="<?php echo site_url('hr_finance/C_employees') ?>"><i class="fa fa-users" aria-hidden="true"></i> All Employees</a>
+								</li>
+								<li <?php echo ($url3 == 'C_positions' ? "class='active'" : '') ?>>
+									<a href="<?php echo site_url('hr_finance/C_positions/') ?>"><i class="icon-settings"></i> Positions</a>
+								</li>
+								
+							</ul>
 					    </li>
 					    
 						<li <?php echo ($url3 == 'C_time_requests' ? "class='active'" : '') ?>>

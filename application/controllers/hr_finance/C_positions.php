@@ -18,7 +18,7 @@ class C_positions extends MY_Controller{
         $data['positions'] = $this->M_positions->get_positions();
         
         $this->load->view('templates/header',$data);
-        $this->load->view('hr_finance/menu/positions/v_positions',$data);
+        $this->load->view('hr_finance/employees/menu/positions/v_positions',$data);
         $this->load->view('templates/footer');
     }
     
@@ -42,7 +42,7 @@ class C_positions extends MY_Controller{
                         'date_created'=> date('Y-m-d H:i:s'),
                      );
                   
-                  if($this->db->insert('finance_exp_positions',$data)) {
+                  if($this->db->insert('hr_positions',$data)) {
                     $this->session->set_flashdata('message','Position Added');
                     }else{
                     $data['flash_message'] = false;
@@ -59,7 +59,7 @@ class C_positions extends MY_Controller{
         $data['main'] = 'Add New Position';
         
         $this->load->view('templates/header',$data);
-        $this->load->view('hr_finance/menu/positions/create',$data);
+        $this->load->view('hr_finance/employees/menu/positions/create',$data);
         $this->load->view('templates/footer');
     }
     
@@ -81,7 +81,7 @@ class C_positions extends MY_Controller{
                   'note'=>$this->input->post('note'),
                      );
                   
-                  if($this->db->update('finance_exp_positions',$data,array('id'=>$_POST['id']))) {
+                  if($this->db->update('hr_positions',$data,array('id'=>$_POST['id']))) {
                     $this->session->set_flashdata('message','Position Updated');
                     }else{
                     $data['flash_message'] = false;
@@ -98,7 +98,7 @@ class C_positions extends MY_Controller{
         $data['update_positions'] = $this->M_positions->get_positions($id);      
         
         $this->load->view('templates/header',$data);
-        $this->load->view('hr_finance/menu/positions/edit',$data);
+        $this->load->view('hr_finance/employees/menu/positions/edit',$data);
         $this->load->view('templates/footer');
     }
     

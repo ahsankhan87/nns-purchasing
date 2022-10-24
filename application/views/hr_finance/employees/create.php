@@ -124,17 +124,6 @@
 						<div class="lead form-section">Contact Information</div>
 						
 						<div class="row">
-                            <div class="col-md-6">
-								<div class="form-group">
-									<label class="control-label col-sm-3">Address</label>
-									<div class="col-sm-9">
-										<textarea name="address" class="form-control"></textarea>
-									</div>
-                                </div>
-							</div>
-						</div>
-					
-						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
 								<label class="control-label col-sm-3" for="Contact">Contact No:</label>
@@ -167,7 +156,16 @@
                                 </div>
 							</div>
 							<!--/span-->
+							<div class="col-md-6">
+								<div class="form-group">
+									<label class="control-label col-sm-3">Address</label>
+									<div class="col-sm-9">
+										<textarea name="address" class="form-control"></textarea>
+									</div>
+                                </div>
+							</div>
 						</div>
+						
 						<!--/row-->
 						<!-- <div class="row">
 							<div class="col-md-6">
@@ -322,7 +320,7 @@
 						 </div>
 						 <!--/row-->
 
-					<div class="lead form-section"">Accounts</div>
+					<div class="lead form-section">Accounts</div>
 
 						<div class="row">
 							<div class="col-md-6">

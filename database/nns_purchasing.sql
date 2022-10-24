@@ -7222,6 +7222,6 @@ CREATE TABLE `hr_positions` (
  `status` tinyint(1) DEFAULT NULL,
  `date_created` datetime DEFAULT NULL,
  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 ALTER TABLE `hr_employees` CHANGE `position` `position_id` INT(11) NULL DEFAULT NULL;

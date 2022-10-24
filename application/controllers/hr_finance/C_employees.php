@@ -30,9 +30,10 @@ class C_employees extends MY_Controller{
         $data['main'] = 'Employee Detail';
         
         $data['emp_detail']= $this->M_employees->get_employees($emp_id);
+        $data['positionsDDL'] = $this->M_positions->get_activepositionsDDL();
         
         $this->load->view('templates/header',$data);
-        $this->load->view('hr_finance/employees/v_detail',$data);
+        $this->load->view('hr_finance/employees/v_empDetail',$data);
         $this->load->view('templates/footer');
     }
     

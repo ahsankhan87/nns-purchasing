@@ -21,7 +21,7 @@
 				<div class="tab-pane active">
 					<div class="row">
                         <div class="col-md-3">
-                            <div  style="">
+                            <div>
                                 <?php
                                     if($values['picture'] == ''){
                                         echo '<img src="'.base_url('assets/img/no-image.png').'" alt="no-image" width="210" height="180" class="thumbnail">';
