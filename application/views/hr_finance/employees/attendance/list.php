@@ -36,7 +36,7 @@ if ($this->session->flashdata('error')) {
                         <?php echo form_dropdown('emp_id',$employeesDDL,'','class="form-control select2me"'); ?>
                         
                         <label for="exampleInputEmail2">Select Date</label>
-                        <input type="date" class="form-control" name="cur_date" value="<?php echo date("Y-m-d"); ?>">
+                        <input type="month" class="form-control" name="cur_date" value="<?php echo date("Y-m"); ?>">
         			</div>
                     <!--
         			<div class="form-group">
@@ -57,14 +57,69 @@ if ($this->session->flashdata('error')) {
 if(count((array) @$emp_attendance))
 {
 ?>
-
 <div class="row">
     <div class="col-sm-12">
-        <div class=""><h5>Name: <?php echo $this->M_employees->get_empName($emp_id);?></h5></div>
-        <div><h5>Date: <?php echo date("m/d/Y",strtotime($cur_date));?></h5></div>
         <table class="table table-striped table-bordered table-hover" id="">
             <thead>
                 <tr>
+                    <th>Name</th>
+                    <th>Full Days</th>
+                    <th>Overtime Days</th>
+                    <th>Weekend Days</th>
+                    <th>Undertime Days</th>
+                    <th>Holiday Days</th>
+                    <th>Quarantine Days</th>
+                    <th>Late Days</th>
+                    <th>Absent Days</th>
+                    <th>Leave Days</th>
+                </tr>
+            </thead>
+            <thead>
+                <tr>
+                    <td><?php echo $this->M_employees->get_empName($emp_id);?></td>
+                    <?php
+                    (double) $full_days=0;
+                    (double) $overtime_days = 0;
+                    (double) $weekend_days = 0;
+                    (double) $undertime_days = 0;
+                    (double) $holidays=0;
+                    (double) $quarantine_days=0;
+                    (double) $late_days=0;
+                    (double) $absent_days=0;
+                    (double) $leave_days=0; 
+                    foreach($emp_attendance as $list)
+                    {
+                         $full_days  +=($list['full_day'] ? 1 : 0);
+                         $overtime_days  += ($list['overtime'] ? 1 : 0);
+                         $weekend_days  += ($list['weekend'] ? 1 : 0);
+                         $undertime_days  += ($list['undertime'] ? 1 : 0);
+                         $holidays +=($list['holiday'] ? 1 : 0);
+                         $quarantine_days +=($list['quarantine'] ? 1 : 0);
+                         $late_days +=($list['late'] ? 1 : 0);
+                         $absent_days +=($list['absent'] ? 1 : 0);
+                         $leave_days +=($list['leave'] ? 1 : 0); 
+                    }
+                    ?>
+                    <td><?php echo $full_days; ?></td>
+                    <td><?php echo $overtime_days; ?></td>
+                    <td><?php echo $weekend_days; ?></td>
+                    <td><?php echo $undertime_days; ?></td>
+                    <td><?php echo $holidays; ?></td>
+                    <td><?php echo $quarantine_days; ?></td>
+                    <td><?php echo $late_days; ?></td>
+                    <td><?php echo $absent_days; ?></td>
+                    <td><?php echo $leave_days; ?></td>
+                </tr>
+            </thead>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12">
+        <table class="table table-striped table-bordered table-hover" id="">
+            <thead>
+                <tr>
+                    <th>Day</th>
                     <th>Time In</th>
                     <th>Time Out</th>
                     <th>Full Day</th>
@@ -85,6 +140,7 @@ if(count((array) @$emp_attendance))
             foreach($emp_attendance as $list)
             {
                 echo '<tr class="text-center">';
+                echo '<td>'.date("d-M", strtotime($list['dated'])).'</td>';
                 echo '<td>'.date("h:i A", strtotime($list['time_in'])).'</td>';
                 echo '<td>'.date("h:i A", strtotime($list['time_out'])).'</td>';
                 echo '<td>'.($list['full_day'] ? "Yes" : "No").'</td>';

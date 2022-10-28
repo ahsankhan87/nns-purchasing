@@ -13,7 +13,7 @@
             $this->db->from('hr_employees_attendance');
             //$this->db->group_by('dated');
             // $this->db->where(array('company_id'=>$_SESSION['company_id']));
-            $this->db->where('dated',$month);
+            $this->db->like('dated',$month,"RIGHT");
             $this->db->where('emp_id',$emp_id);
             
             $query = $this->db->get();

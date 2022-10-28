@@ -22,7 +22,7 @@ class C_employees_attendance extends MY_Controller {
            
             $data['emp_id']=$emp_id;
             $data['cur_date']=$cur_date;
-            $data['main_small'] = '<br />'.date('m/d/Y',strtotime($cur_date));
+            $data['main_small'] = '<br />'.date('m/Y',strtotime($cur_date));
             
             // $data['employees'] = $this->M_employees->get_active_employeesBYHireDate($data['cur_month']);
             $data['emp_attendance'] =  $this->M_employee_attendance->get_emp_attendance_days($emp_id,$cur_date);
