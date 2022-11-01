@@ -34,7 +34,7 @@ class C_dispatch extends MY_Controller
         if ($this->input->server('REQUEST_METHOD') === 'POST') {
 
             //form Validation
-            $this->form_validation->set_rules('date_issued', 'Date Issued', 'required');
+            $this->form_validation->set_rules('dispatch_date', 'Date Issued', 'required');
             $this->form_validation->set_error_delimiters('<div class="alert alert-danger"><a class="close" data-dismiss="alert">�</a><strong>', '</strong></div>');
 
             //after form Validation run
@@ -82,7 +82,7 @@ class C_dispatch extends MY_Controller
 
         if ($this->input->server('REQUEST_METHOD') === 'POST') {
             //form Validation
-            $this->form_validation->set_rules('date_issued', 'Date Issued', 'required');
+            $this->form_validation->set_rules('dispatch_date', 'Date Issued', 'required');
             $this->form_validation->set_error_delimiters('<div class="alert alert-danger"><a class="close" data-dismiss="alert">�</a><strong>', '</strong></div>');
 
             //after form Validation run

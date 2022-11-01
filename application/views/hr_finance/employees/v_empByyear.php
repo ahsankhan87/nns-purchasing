@@ -36,6 +36,7 @@
             <tr >
                <th>ID</th>
                 <th>Name</th>
+                
                 <th>Position</th>
                 <th>Years of Service</th>
                 <th>Attendance</th>
@@ -69,15 +70,14 @@
                   
                   //echo '<td>'. $interval->y . " y/o ".'</td>';
                   //echo '<td>'.$this->M_areas->get_areaName($list['area_id']).'</td>';
-                  //echo '<td>'.$list['position'].'</td>';
-                  echo '<td><a href="'.site_url('hr_finance/C_employees/employeeByPosition/'. $list['position_id']).'">'.$this->M_positions->get_positionsName($list['position_id']).'</a></td>';
+                  echo '<td>'.$this->M_positions->get_positionsName($list['position_id']).'</td>';
                   // echo '<td>'.$list['contact'].'</td>';
 
                       $date1 = new DateTime($list['hire_date']);
                       $date2 = new DateTime(date("Y-m-d"));
                       
                       $interval = $date1->diff($date2);
-                  echo '<td>'.anchor('hr_finance/C_employees/employeeByYear/'.$list['hire_date'],$interval->y . " years ").'</td>';
+                  echo '<td>'.$interval->y . " years ".'</td>';
                   
                   if($list['status'] == "Active"){
                     $label = 'badge badge-success';
@@ -96,7 +96,7 @@
                   // echo '<td> <span class="'.$label.'">'.$status.'</span></td>';
                   //echo '<td><button type="button" class="btn btn-warning btn-sm" data-toggle="modal" data-target="#employee-payment-Modal">Pay Salary</button></td>';
                   // echo '<td><a href="'.site_url('hr_finance/C_employees/paymentModal/'. $list['id']).'" class="btn btn-warning btn-sm" >Pay Salary</a></td>';
-                  echo '<td>'.anchor('hr_finance/C_employees_attendance/detail/'.$list['id'],'View').'</td>';
+                  echo '<td>View</td>';
                   echo '<td>'.anchor('hr_finance/C_time_requests/detail/'.$list['id'],'View').'</td>';
                   echo '<td>';
                   //echo  anchor(site_url('up_employee_images/upload_images/'.$list['id']),' upload Images');

@@ -40,23 +40,17 @@ class C_employees_attendance extends MY_Controller {
     {
         $data = array('langs' => $this->session->userdata('lang'));
         
-        $data['title'] = 'Employees Attendance Report';
-        $data['main'] = 'Employees Attendance Report';
+        $data['title'] = 'Employee Attendance Report';
+        $data['main'] = 'Employee Attendance Report';
         
-        if(count($_POST) > 0)
-        {
-            $emp_id = $this->input->post('emp_id');
-            $cur_date = $this->input->post('cur_date');
+        $cur_month = date('Y-m');
            
-            $data['emp_id']=$emp_id;
-            $data['cur_date']=$cur_date;
-            $data['main_small'] = '<br />'.date('m/d/Y',strtotime($cur_date));
+        $data['emp_id']=$emp_id;
+        $data['cur_date']=$cur_month;
+        $data['main_small'] = '<br />'.date('m/Y',strtotime($cur_month));
             
-            // $data['employees'] = $this->M_employees->get_active_employeesBYHireDate($data['cur_month']);
-            $data['emp_attendance'] =  $this->M_employee_attendance->get_emp_attendance_days($emp_id,$cur_date);
-
-        }
-        
+        // $data['employees'] = $this->M_employees->get_active_employeesBYHireDate($data['cur_month']);
+        $data['emp_attendance'] =  $this->M_employee_attendance->get_emp_attendance_days($emp_id,$cur_month);
         $data['employeesDDL'] = $this->M_employees->getEmployeeDropDown();
         
         $this->load->view('templates/header',$data);

@@ -40,7 +40,16 @@ class M_employees extends CI_Model{
        $data = $query->result_array();
        return $data;
    }
-  
+
+   public function get_employees_by_year($year)
+   {
+       $this->db->order_by('id','desc');
+       $this->db->like('hire_date',$year,"RIGHT");
+       
+       $query = $this->db->get('hr_employees');
+       $data = $query->result_array();
+       return $data;
+   }
     //get all employees and also only one employee and active and inactive too.
     public function get_employees_documents($emp_id)
     {

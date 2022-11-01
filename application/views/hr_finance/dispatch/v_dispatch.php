@@ -33,17 +33,15 @@
         <thead class="flip-content">
             <tr>
                 <th>ID</th>
-                <th>Date Issued</th>
-                <th>Issued By</th>
-                <th>Employee</th>
-                <th>Request Period</th>
-                <th>Type</th>
-                <th>Approved by GM</th>
-                <th>Approved by OM</th>
-                <th>Approved by D.Manager</th>
-                <th>Noted by HR</th>
-                <th>Noted by AC</th>
-                <th>Note</th>
+                <th>Dispatch Date</th>
+                <th>Product</th>
+                <th>Content</th>
+                <th>Custom Content</th>
+                <th>Quantity</th>
+                <th>Type of Dispatch</th>
+                <th>Logistics</th>
+                <th>Reciepient</th>
+                <th>Approved By</th>
                 <th><?php echo lang('action'); ?></th>
             </tr>
         </thead>
@@ -55,20 +53,15 @@
             //$product = $this->M_products->get_product($list['product_id']);
             echo '<tr valign="top">';
             echo '<td>'.$list['id'].'</td>';
-            echo '<td>'.date('m/d/Y',strtotime($list['date_issued'])).'</td>';
-            echo '<td>'.$list['issued_by'].'</td>';
-            echo '<td>'.$list['emp_id'].'</td>';
-            echo '<td>';
-            echo ($list['req_period_from'] == "0000-00-00" ? "" : date('m/d/Y',strtotime($list['req_period_from'])));
-            echo ($list['req_period_to'] == "0000-00-00" ? "" : " to ".date('m/d/Y',strtotime($list['req_period_to'])));
-            echo '</td>';
+            echo '<td>'.date('m/d/Y',strtotime($list['dispatch_date'])).'</td>';
+            echo '<td>'.$this->M_products->get_productName($list['product_id']).'</td>';
+            echo '<td>'.$list['content'].'</td>';
+            echo '<td>'.$list['custom_content'].'</td>';
+            echo '<td>'.number_format($list['quantity']).'</td>';
             echo '<td>'.$list['type'].'</td>';
-            echo '<td>'.$list['gm_approved'].'</td>';
-            echo '<td>'.$list['om_approved'].'</td>';
-            echo '<td>'.$list['dm_approved'].'</td>';
-            echo '<td>'.$list['hr_noted'].'</td>';
-            echo '<td>'.$list['ac_noted'].'</td>';
-            echo '<td>'.$list['note'].'</td>';
+            echo '<td>'.$list['logistics'].'</td>';
+            echo '<td>'.$this->M_prod_customers->get_prod_customerName($list['customer_id']).'</td>';
+            echo '<td>'.$list['approved_by'].'</td>';
             
             // if($list['fsms'] == 'Approved')
             // {

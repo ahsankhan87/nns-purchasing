@@ -33,14 +33,14 @@
       <div class="form-group">
         <label class="control-label col-sm-2" for="custom_content">Custom Content:</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="custom_content" name="custom_content" value="<?php echo $row["custom_content"]; ?>" readonly placeholder="Custom Content" />
+          <input type="text" class="form-control" id="custom_content" name="custom_content" value="<?php echo $row["custom_content"]; ?>"  placeholder="Custom Content" />
         </div>
       </div>
 
       <div class="form-group">
         <label class="control-label col-sm-2" for="quantity">Quantity:</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="quantity" name="quantity" value="<?php echo $row["quantity"]; ?>" readonly placeholder="Quantity" />
+          <input type="text" class="form-control" id="quantity" name="quantity" value="<?php echo round($row["quantity"]); ?>"  placeholder="Quantity" />
         </div>
       </div>
 

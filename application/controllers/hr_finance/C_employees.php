@@ -50,6 +50,20 @@ class C_employees extends MY_Controller{
         $this->load->view('hr_finance/employees/v_empByPosition',$data);
         $this->load->view('templates/footer');
     }
+     
+    function employeeByYear($year)
+    {
+        $data = array('langs' => $this->session->userdata('lang'));
+        
+        $data['title'] = 'Employee Detail';
+        $data['main'] = 'Employee Detail';
+        
+        $data['employees']= $this->M_employees->get_employees_by_year($year);
+        
+        $this->load->view('templates/header',$data);
+        $this->load->view('hr_finance/employees/v_empByyear',$data);
+        $this->load->view('templates/footer');
+    }
     
     function create()
     {
