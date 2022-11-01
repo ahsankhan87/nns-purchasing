@@ -112,7 +112,17 @@
 									<label class="control-label col-sm-3">Status</label>
 									<div class="col-sm-9">
 										<select class="form-control" name="status" <?php echo set_value('status') ?> >
-											<option value="M1">M1</option>
+											<option >M</option>
+											<option >M1</option>
+											<option >M2</option>
+											<option >M3</option>
+											<option >M4</option>
+											<option >M1</option>
+											<option >S</option>
+											<option >S1</option>
+											<option >S2</option>
+											<option >S3</option>
+											<option >S4</option>
 										</select>
 									</div>
                                 </div>
@@ -128,7 +138,7 @@
 								<div class="form-group">
 								<label class="control-label col-sm-3" for="Contact">Contact No:</label>
 								<div class="col-sm-9">
-									<input type="number" class="form-control" id="" name="contact" value="<?php echo set_value('contact') ?>"  placeholder="Contact No" />
+									<input type="text" class="form-control" id="" name="contact" value="<?php echo set_value('contact') ?>"  placeholder="Contact No" />
 								</div>
 								</div>
 							</div>
@@ -137,7 +147,7 @@
 								<div class="form-group">
 								<label class="control-label col-sm-3" for="emergency_contact">Emergency Contact No:</label>
 								<div class="col-sm-9">
-									<input type="number" class="form-control" id="" name="emergency_contact" value="<?php echo set_value('emergency_contact') ?>"  placeholder="Emergency Contact No" />
+									<input type="text" class="form-control" id="" name="emergency_contact" value="<?php echo set_value('emergency_contact') ?>"  placeholder="Emergency Contact No" />
 								</div>
 								</div>
 							</div>
@@ -213,6 +223,9 @@
 									<div class="col-sm-9">
 										<select class="form-control" name="employment_status" <?php echo set_value('employment_status') ?> >
 										<option value="Regular">Regular</option>
+										<option value="Probationary">Probationary</option>
+										<option value="Extra">Extra</option>
+										<option value="Terminated">Terminated</option>
 										
 									</select>
                                 </div>

@@ -7189,7 +7189,7 @@ CREATE TABLE `finance_dispatch` (
  `date_created` datetime DEFAULT NULL,
  `date_updated` datetime DEFAULT NULL,
  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE `hr_emp_time_requests` (
  `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -7208,9 +7208,9 @@ CREATE TABLE `hr_emp_time_requests` (
  `date_created` datetime DEFAULT NULL,
  `date_updated` datetime DEFAULT NULL,
  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
-CREATE TABLE `hr_employees_attendance` ( `id` int(11) NOT NULL AUTO_INCREMENT, `emp_id` int(30) NOT NULL, `status` varchar(20) NOT NULL, `dated` date NOT NULL, `time_in` time NULL, `time_out` time NULL, `remarks` varchar(250) NULL, `full_day` tinyint(1) NULL, `overtime` tinyint(1) NULL, `weekend` tinyint(1) NULL, `holiday` tinyint(1) NULL, `quarantine` tinyint(1) NULL, `undertime` tinyint(1) NULL, `late` tinyint(1) NULL, `absent` tinyint(1) NULL, `leave` tinyint(1) NULL, `date_created` datetime NULL, `date_updated` datetime NULL, PRIMARY KEY (`id`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8
+CREATE TABLE `hr_employees_attendance` ( `id` int(11) NOT NULL AUTO_INCREMENT, `emp_id` int(30) NOT NULL, `status` varchar(20) NOT NULL, `dated` date NOT NULL, `time_in` time NULL, `time_out` time NULL, `remarks` varchar(250) NULL, `full_day` tinyint(1) NULL, `overtime` tinyint(1) NULL, `weekend` tinyint(1) NULL, `holiday` tinyint(1) NULL, `quarantine` tinyint(1) NULL, `undertime` tinyint(1) NULL, `late` tinyint(1) NULL, `absent` tinyint(1) NULL, `leave` tinyint(1) NULL, `date_created` datetime NULL, `date_updated` datetime NULL, PRIMARY KEY (`id`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 ALTER TABLE `hr_employees` ADD `monthly_total` DOUBLE(18,3) NULL AFTER `card_number`;
 

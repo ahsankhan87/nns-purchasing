@@ -75,7 +75,7 @@ if($this->session->flashdata('message'))
 								<div class="form-group">
 									<label class="control-label col-sm-3">Date of Birth</label>
 									<div class="col-sm-9">
-										<input type="date" name="dob" class="form-control" placeholder="dd/mm/yyyy"  value="<?php echo $values['dob'] ?>" />
+										<input type="date" name="dob" class="form-control" value="<?php echo $values['dob'] ?>" />
 									</div>
 								</div>
 							</div>
@@ -97,9 +97,9 @@ if($this->session->flashdata('message'))
 									<label class="control-label col-sm-3">Gender</label>
 									<div class="col-sm-9">
 										<select class="form-control" name="gender" <?php echo $values['gender'] ?> >
-										<option value="male">Male</option>
-										<option value="female">Female</option>
-										<option value="other">Other</option>
+										<option <?php echo ($values['gender'] == "male" ? "selected" : ''); ?> value="male">Male</option>
+										<option <?php echo ($values['gender'] == "female" ? "selected" : ''); ?> value="female">Female</option>
+										<option <?php echo ($values['gender'] == "other" ? "selected" : ''); ?> value="other">Other</option>
 										</select>
 									</div>
 								</div>
@@ -124,7 +124,17 @@ if($this->session->flashdata('message'))
 									<label class="control-label col-sm-3">Status</label>
 									<div class="col-sm-9">
 										<select class="form-control" name="status" <?php echo $values['status'] ?> >
-											<option value="M1">M1</option>
+											<option <?php echo ($values['status'] == "M" ? "selected" : ''); ?> >M</option>
+											<option <?php echo ($values['status'] == "M1" ? "selected" : ''); ?> >M1</option>
+											<option <?php echo ($values['status'] == "M2" ? "selected" : ''); ?> >M2</option>
+											<option <?php echo ($values['status'] == "M3" ? "selected" : ''); ?> >M3</option>
+											<option <?php echo ($values['status'] == "M4" ? "selected" : ''); ?> >M4</option>
+											<option <?php echo ($values['status'] == "M1" ? "selected" : ''); ?> >M1</option>
+											<option <?php echo ($values['status'] == "S" ? "selected" : ''); ?> >S</option>
+											<option <?php echo ($values['status'] == "S1" ? "selected" : ''); ?> >S1</option>
+											<option <?php echo ($values['status'] == "S2" ? "selected" : ''); ?> >S2</option>
+											<option <?php echo ($values['status'] == "S3" ? "selected" : ''); ?> >S3</option>
+											<option <?php echo ($values['status'] == "S4" ? "selected" : ''); ?> >S4</option>
 										</select>
 									</div>
                                 </div>
@@ -140,7 +150,7 @@ if($this->session->flashdata('message'))
 								<div class="form-group">
 								<label class="control-label col-sm-3" for="Contact">Contact No:</label>
 								<div class="col-sm-9">
-									<input type="number" class="form-control" id="" name="contact" value="<?php echo $values['contact'] ?>"  placeholder="Contact No" />
+									<input type="text" class="form-control" id="" name="contact" value="<?php echo $values['contact'] ?>"  placeholder="Contact No" />
 								</div>
 								</div>
 							</div>
@@ -149,7 +159,7 @@ if($this->session->flashdata('message'))
 								<div class="form-group">
 								<label class="control-label col-sm-3" for="emergency_contact">Emergency Contact No:</label>
 								<div class="col-sm-9">
-									<input type="number" class="form-control" id="" name="emergency_contact" value="<?php echo $values['emergency_contact'] ?>"  placeholder="Emergency Contact No" />
+									<input type="text" class="form-control" id="" name="emergency_contact" value="<?php echo $values['emergency_contact'] ?>"  placeholder="Emergency Contact No" />
 								</div>
 								</div>
 							</div>
@@ -172,7 +182,7 @@ if($this->session->flashdata('message'))
 								<div class="form-group">
 									<label class="control-label col-sm-3">Address</label>
 									<div class="col-sm-9">
-										<textarea name="address" class="form-control"></textarea>
+										<textarea name="address" class="form-control"><?php echo $values['address'] ?></textarea>
 									</div>
                                 </div>
 							</div>
@@ -222,8 +232,11 @@ if($this->session->flashdata('message'))
                                 <div class="form-group">
 									<label class="control-label col-sm-3">Employment Status</label>
 									<div class="col-sm-9">
-										<select class="form-control" name="employment_status" <?php echo $values['employment_status'] ?> >
-										<option value="Regular">Regular</option>
+										<select class="form-control" name="employment_status">
+										<option <?php echo ($values['employment_status'] == "Regular" ? "selected" : ''); ?> value="Regular">Regular</option>
+										<option <?php echo ($values['employment_status'] == "Probationary" ? "selected" : ''); ?> value="Probationary">Probationary</option>
+										<option <?php echo ($values['employment_status'] == "Extra" ? "selected" : ''); ?> value="Extra">Extra</option>
+										<option <?php echo ($values['employment_status'] == "Terminated" ? "selected" : ''); ?> value="Terminated">Terminated</option>
 										
 									</select>
                                 </div>
@@ -247,7 +260,7 @@ if($this->session->flashdata('message'))
 								<div class="form-group">
 									<label class="control-label col-sm-3">Employement Date</label>
 									<div class="col-sm-9">
-										<input type="date" name="hire_date" class="form-control" placeholder="dd/mm/yyyy"  value="<?php echo $values['hire_date'] ?>" />
+										<input type="date" name="hire_date" class="form-control" value="<?php echo $values['hire_date'] ?>" />
 								</div>
 								</div>
 							</div>
@@ -261,9 +274,9 @@ if($this->session->flashdata('message'))
 								<div class="form-group">
 								<label class="control-label col-sm-3">Contract</label>
 								<div class="col-sm-9">
-									<select class="form-control" name="status" <?php echo $values['status'] ?> >
-										<option value="Yes">Yes</option>
-										<option value="No">No</option>
+									<select class="form-control" name="contract" >
+										<option <?php echo ($values['contract'] == "Yes" ? "selected" : ''); ?> value="Yes">Yes</option>
+										<option <?php echo ($values['contract'] == "No" ? "selected" : ''); ?> value="No">No</option>
 										
 									</select>
 								</div>
@@ -274,9 +287,9 @@ if($this->session->flashdata('message'))
                                 <div class="form-group">
 									<label class="control-label col-sm-3">Poineer</label>
 									<div class="col-sm-9">
-										<select class="form-control" name="poineer" <?php echo $values['poineer'] ?> >
-											<option value="Yes">Yes</option>
-											<option value="No">No</option>
+										<select class="form-control" name="poineer" >
+											<option <?php echo ($values['poineer'] == "Yes" ? "selected" : ''); ?> value="Yes">Yes</option>
+											<option <?php echo ($values['poineer'] == "No" ? "selected" : ''); ?> value="No">No</option>
 										
 										</select>
                                 	</div>
@@ -292,8 +305,8 @@ if($this->session->flashdata('message'))
 								<div class="form-group">
 								<label class="control-label col-sm-3">Regular Working Hours</label>
 								<div class="col-sm-9">
-									<input type="time" name="working_hour_from" class="form-control">
-									<input type="time" name="working_hour_to" class="form-control">
+									<input type="time" name="working_hour_from" value="<?php echo $values['working_hour_from'] ?>" class="form-control">
+									<input type="time" name="working_hour_to" value="<?php echo $values['working_hour_to'] ?>" class="form-control">
 								</div>
 								</div>
 							</div>
