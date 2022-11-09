@@ -582,9 +582,9 @@
             balance = ((parseFloat(grand_total)-parseFloat(total_payment_summary)));
             
             grand_total = ((parseFloat(products_total) + parseFloat(total_charges)) - parseFloat(total_ded));
-            $('#grand_total').val(parseFloat(grand_total));
-            $('#net_amount').val(parseFloat(grand_total));
-            $('#balance').val(parseFloat(balance));
+            $('#grand_total').val(parseFloat(grand_total).toFixed(2));
+            $('#net_amount').val(parseFloat(grand_total).toFixed(2));
+            $('#balance').val(parseFloat(balance).toFixed(2));
             $('#net_total').text(parseFloat(grand_total).toLocaleString('en-US', 2));
             $('#top_net_total').html('Grand Total:<h2 style="margin:0">'+parseFloat(grand_total).toLocaleString('en-US', 2)+'</h2>');
             
@@ -1264,15 +1264,15 @@
                         var div = '<tr><td>' + counter + '</td>' +
                         '<td width="25%"><select  class="form-control product_id" id="productid_' + counter + '" name="product_id[]"></select></td>' +
                         '<td class="text-right"><input type="text"  class="form-control content" id="content_' + counter + '" name="content[]" value="'+value.item_content+'" readonly="" ></td>' +
-                        '<td class="text-right" width="10%"><input type="number" min="1" class="form-control qty" id="qty_' + counter + '" name="qty[]" value="'+value.quantity_sold+'" autocomplete="off"></td>' +
-                        '<td class="text-right"><input type="number" class="form-control unit_price" id="unitprice_' + counter + '" name="unit_price[]" value="'+value.item_unit_price+'" autocomplete="off">' +
+                        '<td class="text-right" width="10%"><input type="number" min="1" class="form-control qty" id="qty_' + counter + '" name="qty[]" value="'+parseFloat(value.quantity_sold).toFixed(2)+'" autocomplete="off"></td>' +
+                        '<td class="text-right"><input type="number" class="form-control unit_price" id="unitprice_' + counter + '" name="unit_price[]" value="'+parseFloat(value.item_unit_price).toFixed(2)+'" autocomplete="off">' +
                         '<input type="hidden" cost_price" id="costprice_' + counter + '" name="cost_price[]" value="'+value.item_cost_price+'" >'+
                         // '<input type="hidden" item_type" id="itemtype_' + counter + '" name="item_type[]" value="'+value.item_type+'" ></td>'+
                         '<input type="hidden" tax_id" id="taxid_' + counter + '" name="tax_id[]" value="'+value.tax_id+'" ></td>'+
                         '<input type="hidden" tax_rate" id="taxrate_' + counter + '" name="tax_rate[]" value="'+value.tax_rate+'" ></td>'+
                         // '<td class="text-right tax" id="tax_' + counter + '"></td>' +
                         '<td width="20%"><select  class="form-control unit_id" id="unitid_' + counter + '" name="unit_id[]"></select></td>' +
-                        '<td class=""> <input type="number" class="form-control text-right total" id="total_' + counter + '" name="total[]" value="'+(value.quantity_sold*value.item_unit_price)+'" readonly=""></td>' +
+                        '<td class=""> <input type="number" class="form-control text-right total" id="total_' + counter + '" name="total[]" value="'+parseFloat(value.quantity_sold*value.item_unit_price).toFixed(2)+'" readonly=""></td>' +
                         '<td><i id="removeItem" class="fa fa-trash-o fa-1x"  style="color:red;"></i></td></tr>';
                         $('.create_table').append(div);
                         
@@ -1312,9 +1312,9 @@
                         var div = '<tr><td>' + counter_chr + '</td>' +
                             '<td width="25%"><select  class="form-control charge_id" id="chargeid_' + counter_chr + '" name="charge_id[]"></select></td>' +
                             '<td class="text-right"><input type="text"  class="form-control description_chr" id="descriptionchr_' + counter_chr + '" name="description_chr[]" value="'+(value.description)+'"  ></td>' +
-                            '<td class="text-right" width="10%"><input type="number" min="1" class="form-control qty_chr" id="qtychr_' + counter_chr + '" name="qty_chr[]" value="'+(value.qty)+'"  autocomplete="off"></td>' +
-                            '<td class="text-right"><input type="number" class="form-control unit_price_chr" id="unitpricechr_' + counter_chr + '" name="unit_price_chr[]" value="'+(value.price)+'" autocomplete="off">' +
-                            '<td class=""> <input type="number" class="form-control text-right total_chr" id="totalchr_' + counter_chr + '" name="total_chr[]" value="'+(value.qty*value.price)+'" readonly=""></td>' +
+                            '<td class="text-right" width="10%"><input type="number" min="1" class="form-control qty_chr" id="qtychr_' + counter_chr + '" name="qty_chr[]" value="'+parseFloat(value.qty).toFixed(2)+'"  autocomplete="off"></td>' +
+                            '<td class="text-right"><input type="number" class="form-control unit_price_chr" id="unitpricechr_' + counter_chr + '" name="unit_price_chr[]" value="'+parseFloat(value.price).toFixed(2)+'" autocomplete="off">' +
+                            '<td class=""> <input type="number" class="form-control text-right total_chr" id="totalchr_' + counter_chr + '" name="total_chr[]" value="'+parseFloat(value.qty*value.price).toFixed(2)+'" readonly=""></td>' +
                             '<td><i id="removeItem" class="fa fa-trash-o fa-1x"  style="color:red;"></i></td></tr>';
                         $('.create_charges_table').append(div);
 
@@ -1353,9 +1353,9 @@
                         var div = '<tr><td>' + counter_ded + '</td>' +
                             '<td width="25%"><select  class="form-control deduction_id" id="deductionid_' + counter_ded + '" name="deduction_id[]"></select></td>' +
                             '<td class="text-right"><input type="text"  class="form-control description_ded" id="descriptionded_' + counter_ded + '" name="description_ded[]" value="'+(value.description)+'" ></td>' +
-                            '<td class="text-right" width="10%"><input type="number" min="1" class="form-control qty_ded" id="qtyded_' + counter_ded + '" name="qty_ded[]" value="'+(value.qty)+'"  autocomplete="off"></td>' +
-                            '<td class="text-right"><input type="number" class="form-control unit_price_ded" id="unitpriceded_' + counter_ded + '" name="unit_price_ded[]" value="'+(value.price)+'" autocomplete="off">' +
-                            '<td class=""> <input type="number" class="form-control text-right total_ded" id="totalded_' + counter_ded + '" name="total_ded[]" value="'+(value.qty*value.price)+'" readonly=""></td>' +
+                            '<td class="text-right" width="10%"><input type="number" min="1" class="form-control qty_ded" id="qtyded_' + counter_ded + '" name="qty_ded[]" value="'+parseFloat(value.qty).toFixed(2)+'"  autocomplete="off"></td>' +
+                            '<td class="text-right"><input type="number" class="form-control unit_price_ded" id="unitpriceded_' + counter_ded + '" name="unit_price_ded[]" value="'+(parseFloat(value.price).toFixed(2))+'" autocomplete="off">' +
+                            '<td class=""> <input type="number" class="form-control text-right total_ded" id="totalded_' + counter_ded + '" name="total_ded[]" value="'+parseFloat(value.qty*value.price).toFixed(2)+'" readonly=""></td>' +
                             '<td><i id="removeItem" class="fa fa-trash-o fa-1x" style="color:red;"></i></td></tr>';
                         $('.create_deduction_table').append(div);
 
@@ -1396,7 +1396,7 @@
                         counter_summary++;
             
                         var div = '<tr><td>' + counter_summary + '</td>' +
-                            '<td><input type="number" min="1" class="form-control amount" id="amount_' + counter_summary + '" name="amount[]" value="'+(value.amount)+'" /></td>' +
+                            '<td><input type="number" min="1" class="form-control amount" id="amount_' + counter_summary + '" name="amount[]" value="'+(parseFloat(value.amount).toFixed(2))+'" /></td>' +
                             '<td><select  class="form-control summary_payment_terms_id" id="summarypaymenttermsid_' + counter_summary + '" name="summary_payment_terms_id[]"></select></td>' +
                             '<td><input type="date" class="form-control payment_date" id="paymentdate_' + counter_summary + '" name="payment_date[]" value="'+(value.payment_date)+'" /></td>' +
                             '<td><select  class="form-control summary_status" id="summarystatus_' + counter_summary + '" name="summary_status[]"></select></td>' +

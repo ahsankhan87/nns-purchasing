@@ -312,6 +312,7 @@
     </div><!-- close here -->
 
     <?php echo form_submit('', 'Save', 'id="btn_save" class="btn btn-success"'); ?>
+    <img src="<?php echo base_url('assets/img/loading.gif')?>" alt="loader" class="loader">
 </form>
 <!-- Modal -->
 <div class="modal fade" id="customerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -377,6 +378,7 @@
         const curr_symbol = "<?php echo $_SESSION["home_currency_symbol"]; ?>";
         const curr_code = "<?php echo $_SESSION["home_currency_code"]; ?>";
         //$("#check_invoiceno").hide();
+        $(".loader").css('display','none');
 
         /////////////ADD NEW LINES
         let counter = 0; //counter is used for id of the debit / credit textbox to enable and disable 8 textboxs already used so start from 8 here
@@ -629,6 +631,8 @@
         }
 
         $("#sale_form").on("submit", function(e) {
+            $(".loader").css('display','block');
+
             e.preventDefault();
             $("#btn_save").attr('disabled','disabled');
             
@@ -659,6 +663,7 @@
                                 clearall_charges();
                                 clearall_deduction();
                                 window.location.href = site_url+"hr_finance/C_sales/allSales";
+                                $(".loader").css('display','none');
                             }else if(data == '2')
                             {
                                 toastr.error("Invoice number exist!",'Error');

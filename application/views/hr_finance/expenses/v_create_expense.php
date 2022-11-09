@@ -146,7 +146,8 @@
         
     </div><!-- close here -->
     
-    <?php echo form_submit('', 'Save', 'class="btn btn-success"'); ?>
+    <?php echo form_submit('', 'Save', 'id="btn_save" class="btn btn-success"'); ?>
+    <img src="<?php echo base_url('assets/img/loading.gif')?>" alt="loader" class="loader">
 </form>
 
 <script>
@@ -157,9 +158,11 @@
         const date = '<?php echo date("Y-m-d") ?>';
         const curr_symbol = "<?php echo $_SESSION["home_currency_symbol"]; ?>";
         const curr_code = "<?php echo $_SESSION["home_currency_code"]; ?>";
-        
+        $(".loader").css('display','none');
+
         $("#expense_form").on("submit", function(e) {
-            
+            $(".loader").css('display','block');
+            $("#btn_save").attr('disabled','disabled');
             var confirmexpense = confirm('Are you sure you want to save?');
            
             if (confirmexpense) {
@@ -184,6 +187,7 @@
                                 toastr.success("Record saved successfully",'Success');
                                 window.location.href = site_url+"hr_finance/C_expenses/allExpenses";
                                 clearall_charges();
+                                $(".loader").css('display','none');
                             }
                            
                         }
@@ -348,21 +352,27 @@
         }
         ///////////////////
         /////////////ADD NEW LINES END HERE
-
+        
+        //GET TOTAL WHEN QTY CHANGE
+        $("#amount").on("keyup change", function(e) {
+            calc_charges_gtotal();
+                
+        });
+        
         function calc_charges_gtotal() {
             var total_chr = 0;
             var amount = $("#amount").val();
-
+            
             $('.total_chr').each(function() {
                 total_chr += parseFloat($(this).val());
             });
 
             sub_total_charges = (total_chr ? total_chr : 0);
             amount = (amount ? amount : 0);
-
+            
             //ASSIGN VALUE TO TEXTBOXES
             $('#sub_total_txt_charges').val(parseFloat(sub_total_charges).toFixed(2));
-            $('#change').val(sub_total_charges-amount);
+            $('#change').val(amount-sub_total_charges);
             /////////////
 
         }

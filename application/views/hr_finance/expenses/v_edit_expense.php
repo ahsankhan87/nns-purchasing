@@ -145,7 +145,8 @@
         
     </div><!-- close here -->
     
-    <?php echo form_submit('', 'Update', 'class="btn btn-success"'); ?>
+    <?php echo form_submit('', 'Update', 'id="btn_save" class="btn btn-success"'); ?>
+    <img src="<?php echo base_url('assets/img/loading.gif')?>" alt="loader" class="loader">
 </form>
 
 <script>
@@ -157,9 +158,12 @@
         const date = '<?php echo date("Y-m-d") ?>';
         const curr_symbol = "<?php echo $_SESSION["home_currency_symbol"]; ?>";
         const curr_code = "<?php echo $_SESSION["home_currency_code"]; ?>";
-        
+        $(".loader").css('display','none');
+
         $("#expense_form").on("submit", function(e) {
-            
+            $(".loader").css('display','block');
+            $("#btn_save").attr('disabled','disabled');
+
             var confirmexpense = confirm('Are you sure you want to update?');
            
             if (confirmexpense) {
@@ -184,6 +188,7 @@
                                 toastr.success("Record updated successfully",'Success');
                                 clearall_charges();
                                 window.location.href = site_url+"hr_finance/C_expenses/allExpenses";
+                                $(".loader").css('display','none');
                             }else if(data == '2')
                             {
                                 toastr.error("Error while updating!",'Error');
@@ -355,7 +360,12 @@
         }
         ///////////////////
         /////////////ADD NEW LINES END HERE
-
+        //GET TOTAL WHEN QTY CHANGE
+        $("#amount").on("keyup change", function(e) {
+            calc_charges_gtotal();
+                
+        });
+        
         function calc_charges_gtotal() {
             var total_chr = 0;
             var amount = $("#amount").val();
@@ -363,13 +373,13 @@
             $('.total_chr').each(function() {
                 total_chr += parseFloat($(this).val());
             });
-
+           
             sub_total_charges = (total_chr ? total_chr : 0);
             amount = (amount ? amount : 0);
             
             //ASSIGN VALUE TO TEXTBOXES
             $('#sub_total_txt_charges').val(parseFloat(sub_total_charges).toFixed(2));
-            $('#change').val(sub_total_charges-amount);
+            $('#change').val(amount-sub_total_charges);
             //$('#total_tax_txt').val(parseFloat(total_tax));
             // $('#net_total_txt').val(parseFloat(net_total));
             /////////////
@@ -525,9 +535,9 @@
                             '<td width="25%"><select  class="form-control charge_id" id="chargeid_' + counter_chr + '" name="charge_id[]"></select></td>' +
                             //'<td class="text-right"><input type="text"  class="form-control description_chr" id="descriptionchr_' + counter_chr + '" name="description_chr[]" value="" ></td>' +
                             //'<td class="text-right" width="10%"><input type="number" min="1" class="form-control qty_chr" id="qtychr_' + counter_chr + '" name="qty_chr[]" value="1" autocomplete="off"></td>' +
-                            '<td class="text-right"><input type="number" class="form-control unit_price_chr" id="unitpricechr_' + counter_chr + '" name="unit_price_chr[]" value="'+value.amount+'" autocomplete="off">' +
+                            '<td class="text-right"><input type="number" class="form-control unit_price_chr" id="unitpricechr_' + counter_chr + '" name="unit_price_chr[]" value="'+parseFloat(value.amount).toFixed(2)+'" autocomplete="off">' +
                             '<td width="20%"><select  class="form-control subcategory_id" id="subcategoryid_' + counter_chr + '" name="subcategory_id[]"></select></td>' +
-                            '<td class=""> <input type="number" class="form-control text-right total_chr" id="totalchr_' + counter_chr + '" name="total_chr[]" value="'+value.amount+'" readonly=""></td>' +
+                            '<td class=""> <input type="number" class="form-control text-right total_chr" id="totalchr_' + counter_chr + '" name="total_chr[]" value="'+parseFloat(value.amount).toFixed(2)+'" readonly=""></td>' +
                             '<td><i id="removeItem" class="fa fa-trash-o fa-1x"  style="color:red;"></i></td></tr>';
                         $('.create_charges_table').append(div);
 
