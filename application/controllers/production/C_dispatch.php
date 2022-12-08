@@ -23,7 +23,7 @@ class C_dispatch extends MY_Controller
         $data['dispatch'] = $this->M_dispatch->get_dispatch(FALSE, $start_date, $to_date);
 
         $this->load->view('templates/header', $data);
-        $this->load->view('hr_finance/dispatch/v_dispatch', $data);
+        $this->load->view('production/dispatch/v_dispatch', $data);
         $this->load->view('templates/footer');
     }
 
@@ -61,7 +61,7 @@ class C_dispatch extends MY_Controller
 
                 //$this->M_dispatch->add_dispatch();
 
-                redirect('hr_finance/C_dispatch', 'refresh');
+                redirect('production/C_dispatch', 'refresh');
             }
         }
         // $data['productsDDL'] = $this->M_products->get_productsDDL();
@@ -72,7 +72,7 @@ class C_dispatch extends MY_Controller
         $data['main'] = 'Add New Dispatch';
 
         $this->load->view('templates/header', $data);
-        $this->load->view('hr_finance/dispatch/create', $data);
+        $this->load->view('production/dispatch/create', $data);
         $this->load->view('templates/footer');
     }
 
@@ -108,7 +108,7 @@ class C_dispatch extends MY_Controller
 
                 //$this->M_dispatch->update_dispatch();
                 //$this->session->set_flashdata('message','dispatch Updated');
-                redirect('hr_finance/C_dispatch', 'refresh');
+                redirect('production/C_dispatch', 'refresh');
             }
         }
         $data['title'] = 'Update Dispatch';
@@ -121,7 +121,7 @@ class C_dispatch extends MY_Controller
         
 
         $this->load->view('templates/header', $data);
-        $this->load->view('hr_finance/dispatch/edit', $data);
+        $this->load->view('production/dispatch/edit', $data);
         $this->load->view('templates/footer');
     }
 
@@ -129,6 +129,6 @@ class C_dispatch extends MY_Controller
     {
         $this->M_dispatch->delete_dispatch($id);
         $this->session->set_flashdata('message', 'Dispatch Deleted');
-        redirect('hr_finance/C_dispatch', 'refresh');
+        redirect('production/C_dispatch', 'refresh');
     }
 }

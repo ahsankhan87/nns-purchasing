@@ -3,7 +3,7 @@
     <?php
     $attributes = array('class' => 'form-horizontal', 'role' => 'form', 'enctype' => "multipart/form-data");
     echo validation_errors();
-    echo form_open('hr_finance/C_dispatch/edit', $attributes);
+    echo form_open('production/C_dispatch/edit', $attributes);
 
     foreach ($update_dispatch as $row) {
     ?>

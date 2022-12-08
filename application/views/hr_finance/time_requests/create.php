@@ -20,8 +20,11 @@
       <div class="col-sm-10">
         <!-- <input type="text" class="form-control" id="issued_by" name="issued_by" value="<?php echo set_value("issued_by"); ?>" placeholder="Issued By" /> -->
         <select name="issued_by" class="form-control">
-          <option>Marbin</option>
           <option>Francis</option>
+          <option>HR</option>
+          <option>Marben</option>
+          <option>Dennies</option>
+          <option>Jarred </option>
         </select>
       </div>
     </div>
@@ -57,6 +60,8 @@
           <option>Undertime</option>
           <option>Leave</option>
           <option>Absent</option>
+          <option value="Paternity Leave">Paternity Leave</option>
+          <option value="Maternity Leave">Maternity Leave</option>
         </select>
       </div>
     </div>

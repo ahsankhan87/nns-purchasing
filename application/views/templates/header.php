@@ -376,6 +376,10 @@ var path = '<?php echo base_url(); ?>';</script>
 					        <a href="<?php echo site_url('production/C_production_history') ?>"><i class="icon-time"></i> Production History</a>
 					    </li>
 						
+						<li <?php echo ($url3 == 'C_dispatch' ? "class='active'" : '') ?>>
+					        <a href="<?php echo site_url('production/C_dispatch') ?>"><i class="icon-time" aria-hidden="true"></i> Dispatch</a>
+					    </li>
+					    
 					</ul>
 				</li>
 				<li <?php echo ($url2 == 'rd' ? "class='active'" : '') ?>>
@@ -526,10 +530,6 @@ var path = '<?php echo base_url(); ?>';</script>
 					    
 						<li <?php echo ($url3 == 'C_employees_attendance' ? "class='active'" : '') ?>>
 					        <a href="<?php echo site_url('hr_finance/C_employees_attendance') ?>"><i class="fa fa-clock-o" aria-hidden="true"></i> Attendance</a>
-					    </li>
-					    
-						<li <?php echo ($url3 == 'C_dispatch' ? "class='active'" : '') ?>>
-					        <a href="<?php echo site_url('hr_finance/C_dispatch') ?>"><i class="fa fa-truck" aria-hidden="true"></i> Dispatch</a>
 					    </li>
 					    
 					</ul>

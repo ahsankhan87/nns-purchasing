@@ -20,10 +20,13 @@ foreach($update_time_requests as $row)
 <div class="form-group">
   <label class="control-label col-sm-2" for="issued_by">Issued By:</label>
   <div class="col-sm-10">
-    <!-- <input type="text" class="form-control" id="issued_by" name="issued_by" value="<?php echo $row["issued_by"]; ?>" placeholder="Issued By" /> -->
+        <!-- <input type="text" class="form-control" id="issued_by" name="issued_by" value="<?php echo $row["issued_by"]; ?>" placeholder="Issued By" /> -->
         <select name="issued_by" class="form-control">
-            <option>Marbin</option>
-            <option>Francis</option>
+            <option <?php echo ($row["issued_by"] == "Francis" ? "selected" : ""); ?>>Francis</option>
+            <option <?php echo ($row["issued_by"] == "HR" ? "selected" : ""); ?>>HR</option>
+            <option <?php echo ($row["issued_by"] == "Marben" ? "selected" : ""); ?>>Marben</option>
+            <option <?php echo ($row["issued_by"] == "Dennies" ? "selected" : ""); ?>>Dennies</option>
+            <option <?php echo ($row["issued_by"] == "Jarred" ? "selected" : ""); ?>>Jarred</option>
         </select>
   </div>
 </div>
@@ -59,6 +62,8 @@ foreach($update_time_requests as $row)
         <option <?php echo ($row["type"] == "Undertime" ? "selected" : ""); ?>>Undertime</option>
         <option <?php echo ($row["type"] == "Leave" ? "selected" : ""); ?>>Leave</option>
         <option <?php echo ($row["type"] == "Absent" ? "selected" : ""); ?>>Absent</option>
+        <option <?php echo ($row["type"] == "Paternity Leave" ? "selected" : ""); ?>>Paternity Leave</option>
+        <option <?php echo ($row["type"] == "Maternity Leave" ? "selected" : ""); ?>>Maternity Leave</option>
     </select>
   </div>
 </div>

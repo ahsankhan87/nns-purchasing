@@ -10,7 +10,7 @@
         ?>
         <div class="row">
             <div class="col-sm-12">
-                <?php echo anchor('hr_finance/C_dispatch/create',lang('add_new').' <i class="fa fa-plus"></i>','class="btn btn-success"'); ?>
+                <?php echo anchor('production/C_dispatch/create',lang('add_new').' <i class="fa fa-plus"></i>','class="btn btn-success"'); ?>
             </div>
         </div>
         </br>
@@ -87,8 +87,8 @@
             
             echo '<td>';
             //if($_SESSION['role'] == 'admin'){
-                echo anchor('hr_finance/C_dispatch/edit/'.$list['id'],'<i class="fa fa-pencil-square-o fa-fw"></i>'). ' | ';
-                echo  anchor('hr_finance/C_dispatch/delete/'.$list['id'],' <i class="fa fa-trash-o fa-fw"></i>','onclick="return confirm(\'Are you sure you want to delete?\')"');
+                echo anchor('production/C_dispatch/edit/'.$list['id'],'<i class="fa fa-pencil-square-o fa-fw"></i>'). ' | ';
+                echo  anchor('production/C_dispatch/delete/'.$list['id'],' <i class="fa fa-trash-o fa-fw"></i>','onclick="return confirm(\'Are you sure you want to delete?\')"');
             //}
             echo '</td>';
             echo '</tr>';

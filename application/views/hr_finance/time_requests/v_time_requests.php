@@ -38,11 +38,11 @@
                 <th>Employee</th>
                 <th>Request Period</th>
                 <th>Type</th>
-                <th>Approved by GM</th>
-                <th>Approved by OM</th>
-                <th>Approved by D.Manager</th>
-                <th>Noted by HR</th>
-                <th>Noted by AC</th>
+                <th>GM</th>
+                <th>OM</th>
+                <th>Dep. Manager</th>
+                <th>HR</th>
+                <th>AC</th>
                 <th>Note</th>
                 <th><?php echo lang('action'); ?></th>
             </tr>

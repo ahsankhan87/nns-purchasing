@@ -4,7 +4,7 @@
     <?php
     $attributes = array('class' => 'form-horizontal', 'role' => 'form', 'enctype' => "multipart/form-data");
     echo validation_errors();
-    echo form_open('hr_finance/C_dispatch/create', $attributes);
+    echo form_open('production/C_dispatch/create', $attributes);
 
     ?>
 
