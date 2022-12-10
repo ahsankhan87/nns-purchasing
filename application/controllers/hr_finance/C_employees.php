@@ -141,8 +141,8 @@ class C_employees extends MY_Controller{
                 'pag_ibig' => $this->input->post('pag_ibig', true),
                 'sss' => $this->input->post('sss', true),
                 'bpi_account' => $this->input->post('bpi_account', true),
-                'card_number' => $this->input->post('card_number', true),
-                'tracking_number' => $this->input->post('tracking_number', true),
+                'card_no' => $this->input->post('card_number', true),
+                'tracking_no' => $this->input->post('tracking_number', true),
                 'tin' => $this->input->post('tin', true),
                 
                 );
@@ -297,8 +297,8 @@ class C_employees extends MY_Controller{
                     'pag_ibig' => $this->input->post('pag_ibig', true),
                     'sss' => $this->input->post('sss', true),
                     'bpi_account' => $this->input->post('bpi_account', true),
-                    'card_number' => $this->input->post('card_number', true),
-                    'tracking_number' => $this->input->post('tracking_number', true),
+                    'card_no' => $this->input->post('card_number', true),
+                    'tracking_no' => $this->input->post('tracking_number', true),
                     'tin' => $this->input->post('tin', true),
                 );
                 //$this->db->update(' hr_employees', $data, array('id'=>$_POST['id']));

@@ -15,7 +15,7 @@
         echo '</div>';
     }
     ?>
-    <p><?php echo anchor('hr_finance/C_employees/create','<i class="fa fa-plus"></i> '.lang('add_new'),'class="btn btn-primary"'); ?></p>
+    <p><?php echo anchor('hr_finance/C_employees/create','<i class="fa fa-plus"></i> '.lang('add_new'),'class="btn btn-success"'); ?></p>
    
     <div class="portlet">
 			<div class="portlet-title">
@@ -31,17 +31,42 @@
 			</div>
         <div class="portlet-body flip-scroll">
             
-        <table class="table table-bordered table-striped table-condensed flip-content" id="sample_2">
+        <table class="table table-bordered table-striped table-condensed flip-content" id="employees">
           <thead class="flip-content">  
-            <tr >
-               <th>ID</th>
+            <tr>
+                <th>ID</th>
                 <th>Name</th>
                 <th>Position</th>
                 <th>Years of Service</th>
                 <th>Attendance</th>
                 <th>Time Requests</th>
-                <!-- <th>Active Status</th> -->
                 
+                <th>Gender</th>
+                <th>Birthday</th>
+                <th>Age</th>
+                <th>Status</th>
+                <th>Address</th>
+                <th>Contact</th>
+                <th>Position</th>
+                <th>Department</th>
+                <th>Contract</th>
+                <th>Regular Working Hours</th>
+                <th>Employment Status</th>
+                <th>Employement Date</th>
+                <th>Pioneer</th>
+                <th>BPI Account</th>
+                <th>Card Number</th>
+                <th>Tracking Number</th>
+                <th>TIN</th>
+                <th>SSS</th>
+                <th>PHIC</th>
+                <th>PAG-IBIG</th>
+                <th>NCR</th>
+                <th>Salary</th>
+                <th>Food Allowance</th>
+                <th>Transportation Allowance</th>
+                <th>Other Allowance</th>
+                <th>Monthly Total</th>
                 <th><?php echo lang('action'); ?></th>
             </tr>
            </thead>
@@ -71,7 +96,6 @@
                   //echo '<td>'.$this->M_areas->get_areaName($list['area_id']).'</td>';
                   //echo '<td>'.$list['position'].'</td>';
                   echo '<td><a href="'.site_url('hr_finance/C_employees/employeeByPosition/'. $list['position_id']).'">'.$this->M_positions->get_positionsName($list['position_id']).'</a></td>';
-                  // echo '<td>'.$list['contact'].'</td>';
 
                       $date1 = new DateTime($list['hire_date']);
                       $date2 = new DateTime(date("Y-m-d"));
@@ -98,6 +122,32 @@
                   // echo '<td><a href="'.site_url('hr_finance/C_employees/paymentModal/'. $list['id']).'" class="btn btn-warning btn-sm" >Pay Salary</a></td>';
                   echo '<td>'.anchor('hr_finance/C_employees_attendance/detail/'.$list['id'],'View').'</td>';
                   echo '<td>'.anchor('hr_finance/C_time_requests/detail/'.$list['id'],'View').'</td>';
+                 
+                  echo '<td>'.$list['gender'].'</td>';
+                  echo '<td>'.$list['dob'].'</td>';
+                  echo '<td>'.$list['dob'].'</td>';
+                  echo '<td>'.$list['status'].'</td>';
+                  echo '<td>'.$list['address'].'</td>';
+                  echo '<td>'.$list['contact'].'</td>';
+                  echo '<td>'.$list['department'].'</td>';
+                  echo '<td>'.$list['contract'].'</td>';
+                  echo '<td>'.$list['working_hour_from'].' '.$list['working_hour_to'].'</td>';
+                  echo '<td>'.$list['employment_status'].'</td>';
+                  echo '<td>'.$list['hire_date'].'</td>';
+                  echo '<td>'.$list['poineer'].'</td>';
+                  echo '<td>'.$list['bpi_account'].'</td>';
+                  echo '<td>'.$list['card_no'].'</td>';
+                  echo '<td>'.$list['tracking_no'].'</td>';
+                  echo '<td>'.$list['tin'].'</td>';
+                  echo '<td>'.$list['phic'].'</td>';
+                  echo '<td>'.$list['pag_ibig'].'</td>';
+                  echo '<td></td>';
+                  echo '<td>'.$list['basic_salary'].'</td>';
+                  echo '<td>'.$list['food_allow'].'</td>';
+                  echo '<td>'.$list['transportation_allow'].'</td>';
+                  echo '<td>'.$list['other_allow'].'</td>';
+                  echo '<td>'.$list['monthly_total'].'</td>';
+                 
                   echo '<td>';
                   //echo  anchor(site_url('up_employee_images/upload_images/'.$list['id']),' upload Images');
                   // if($this->session->userdata('role') == 'admin')

@@ -7226,3 +7226,5 @@ CREATE TABLE `hr_positions` (
 
 ALTER TABLE `hr_employees` CHANGE `position` `position_id` INT(11) NULL DEFAULT NULL;
 ALTER TABLE `finance_dispatch` ADD `logistics` VARCHAR(100) NULL AFTER `date_updated`;
+
+ALTER TABLE `hr_employees` DROP `tracking_number`, DROP `card_number`;

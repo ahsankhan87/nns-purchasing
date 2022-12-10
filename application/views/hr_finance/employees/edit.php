@@ -331,11 +331,11 @@ if($this->session->flashdata('message'))
 									</thead>	
 								 	<tbody>
 										<tr>
-											<th><input type="number" name="basic_salary" class="form-control" value="<?php echo $values['basic_salary'] ?>" /></th>
-											<th><input type="number" name="food_allow" class="form-control" value="<?php echo $values['food_allow'] ?>" /></th>
-											<th><input type="number" name="transportation_allow" class="form-control" value="<?php echo $values['transportation_allow'] ?>" /></th>
-											<th><input type="number" name="other_allow" class="form-control" value="<?php echo $values['other_allow'] ?>" /></th>
-											<th><input type="number" name="monthly_total" class="form-control" value="<?php echo $values['monthly_total'] ?>" /></th>
+											<th><input type="number" name="basic_salary" id="basic_salary" class="form-control" value="<?php echo $values['basic_salary'] ?>" /></th>
+											<th><input type="number" name="food_allow"  id="food_allow"  class="form-control" value="<?php echo $values['food_allow'] ?>" /></th>
+											<th><input type="number" name="transportation_allow" id="transportation_allow" class="form-control" value="<?php echo $values['transportation_allow'] ?>" /></th>
+											<th><input type="number" name="other_allow" id="other_allow"  class="form-control" value="<?php echo $values['other_allow'] ?>" /></th>
+											<th><input type="number" name="monthly_total" id="monthly_total" class="form-control" readonly value="<?php echo $values['monthly_total'] ?>" /></th>
 										</tr>
 									</tbody>
 								 </table>
@@ -472,5 +472,52 @@ if($this->session->flashdata('message'))
 <?php 
 endforeach;
 ?>
- 
+ <script>
+   $(document).ready(function() {
+
+      const site_url = '<?php echo site_url($langs); ?>/';
+      const path = '<?php echo base_url(); ?>';
+      const date = '<?php echo date("Y-m-d") ?>';
+	  calc_grand_total();
+
+	  $("#basic_salary").on("keyup change", function(e) {
+			calc_grand_total();
+		});
+
+	  $("#food_allow").on("keyup change", function(e) {
+			calc_grand_total();
+		});
+		
+		$("#transportation_allow").on("keyup change", function(e) {
+			calc_grand_total();
+		}); 
+		
+		$("#other_allow").on("keyup change", function(e) {
+			calc_grand_total();
+		});
+		
+		/////////////ADD NEW LINES END HERE
+        function calc_grand_total() {
+            var basic_salary = 0;
+            var food_allow = 0;
+            var transportation_allow = 0;
+            var other_allow = 0;
+
+            basic_salary = $('#basic_salary').val();
+            food_allow = $('#food_allow').val();
+            transportation_allow = $("#transportation_allow").val();
+            other_allow = $("#other_allow").val();
+            
+            basic_salary = (basic_salary ? basic_salary : 0);
+            food_allow = (food_allow ? food_allow : 0);
+            transportation_allow  = (transportation_allow ? transportation_allow : 0);
+            other_allow = (other_allow ? other_allow : 0);
+            
+            grand_total = parseFloat(basic_salary) + parseFloat(food_allow) + parseFloat(transportation_allow) + parseFloat(other_allow);
+            //console.log(parseFloat(grand_total).toFixed(2));
+            $('#monthly_total').val(parseFloat(grand_total).toFixed(2));
+            
+        }
+  });
+</script>
 

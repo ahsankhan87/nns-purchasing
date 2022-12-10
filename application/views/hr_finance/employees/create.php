@@ -324,7 +324,7 @@
 											<th><input type="number" name="food_allow"  id="food_allow"  class="form-control" value="<?php echo set_value('food_allow') ?>" /></th>
 											<th><input type="number" name="transportation_allow" id="transportation_allow" class="form-control" value="<?php echo set_value('transportation_allow') ?>" /></th>
 											<th><input type="number" name="other_allow" id="other_allow"  class="form-control" value="<?php echo set_value('other_allow') ?>" /></th>
-											<th><input type="number" name="monthly_total" id="monthly_total" class="form-control" value="<?php echo set_value('monthly_total') ?>" /></th>
+											<th><input type="number" name="monthly_total" id="monthly_total" class="form-control" readonly value="<?php echo set_value('monthly_total') ?>" /></th>
 										</tr>
 									</tbody>
 								 </table>
@@ -494,14 +494,14 @@
             transportation_allow = $("#transportation_allow").val();
             other_allow = $("#other_allow").val();
             
-            //basic_salary = (basic_salary ? basic_salary : 0);
-            // food_allow = (food_allow ? food_allow : 0);
-            // transportation_allow  = (transportation_allow ? transportation_allow : 0);
-            // other_allow = (other_allow ? other_allow : 0);
+            basic_salary = (basic_salary ? basic_salary : 0);
+            food_allow = (food_allow ? food_allow : 0);
+            transportation_allow  = (transportation_allow ? transportation_allow : 0);
+            other_allow = (other_allow ? other_allow : 0);
             
-            grand_total = (basic_salary)+(food_allow)+(transportation_allow)+(other_allow)+(monthly_total);
-            console.log(grand_total);
-            $('#monthly_total').val(parseFloat(grand_total));
+            grand_total = parseFloat(basic_salary) + parseFloat(food_allow) + parseFloat(transportation_allow) + parseFloat(other_allow);
+            //console.log(grand_total);
+            $('#monthly_total').val(parseFloat(grand_total).toFixed(2));
             
         }
   });

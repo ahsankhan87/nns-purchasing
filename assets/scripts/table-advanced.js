@@ -540,6 +540,83 @@ var TableAdvanced = function () {
         tableWrapper.find('.dataTables_length select').select2(); // initialize select2 dropdown
     }
 
+    
+    var initTable_employees = function () {
+        var table = $('#employees');
+
+        var oTable = table.dataTable({
+            
+            //GET TOTAL AT FOOTER OF GRID
+            "footerCallback": function ( row, data, start, end, display ) {
+            var api = this.api(), data;
+ 
+            // Remove the formatting to get integer data for summation
+            var intVal = function ( i ) {
+                return typeof i === 'string' ?
+                    i.replace(/[\Cr,\Dr,]/g, '')*1 :
+                    typeof i === 'number' ?
+                        i : 0;
+                    
+            };
+ 
+            // Total over all pages
+            total = api
+                .column( 6 )
+                .data()
+                .reduce( function (a, b) {
+                    var x = parseFloat(a) || 0;
+                    var y = parseFloat(b) || 0;
+                    
+                    return intVal(parseFloat(a)) + intVal(parseFloat(b));
+                }, 0 );
+ 
+            // Total over this page
+            pageTotal = api
+                .column( 6, { page: 'current'} )
+                .data()
+                .reduce( function (a, b) {
+                    return intVal(parseFloat(a)) + intVal(parseFloat(b));
+                }, 0 );
+ 
+            // Update footer
+            $( api.column( 6 ).footer() ).html(
+                //pageTotal.toFixed(2) +' ('+ total.toFixed(2) +' total)'
+                pageTotal.toFixed(2)
+            );
+            
+        },
+        ///////////////////////////
+        
+            "order": [
+                [0, 'desc']
+            ],
+            "lengthMenu": [
+                [20, 50, 100, -1],
+                [20, 50, 100, "All"] // change per page values here
+            ],
+            //buttons: ['copy', 'excel', 'pdf'],
+            // set the initial value
+            "pageLength": -1,
+            //dom: "<'row' <'col-md-12'T>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
+            dom: 'Bflrtip',
+            buttons: [
+                
+                'colvis'
+            ], 
+            columnDefs: [ {
+                    targets: 0,
+                    visible: false
+                },
+                 ],
+            
+        });
+
+        var tableWrapper = $('#sample_2_wrapper'); // datatable creates the table wrapper by adding with id {your_table_jd}_wrapper
+        tableWrapper.find('.dataTables_length select').select2(); // initialize select2 dropdown
+    }
+ 
+ //////////
+ 
     return {
 
         //main function to initiate the module
@@ -551,6 +628,7 @@ var TableAdvanced = function () {
 
             initTable1();
             initTable2();
+            initTable_employees();
             initTable_journal_entry();//self defined function by ahsan
             initTable3();
             initTable4();
