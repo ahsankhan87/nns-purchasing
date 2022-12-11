@@ -47,7 +47,7 @@
                 <th>Status</th>
                 <th>Address</th>
                 <th>Contact</th>
-                <th>Position</th>
+                
                 <th>Department</th>
                 <th>Contract</th>
                 <th>Regular Working Hours</th>
@@ -124,8 +124,11 @@
                   echo '<td>'.anchor('hr_finance/C_time_requests/detail/'.$list['id'],'View').'</td>';
                  
                   echo '<td>'.$list['gender'].'</td>';
-                  echo '<td>'.$list['dob'].'</td>';
-                  echo '<td>'.$list['dob'].'</td>';
+                  echo '<td>'.date("m/d/Y",strtotime($list['dob'])).'</td>';
+                  $date1 = new DateTime($list['dob']);
+                  $date2 = new DateTime(date("Y-m-d"));
+                  $interval_1 = $date1->diff($date2);
+                  echo '<td>'.$interval_1->y . ' years </td>';
                   echo '<td>'.$list['status'].'</td>';
                   echo '<td>'.$list['address'].'</td>';
                   echo '<td>'.$list['contact'].'</td>';
@@ -133,20 +136,21 @@
                   echo '<td>'.$list['contract'].'</td>';
                   echo '<td>'.$list['working_hour_from'].' '.$list['working_hour_to'].'</td>';
                   echo '<td>'.$list['employment_status'].'</td>';
-                  echo '<td>'.$list['hire_date'].'</td>';
+                  echo '<td>'.date("m/d/Y",strtotime($list['hire_date'])).'</td>';
                   echo '<td>'.$list['poineer'].'</td>';
                   echo '<td>'.$list['bpi_account'].'</td>';
                   echo '<td>'.$list['card_no'].'</td>';
                   echo '<td>'.$list['tracking_no'].'</td>';
                   echo '<td>'.$list['tin'].'</td>';
+                  echo '<td>'.$list['sss'].'</td>';
                   echo '<td>'.$list['phic'].'</td>';
                   echo '<td>'.$list['pag_ibig'].'</td>';
                   echo '<td></td>';
-                  echo '<td>'.$list['basic_salary'].'</td>';
-                  echo '<td>'.$list['food_allow'].'</td>';
-                  echo '<td>'.$list['transportation_allow'].'</td>';
-                  echo '<td>'.$list['other_allow'].'</td>';
-                  echo '<td>'.$list['monthly_total'].'</td>';
+                  echo '<td>'.number_format($list['basic_salary'],2).'</td>';
+                  echo '<td>'.number_format($list['food_allow'],2).'</td>';
+                  echo '<td>'.number_format($list['transportation_allow'],2).'</td>';
+                  echo '<td>'.number_format($list['other_allow'],2).'</td>';
+                  echo '<td>'.number_format($list['monthly_total'],2).'</td>';
                  
                   echo '<td>';
                   //echo  anchor(site_url('up_employee_images/upload_images/'.$list['id']),' upload Images');

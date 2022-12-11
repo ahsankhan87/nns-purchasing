@@ -603,8 +603,87 @@ var TableAdvanced = function () {
                 
                 'colvis'
             ], 
-            columnDefs: [ {
+            columnDefs: [ 
+                {
                     targets: 0,
+                    visible: false
+                },{
+                    targets: 6,
+                    visible: false
+                },
+                {
+                    targets: 7,
+                    visible: false
+                },
+                {
+                    targets: 8,
+                    visible: false
+                },
+                {
+                    targets: 9,
+                    visible: false
+                },{
+                    targets: 10,
+                    visible: false
+                },{
+                    targets: 11,
+                    visible: false
+                },{
+                    targets: 12,
+                    visible: false
+                },{
+                    targets: 13,
+                    visible: false
+                },{
+                    targets: 14,
+                    visible: false
+                },{
+                    targets: 15,
+                    visible: false
+                },{
+                    targets: 16,
+                    visible: false
+                },{
+                    targets: 17,
+                    visible: false
+                },{
+                    targets: 18,
+                    visible: false
+                },{
+                    targets: 19,
+                    visible: false
+                },{
+                    targets: 20,
+                    visible: false
+                },{
+                    targets: 21,
+                    visible: false
+                },{
+                    targets: 22,
+                    visible: false
+                },{
+                    targets: 23,
+                    visible: false
+                },{
+                    targets: 24,
+                    visible: false
+                },{
+                    targets: 25,
+                    visible: false
+                },{
+                    targets: 26,
+                    visible: false
+                },{
+                    targets: 27,
+                    visible: false
+                },{
+                    targets: 28,
+                    visible: false
+                },{
+                    targets: 29,
+                    visible: false
+                },{
+                    targets: 30,
                     visible: false
                 },
                  ],
