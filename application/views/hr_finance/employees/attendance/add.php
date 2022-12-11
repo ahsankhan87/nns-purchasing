@@ -53,55 +53,56 @@ if ($this->session->flashdata('error')) {
                 <td><input type="time" name="time_in[]" id="<?php echo 'time_in_'.$values['id']; ?>" min="<?php echo $values['working_hour_from']; ?>" max="<?php echo $values['working_hour_to']; ?>" value="<?php echo $values['working_hour_from']; ?>" class="form-control time_in" /></td>
                 <td><input type="time" name="time_out[]" id="<?php echo 'time_out_'.$values['id']; ?>" min="<?php echo $values['working_hour_from']; ?>" max="<?php echo $values['working_hour_to']; ?>" value="<?php echo $values['working_hour_to']; ?>" class="form-control time_out" /></td>
                 
-                <td><select name="full_day[]" class="form-control" id="full">
+                <td><select name="full_day[]" class="form-control full_day" id="<?php echo 'fullday_'.$values['id']; ?>">
+                    <option value="0">No</option>
+                    <option value="1">Yes</option>
+                    
+                    </select>
+                </td>
+                
+                <td><select name="overtime[]" class="form-control" id="<?php echo 'overtime_'.$values['id']; ?>">
                     <option value="1">Yes</option>
                     <option value="0">No</option>
                     </select>
                 </td>
                 
-                <td><select name="overtime[]" class="form-control">
+                <td><select name="weekend[]" class="form-control" id="<?php echo 'weekend_'.$values['id']; ?>">
                     <option value="1">Yes</option>
                     <option value="0">No</option>
                     </select>
                 </td>
                 
-                <td><select name="weekend[]" class="form-control">
+                <td><select name="holiday[]" class="form-control" id="<?php echo 'holiday_'.$values['id']; ?>">
                     <option value="1">Yes</option>
                     <option value="0">No</option>
                     </select>
                 </td>
                 
-                <td><select name="holiday[]" class="form-control">
+                <td><select name="quarantine[]" class="form-control" id="<?php echo 'quarantine_'.$values['id']; ?>">
                     <option value="1">Yes</option>
                     <option value="0">No</option>
                     </select>
                 </td>
                 
-                <td><select name="quarantine[]" class="form-control">
+                <td><select name="undertime[]" class="form-control" id="<?php echo 'undertime_'.$values['id']; ?>">
                     <option value="1">Yes</option>
                     <option value="0">No</option>
                     </select>
                 </td>
                 
-                <td><select name="undertime[]" class="form-control">
+                <td><select name="late[]" class="form-control" id="<?php echo 'late_'.$values['id']; ?>">
                     <option value="1">Yes</option>
                     <option value="0">No</option>
                     </select>
                 </td>
                 
-                <td><select name="late[]" class="form-control">
+                <td><select name="absent[]" class="form-control absent" id="<?php echo 'absent_'.$values['id']; ?>">
                     <option value="1">Yes</option>
                     <option value="0">No</option>
                     </select>
                 </td>
                 
-                <td><select name="absent[]" class="form-control">
-                    <option value="1">Yes</option>
-                    <option value="0">No</option>
-                    </select>
-                </td>
-                
-                <td><select name="leave[]" class="form-control">
+                <td><select name="leave[]" class="form-control leave" id="<?php echo 'leave_'.$values['id']; ?>">
                     <option value="1">Yes</option>
                     <option value="0">No</option>
                     </select>
@@ -126,43 +127,38 @@ if ($this->session->flashdata('error')) {
       const path = '<?php echo base_url(); ?>';
       const date = '<?php echo date("Y-m-d") ?>';
 
-	  $("#basic_salary").on("keyup change", function(e) {
-			calc_grand_total();
+	  $(".full_day").on("change", function(e) {
+            var curId = this.id.split("_")[1];
+			$("#quarantine_"+curId).val(0);
+			$("#undertime_"+curId).val(0);
+			//$("#late_"+curId).val(0);
+			$("#absent_"+curId).val(0);
+			$("#leave_"+curId).val(0);
+            // console.log(curId);
+            // console.log($(this).val());
 		});
 
-	  $("#food_allow").on("keyup change", function(e) {
-			calc_grand_total();
+        $(".absent").on("change", function(e) {
+            var curId = this.id.split("_")[1];
+			$("#fullday_"+curId).val(0);
+			$("#overtime_"+curId).val(0);
+			$("#late_"+curId).val(0);
+			// $("#absent_"+curId).val(0);
+			// $("#leave_"+curId).val(0);
+            console.log(curId);
+            // console.log($(this).val());
 		});
-		
-		$("#transportation_allow").on("keyup change", function(e) {
-			calc_grand_total();
-		}); 
-		
-		$("#other_allow").on("keyup change", function(e) {
-			calc_grand_total();
-		});
-		
-		/////////////ADD NEW LINES END HERE
-        function calc_grand_total() {
-            var basic_salary = 0;
-            var food_allow = 0;
-            var transportation_allow = 0;
-            var other_allow = 0;
 
-            basic_salary = $('#basic_salary').val();
-            food_allow = $('#food_allow').val();
-            transportation_allow = $("#transportation_allow").val();
-            other_allow = $("#other_allow").val();
-            
-            basic_salary = (basic_salary ? basic_salary : 0);
-            food_allow = (food_allow ? food_allow : 0);
-            transportation_allow  = (transportation_allow ? transportation_allow : 0);
-            other_allow = (other_allow ? other_allow : 0);
-            
-            grand_total = parseFloat(basic_salary) + parseFloat(food_allow) + parseFloat(transportation_allow) + parseFloat(other_allow);
-            //console.log(grand_total);
-            $('#monthly_total').val(parseFloat(grand_total).toFixed(2));
-            
-        }
+        $(".leave").on("change", function(e) {
+            var curId = this.id.split("_")[1];
+			$("#fullday_"+curId).val(0);
+			$("#overtime_"+curId).val(0);
+			$("#late_"+curId).val(0);
+			// $("#absent_"+curId).val(0);
+			// $("#leave_"+curId).val(0);
+            // console.log(curId);
+            // console.log($(this).val());
+		});
+
   });
 </script>
