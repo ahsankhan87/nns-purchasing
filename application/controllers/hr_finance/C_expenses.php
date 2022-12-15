@@ -63,6 +63,22 @@ class C_expenses extends MY_Controller
         $this->load->view('templates/footer');
     }
 
+    public function expensesByCategory($category_id)
+    {
+        $data = array('langs' => $this->session->userdata('lang'));
+
+        $data['title'] = "Expense Summary By Category";
+        $data['main'] = "Expense Summary By Category";
+
+        //$data['payment_for'] = $payment_for;
+
+        $data['expenses_by_category'] = $this->M_expenses->get_expenses_by_category_id($category_id);
+        
+        $this->load->view('templates/header', $data);
+        $this->load->view('hr_finance/expenses/v_allexpenses_by_category', $data);
+        $this->load->view('templates/footer');
+    }
+
     public function allExpenses()
     {
         $data = array('langs' => $this->session->userdata('lang'));

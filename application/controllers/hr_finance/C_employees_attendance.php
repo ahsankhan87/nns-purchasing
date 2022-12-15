@@ -220,6 +220,8 @@ class C_employees_attendance extends MY_Controller {
     public function view_all()
     {
         $data = array('langs' => $this->session->userdata('lang'));
+        $start_date = FY_START_DATE; //date("Y-m-d", strtotime("last year"));
+        $to_date = FY_END_DATE; //date("Y-m-d");
         
         //fetch employees data to populate the select field
         $data['title'] = 'Employees Attendance';   

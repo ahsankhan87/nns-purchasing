@@ -75,13 +75,15 @@ if(count((array) @$employees))
             
             <tbody>
             <?php //echo var_dump($students); 
+            $start_date = FY_START_DATE; //date("Y-m-d", strtotime("last year"));
+            $to_date = FY_END_DATE; //date("Y-m-d");
             
             foreach($employees as $list)
             {
                 echo '<tr class="text-center">';
                 echo '<td>'.$list['first_name'].'</td>';
                 $employee_id = $list['id'];
-                $emp_attendance = $this->M_employee_attendance->get_emp_attendance_days($employee_id,$cur_date);
+                $emp_attendance = $this->M_employee_attendance->get_emp_attendance_days($employee_id,$cur_date,$start_date,$to_date);
                 foreach($emp_attendance as $list_1)
                 {
                     echo '<td>'.date("h:i A", strtotime($list_1['time_in'])).'</td>';

@@ -7,8 +7,18 @@
             $this->load->database();
         }
         
-        public function get_emp_attendance_days($emp_id,$month)
+        public function get_emp_attendance_days($emp_id,$month, $from_date = null, $to_date=null)
         {
+            if($from_date != null)
+            {
+                $this->db->where('date_created >=',$from_date);
+            }
+            
+            if($to_date != null)
+            {
+                $this->db->where('date_created <=',$to_date);
+            }
+        
             // $this->db->select('dated');
             $this->db->from('hr_employees_attendance');
             //$this->db->group_by('dated');

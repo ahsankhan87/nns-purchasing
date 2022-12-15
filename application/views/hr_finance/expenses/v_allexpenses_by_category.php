@@ -49,22 +49,21 @@
                             <th>Receipted</th>
                             <th>Cross Checked</th>
                             <th>Note</th>
-                            <th></th>
                         </tr>
                     </thead>
                     <tbody class="text-center">
                         <?php
                         $sno = 1;
                         $net_total = 0;
-                        $total=0;
-                        foreach ($expenses as $key => $list) {
+                        // var_dump($expenses);
+                        foreach ($expenses_by_category as $key => $list) {
                             echo '<tr>';
                             //echo '<td>'.form_checkbox('p_id[]',$list['id'],false).'</td>';
                             //echo '<td><a href="'.site_url('hr_finance/C_expenses/receipt/'.$list['invoice_no']).'" class="hidden-print">'.$list['invoice_no'].'</a></td>';
                             echo '<td>'.$sno++.'</td>';
                             echo '<td>' . date('m/d/Y', strtotime($list['date_issued'])) . '</td>';
-                            echo '<td><a href="'.site_url('hr_finance/C_expenses/allPaymentFor/'.$list['payment_for_id']).'">'.$this->M_paymentfor->get_paymentforName($list['payment_for_id']).'</a></td>';
-                            echo '<td><a href="'.site_url('hr_finance/C_expenses/expensesByCategory/'.$list['category_id']).'">' . $this->M_category->get_CatNameByItem($list['category_id']) . '</a></td>';
+                            echo '<td>' . $this->M_paymentfor->get_paymentforName($list['payment_for_id']) . '</td>';
+                            echo '<td>' . $this->M_category->get_CatNameByItem($list['category_id']) . '</td>';
                             echo '<td>₱' . number_format($list['amount'],2) . '</td>';
                             echo '<td>₱' . number_format($list['change'],2) . '</td>';
                             $total = (double) $list['amount'] - (double)$list['change'];
@@ -84,20 +83,20 @@
                             }
                             echo '<td><span class="'.$label_2.'">' . $list['cross_checked'] . '</span></td>';
                             echo '<td>' . $list['note'] . '</td>';
-                            echo '<td>';
-                            echo  anchor('hr_finance/C_expenses/edit/'.$list['id'],' <i class="fa fa-pencil-square-o fa-fw"></i>');
-                            echo  anchor('hr_finance/C_expenses/delete/'.$list['id'],'| <i class="fa fa-trash-o fa-fw"></i>','onclick="return confirm(\'Are you sure you want to delete?\')"');
-                            echo '</td>';
                             echo '</tr>';
+
+                            $net_total +=$total;
                         }
-                        $net_total +=$total;
+
+                        echo '';
+
                         ?>
                     </tbody>
                     <tfoot>
                         <tr>
                             <th></th><th></th><th></th>
-                            <th></th><th></th><th></th>
-                            <th></th><th></th><th></th>
+                            <th></th><th></th><th>Total</th>
+                            <th>₱<?php echo number_format($net_total,2); ?></th><th></th><th></th>
                             <th></th><th></th><th></th>
                         </tr>
                     </tfoot>

@@ -89,6 +89,13 @@ class m_expenses extends CI_Model{
        
     }
     
+    function get_expenses_by_category_id($category_id)
+    {   
+        $this->db->where(array('category_id'=>$category_id));
+        $query = $this->db->get('finance_expenses');
+        return $query->result_array();
+       
+    }
     function get_expenses_items_only($expenses_id)//for receipt
     {
        $this->db->where(array('expense_id'=>$expenses_id));

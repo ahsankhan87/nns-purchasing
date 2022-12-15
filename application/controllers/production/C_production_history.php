@@ -10,12 +10,15 @@ class C_production_history extends MY_Controller{
     
     function index()
     {
+        $start_date = FY_START_DATE; //date("Y-m-d", strtotime("last year"));
+        $to_date = FY_END_DATE; //date("Y-m-d");
+        
         $data = array('langs' => $this->session->userdata('lang'));
         
         $data['title'] = 'Production History';
         $data['main'] = 'Production History';
         
-        $data['production_request'] = $this->M_production_request->get_production_history();
+        $data['production_request'] = $this->M_production_request->get_production_history(FALSE,$start_date,$to_date);
         
         $this->load->view('templates/header',$data);
         $this->load->view('production/history/v_history',$data);

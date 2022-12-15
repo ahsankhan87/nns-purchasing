@@ -33,8 +33,18 @@ class M_production_request extends CI_Model{
        return $query->result_array();
     }
     
-    function get_production_history($id = FALSE)
+    function get_production_history($id = FALSE, $from_date = null, $to_date=null)
     {
+        if($from_date != null)
+        {
+            $this->db->where('date_created >=',$from_date);
+        }
+        
+        if($to_date != null)
+        {
+            $this->db->where('date_created <=',$to_date);
+        }
+        
          if($id == FALSE)
         {
             $query = $this->db->get_where('prod_production_history');

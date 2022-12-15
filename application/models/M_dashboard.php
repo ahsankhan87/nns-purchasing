@@ -195,8 +195,8 @@ class M_dashboard extends CI_Model{
             $this->db->where('date_created <=',$to_date);
         }
         
-        $this->db->where('status','On Process');
-        $this->db->or_where('status','On Hold');
+        $this->db->where("(status = 'On Process' OR status = 'On Hold')");
+        // $this->db->where('status','On Hold');
         
         $query = $this->db->get('pos_purchase_requests',$limit);
         //$ledgers = $query->result_array();
