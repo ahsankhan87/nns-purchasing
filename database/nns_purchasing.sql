@@ -7228,3 +7228,14 @@ ALTER TABLE `hr_employees` CHANGE `position` `position_id` INT(11) NULL DEFAULT 
 ALTER TABLE `finance_dispatch` ADD `logistics` VARCHAR(100) NULL AFTER `date_updated`;
 
 ALTER TABLE `hr_employees` DROP `tracking_number`, DROP `card_number`;
+
+CREATE TABLE `hr_emp_ncr` (
+ `id` int(11) NOT NULL AUTO_INCREMENT,
+ `date_issued` date NOT NULL,
+ `warning_level` varchar(200) DEFAULT NULL,
+ `description` text,
+ `image` varchar(200) DEFAULT NULL,
+ `date_created` date DEFAULT NULL,
+ `emp_id` int(11) NOT NULL,
+ PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8

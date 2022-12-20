@@ -363,7 +363,7 @@ if($this->session->flashdata('message'))
 								<div class="form-group">
 									<label class="control-label col-sm-3">Card Number</label>
 									<div class="col-sm-9">
-										<input type="text" name="card_number" class="form-control" placeholder="Card Number"  value="<?php echo $values['card_number'] ?>" readonly/>
+										<input type="text" name="card_number" class="form-control" placeholder="Card Number"  value="<?php echo $values['card_no'] ?>" readonly/>
 									</div>
 								</div>
 							</div>
@@ -385,7 +385,7 @@ if($this->session->flashdata('message'))
 								<div class="form-group">
 									<label class="control-label col-sm-3">Tracking Number</label>
 									<div class="col-sm-9">
-										<input type="text" name="tracking_number" class="form-control" placeholder="Tracking Number" readonly value="<?php echo $values['tracking_number'] ?>" />
+										<input type="text" name="tracking_number" class="form-control" placeholder="Tracking Number" readonly value="<?php echo $values['tracking_no'] ?>" />
 									</div>
 								</div>
 							</div>

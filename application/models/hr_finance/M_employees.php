@@ -51,6 +51,24 @@ class M_employees extends CI_Model{
        return $data;
    }
     //get all employees and also only one employee and active and inactive too.
+    public function get_total_emp_ncr($emp_id)
+    {
+        $options = array('emp_id'=> $emp_id );
+        
+        $query = $this->db->get_where('hr_emp_ncr',$options);
+        $data = $query->num_rows();
+        return $data;
+    }
+
+    public function get_emp_ncr($emp_id)
+    {
+        $options = array('emp_id'=> $emp_id );
+        
+        $query = $this->db->get_where('hr_emp_ncr',$options);
+        $data = $query->result_array();
+        return $data;
+    }
+
     public function get_employees_documents($emp_id)
     {
         $options = array('emp_id'=> $emp_id );

@@ -373,7 +373,7 @@ if($this->session->flashdata('message'))
 								<div class="form-group">
 									<label class="control-label col-sm-3">Card Number</label>
 									<div class="col-sm-9">
-										<input type="text" name="card_number" class="form-control" placeholder="Card Number"  value="<?php echo $values['card_number'] ?>" />
+										<input type="text" name="card_number" class="form-control" placeholder="Card Number"  value="<?php echo $values['card_no'] ?>" />
 									</div>
 								</div>
 							</div>
@@ -395,7 +395,7 @@ if($this->session->flashdata('message'))
 								<div class="form-group">
 									<label class="control-label col-sm-3">Tracking Number</label>
 									<div class="col-sm-9">
-										<input type="text" name="tracking_number" class="form-control" placeholder="Tracking Number"  value="<?php echo $values['tracking_number'] ?>" />
+										<input type="text" name="tracking_number" class="form-control" placeholder="Tracking Number"  value="<?php echo $values['tracking_no'] ?>" />
 									</div>
 								</div>
 							</div>
@@ -442,15 +442,12 @@ if($this->session->flashdata('message'))
 											<th>Note</th>
 										</tr>
 									</thead>	
-									<tbody>
-										<tr>
-											<th><input type="text" name="ncr_date_issued" class="form-control" value="" /></th>
-											<th><input type="text" name="ncr_warning_level" class="form-control" value="" /></th>
-											<th>View</th>
-											<th>Add Note</th>
-										</tr>
+									<tbody class="ncr_table">
+										
 									</tbody>
+									
 								</table>
+								<a href="#" class="btn btn-info btn-sm add_new_ncr" name="add_new_ncr">Add New NCR</a>
                             </div>
 							
 							<!--/span-->
@@ -478,6 +475,66 @@ endforeach;
       const site_url = '<?php echo site_url($langs); ?>/';
       const path = '<?php echo base_url(); ?>';
       const date = '<?php echo date("Y-m-d") ?>';
+	  const emp_id = '<?php echo $emp_id; ?>';
+
+	  let counter = 0; //counter is used for id of the debit / credit textbox to enable and disable 8 textboxs already used so start from 8 here
+        $('.add_new_ncr').on('click', function(event) {
+            event.preventDefault();
+            counter++;
+            
+            var div = '<tr>' +
+                '<td class="text-right"><input type="date" class="form-control ncr_date_issued" id="ncrdateissued_' + counter + '" name="ncr_date_issued[]" autocomplete="off"></td>' +
+                '<td class="text-right"><input type="text" class="form-control ncr_warning_level" id="ncrwarninglevel_' + counter + '" name="ncr_warning_level[]" autocomplete="off">' +
+                '<td class="text-right"><input type="text" class="form-control description" id="description_' + counter + '" name="description[]" value=""  ></td>' +
+                '<td></td></tr>';
+            $('.ncr_table').append(div);
+
+    	});
+		//$(".add_new_ncr").trigger("click"); //ADD NEW LINE WHEN PAGE LOAD BY DEFAULT
+
+
+		 ///////////////////
+        ////UPDATE PORTION
+        //////////////////
+        get_ncrs(emp_id);
+        //counter = 0;
+        function get_ncrs(emp_id)
+        {
+            //GET SALES 
+            $.ajax({
+                url: site_url + "hr_finance/C_employees/get_emp_ncr/"+emp_id,
+                type: 'GET',
+                dataType: "JSON",
+                //data: {account_types:account_type},
+                dataType: 'json', // added data type
+                success: function(data) {
+                    console.log(data);
+                    $.each(data, function(index, value) {
+                        $('#ncr_date_issued').val(value.date_issued);
+                        $('#ncr_warning_level').val(value.warning_level);
+                        $('#description').val(value.description);
+                        
+						counter++;
+            
+						var div = '<tr>' +
+							'<td class="text-right"><input type="date" class="form-control ncr_date_issued" id="ncrdateissued_' + counter + '" name="ncr_date_issued[]" value="'+value.date_issued+'" autocomplete="off"></td>' +
+							'<td class="text-right"><input type="text" class="form-control ncr_warning_level" id="ncrwarninglevel_' + counter + '" name="ncr_warning_level[]" value="'+value.warning_level+'" autocomplete="off">' +
+							'<td class="text-right"><input type="text" class="form-control description" id="description_' + counter + '" name="description[]" value="'+value.description+'" ></td>' +
+							'<td></td></tr>';
+						$('.ncr_table').append(div);
+
+                    });
+
+                    
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.status);
+                    console.log(thrownError);
+                }
+            });
+            //////
+		}
+
 	  calc_grand_total();
 
 	  $("#basic_salary").on("keyup change", function(e) {

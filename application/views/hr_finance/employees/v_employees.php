@@ -145,7 +145,8 @@
                   echo '<td>'.$list['sss'].'</td>';
                   echo '<td>'.$list['phic'].'</td>';
                   echo '<td>'.$list['pag_ibig'].'</td>';
-                  echo '<td></td>';
+                  $total_ncr = $this->M_employees->get_total_emp_ncr($list['id']);
+                  echo '<td>'.$total_ncr.'</td>';
                   echo '<td>'.number_format($list['basic_salary'],2).'</td>';
                   echo '<td>'.number_format($list['food_allow'],2).'</td>';
                   echo '<td>'.number_format($list['transportation_allow'],2).'</td>';

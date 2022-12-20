@@ -431,16 +431,13 @@
 											<th>Note</th>
 										</tr>
 									</thead>	
-									<tbody>
-										<tr>
-											<th><input type="text" name="ncr_date_issued" class="form-control" value="<?php echo set_value('ncr_date_issued') ?>" /></th>
-											<th><input type="text" name="ncr_warning_level" class="form-control" value="<?php echo set_value('ncr_warning_level') ?>" /></th>
-											<th>View</th>
-											<th>Add Note</th>
-										</tr>
+									<tbody class="ncr_table">
+										
 									</tbody>
+									
 								</table>
                             </div>
+							<a href="#" class="btn btn-info btn-sm add_new_ncr" name="add_new_ncr">Add New NCR</a>
 							
 							<!--/span-->
 						</div>
@@ -465,6 +462,21 @@
       const site_url = '<?php echo site_url($langs); ?>/';
       const path = '<?php echo base_url(); ?>';
       const date = '<?php echo date("Y-m-d") ?>';
+
+	  let counter = 0; //counter is used for id of the debit / credit textbox to enable and disable 8 textboxs already used so start from 8 here
+        $('.add_new_ncr').on('click', function(event) {
+            event.preventDefault();
+            counter++;
+            
+            var div = '<tr>' +
+                '<td class="text-right"><input type="date" class="form-control ncr_date_issued" id="ncrdateissued_' + counter + '" name="ncr_date_issued[]" autocomplete="off"></td>' +
+                '<td class="text-right"><input type="text" class="form-control ncr_warning_level" id="ncrwarninglevel_' + counter + '" name="ncr_warning_level[]" autocomplete="off">' +
+                '<td class="text-right"><input type="text" class="form-control description" id="description_' + counter + '" name="description[]" value=""  ></td>' +
+                '<td></td></tr>';
+            $('.ncr_table').append(div);
+
+    	});
+		$(".add_new_ncr").trigger("click"); //ADD NEW LINE WHEN PAGE LOAD BY DEFAULT
 
 	  $("#basic_salary").on("keyup change", function(e) {
 			calc_grand_total();

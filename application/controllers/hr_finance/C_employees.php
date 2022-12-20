@@ -146,19 +146,35 @@ class C_employees extends MY_Controller{
                 'tin' => $this->input->post('tin', true),
                 
                 );
-                //$this->db->insert(' hr_employees', $data);
-            
-                if($this->db->insert('hr_employees', $data)){
+                $emp_id =  $this->db->insert_id('hr_employees', $data);
+                
+                //// NCR entries
+                foreach ($this->input->post('ncr_warning_level') as $key => $value) {
                     
+                    if ($value != 0) {
+                        $ncr_warning_level  = htmlspecialchars(trim($value));
+                        $ncr_date_issued = $this->input->post('ncr_date_issued')[$key];
+                        $description = $this->input->post('description')[$key];
+                        
+                        $data_ncr = array(
+                            'emp_id' => $emp_id,
+                            'warning_level' => $ncr_warning_level,
+                            'date_issued'=>$ncr_date_issued,
+                            'description' => $description,
+                            'date_created' => date("Y-m-d H:i:s"),
+                        );
+
+                        $this->db->insert('hr_emp_ncr', $data_ncr);
+                    }
+                }
+                 
                     //for logging
                     $msg = $this->input->post('first_name'). ' '. $this->input->post('last_name');
                     $this->M_logs->add_log($msg,"Employee","Added","POS");
                     // end logging
                     
                     $this->session->set_flashdata('message','Employee Created');
-                }else{
-                    $this->session->set_flashdata('error','Employee Not Created');
-                }
+                
                  //$this->M_employees->addEmployee();
             
             redirect('hr_finance/C_employees','refresh');
@@ -302,7 +318,7 @@ class C_employees extends MY_Controller{
                     'tin' => $this->input->post('tin', true),
                 );
                 //$this->db->update(' hr_employees', $data, array('id'=>$_POST['id']));
-            
+                $this->db->update('hr_employees', $data, array('id'=>$this->input->post('id',true)));
                     //DELETE OLD PICTURE FROM DRIVE
                     // if($_FILES['picture']['size'] != 0)
                     // {   //DELETE THE PREVIOUSE PICTURE
@@ -310,18 +326,36 @@ class C_employees extends MY_Controller{
                     //     @unlink($old_picture);
                     //     /////////////
                     // }
-
-                if($this->db->update('hr_employees', $data, array('id'=>$this->input->post('id',true)))){
                     
+                //// NCR entries
+                $this->db->delete('hr_emp_ncr',array('emp_id'=>$this->input->post('id',true)));//first delete then insert again
+                foreach ($this->input->post('ncr_warning_level') as $key => $value) {
+                    
+                    if ($value != 0) {
+                        $ncr_warning_level  = htmlspecialchars(trim($value));
+                        $ncr_date_issued = $this->input->post('ncr_date_issued')[$key];
+                        $description = $this->input->post('description')[$key];
+                        
+                        $data_ncr = array(
+                            'emp_id' => $this->input->post('id',true),
+                            'warning_level' => $ncr_warning_level,
+                            'date_issued'=>$ncr_date_issued,
+                            'description' => $description,
+                            'date_created' => date("Y-m-d H:i:s"),
+                        );
+
+                        $this->db->insert('hr_emp_ncr', $data_ncr);
+                    }
+                }
+                 
+                
                      //for logging
                     $msg = $this->input->post('first_name'). ' '. $this->input->post('last_name');
                     $this->M_logs->add_log($msg,"Employee","Updated","POS");
                     // end logging
                     
                     $this->session->set_flashdata('message','Employee Updated');
-                }else{
-                    $this->session->set_flashdata('message','Employee Not Updated');
-                }
+                
             //////////////////////////////////
             //upload images of the employee..
             //$config['upload_path'] = './images/employee-images';
@@ -370,6 +404,7 @@ class C_employees extends MY_Controller{
         //{
             $data['title'] = 'Update Employee';
             $data['main'] = 'Update Employee';
+            $data['emp_id'] = $id;
             
             //$data['areaDDL'] = $this->M_areas->get_activeareasDDL();
             $data['employee'] = $this->M_employees->get_employees($id);
@@ -424,6 +459,12 @@ class C_employees extends MY_Controller{
         
     }
     
+    public function get_emp_ncr($emp_id)
+	{
+	    
+        echo json_encode($this->M_employees->get_emp_ncr($emp_id));
+        
+    }
     function delete_emp_document($doc_id,$picture)
     {
         //DELETE THE PREVIOUS PICTURE
