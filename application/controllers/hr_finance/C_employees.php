@@ -146,7 +146,8 @@ class C_employees extends MY_Controller{
                 'tin' => $this->input->post('tin', true),
                 
                 );
-                $emp_id =  $this->db->insert_id('hr_employees', $data);
+                $this->db->insert('hr_employees', $data);
+                $emp_id =  $this->db->insert_id();
                 
                 //// NCR entries
                 foreach ($this->input->post('ncr_warning_level') as $key => $value) {

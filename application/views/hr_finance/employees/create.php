@@ -161,7 +161,7 @@
 								<div class="form-group">
                                   <label class="control-label col-sm-3" for="Email">Email:</label>
 								  <div class="col-sm-9">
-									<input type="email" class="form-control" id="Email" name="email"  value="<?php echo set_value('email') ?>" required  placeholder="Email" />
+									<input type="email" class="form-control" id="Email" name="email"  value="<?php echo set_value('email') ?>"  placeholder="Email" />
                                 	</div>
                                 </div>
 							</div>
