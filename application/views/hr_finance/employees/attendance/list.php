@@ -63,12 +63,12 @@ if(count((array) @$emp_attendance))
             <thead>
                 <tr>
                     <th>Name</th>
-                    <th>Full Days</th>
+                    <!-- <th>Full Days</th> -->
                     <th>Overtime Days</th>
                     <th>Weekend Days</th>
                     <th>Undertime Days</th>
                     <th>Holiday Days</th>
-                    <th>Quarantine Days</th>
+                    <!-- <th>Quarantine Days</th> -->
                     <th>Late Days</th>
                     <th>Absent Days</th>
                     <th>Leave Days</th>
@@ -100,12 +100,12 @@ if(count((array) @$emp_attendance))
                          $leave_days +=($list['leave'] ? 1 : 0); 
                     }
                     ?>
-                    <td><?php echo $full_days; ?></td>
+                    <!-- <td><?php echo $full_days; ?></td> -->
                     <td><?php echo $overtime_days; ?></td>
                     <td><?php echo $weekend_days; ?></td>
                     <td><?php echo $undertime_days; ?></td>
                     <td><?php echo $holidays; ?></td>
-                    <td><?php echo $quarantine_days; ?></td>
+                    <!-- <td><?php echo $quarantine_days; ?></td> -->
                     <td><?php echo $late_days; ?></td>
                     <td><?php echo $absent_days; ?></td>
                     <td><?php echo $leave_days; ?></td>
