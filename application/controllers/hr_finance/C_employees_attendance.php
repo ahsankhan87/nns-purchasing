@@ -115,25 +115,25 @@ class C_employees_attendance extends MY_Controller {
         $this->form_validation->set_rules('time', 'time', 'required');
         $this->form_validation->set_error_delimiters('<div class="alert alert-danger"><a class="close" data-dismiss="alert">�</a><strong>', '</strong></div>');
         
-        //after form validation complete
-        if($this->form_validation->run())
-        {
-             $data_to_store = array(
-            'employee_id' => $this->input->post('employee_id'),
-            'status' => $this->input->post('status'),
-            'dated' => $this->input->post('dated'),
-            'time' =>$this->input->post('time'),
-            'remarks' => $this->input->post('remarks')
-            );
-            
-            //show flash message after updation complete
-            if($this->M_employee_attendance->update_teach_attendance($id, $data_to_store) == true) {
-                $this->session->set_flashdata('flash_message', 'updated');
-                                
-            }else {
-                $this->session->set_flashdata('flash_message', 'not_updated');
-            }
-            redirect('hr_finance/C_employees_attendance/update/'.$id.'');
+            //after form validation complete
+            if($this->form_validation->run())
+            {
+                $data_to_store = array(
+                'employee_id' => $this->input->post('employee_id'),
+                'status' => $this->input->post('status'),
+                'dated' => $this->input->post('dated'),
+                'time' =>$this->input->post('time'),
+                'remarks' => $this->input->post('remarks')
+                );
+                
+                //show flash message after updation complete
+                if($this->M_employee_attendance->update_teach_attendance($id, $data_to_store) == true) {
+                    $this->session->set_flashdata('flash_message', 'updated');
+                                    
+                }else {
+                    $this->session->set_flashdata('flash_message', 'not_updated');
+                }
+                redirect('hr_finance/C_employees_attendance/update/'.$id.'');
             }
         }
         
@@ -163,15 +163,31 @@ class C_employees_attendance extends MY_Controller {
             $data = array('langs' => $this->session->userdata('lang'));
             if($this->input->server('REQUEST_METHOD') === 'POST')
             {
-                $employees = $this->input->post('employee_id');
-                if($this->input->post('dated'))
+                // $this->form_validation->set_rules('employee_id', 'employee_id', 'required');
+                // $this->form_validation->set_rules('stauts', 'status', 'required');
+                $this->form_validation->set_rules('dated', 'dated', 'required');
+                // $this->form_validation->set_rules('time', 'time', 'required');
+                $this->form_validation->set_error_delimiters('<div class="alert alert-danger"><a class="close" data-dismiss="alert">�</a><strong>', '</strong></div>');
+                
+                //after form validation complete
+                if($this->form_validation->run())
                 {
+        
+                    $employee_id = $this->input->post('employee_id');
+                    $dated = $this->input->post('dated');
+                    
+                
                     $i = 0;
-                    foreach($employees as $values):
+                    foreach($employee_id as $values):
                         
+                        if($this->M_employee_attendance->employee_attendance_exist($values,$dated));
+                        {
+                            $this->M_employee_attendance->delete_attendance_by_emp_id($values,$dated);
+                        }
+
                          $data = array(
                             'emp_id'=>$values,
-                            'dated'=>$this->input->post('dated'),
+                            'dated'=>$dated,
                             'time_in' => $this->input->post('time_in')[$i],
                             'time_out' => $this->input->post('time_out')[$i],
                             'full_day' => $this->input->post('full_day')[$i],
@@ -194,10 +210,6 @@ class C_employees_attendance extends MY_Controller {
                     
                     $this->session->set_flashdata('message','Saved successfully');
                     redirect('hr_finance/C_employees_attendance','refresh');
-                }else
-                {
-                    $this->session->set_flashdata('error','Please select date');
-                    redirect('hr_finance/C_employees_attendance/add','refresh');
                 }
             }
         

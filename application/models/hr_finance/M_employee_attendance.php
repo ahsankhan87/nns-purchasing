@@ -46,6 +46,21 @@
             return 'n/a';
         }
         
+        public function employee_attendance_exist($emp_id,$day)
+        {
+            $this->db->select('id');
+            $this->db->from('hr_employees_attendance');
+            //$this->db->group_by('dated');
+            $this->db->where(array('emp_id'=>$emp_id,'dated'=>$day));
+            
+            $query = $this->db->get();
+            if($query->num_rows() > 0)
+            {
+                return true;
+            }
+            return false;
+        }
+        
         public function get_teach_attendance_by_id($id)
         {
             $this->db->select('*');
@@ -135,6 +150,12 @@
             $this->db->delete('hr_employees_attendance');
         }
         
+        function delete_attendance_by_emp_id($emp_id,$date)
+        {
+            $this->db->where(array('emp_id'=>$emp_id,'dated'=>$date));
+            
+            $this->db->delete('hr_employees_attendance');
+        }
     }
     
     
