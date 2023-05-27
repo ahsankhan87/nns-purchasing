@@ -1268,7 +1268,7 @@
                         '<td class="text-right"><input type="number" class="form-control unit_price" id="unitprice_' + counter + '" name="unit_price[]" value="'+parseFloat(value.item_unit_price).toFixed(2)+'" autocomplete="off">' +
                         '<input type="hidden" cost_price" id="costprice_' + counter + '" name="cost_price[]" value="'+value.item_cost_price+'" >'+
                         // '<input type="hidden" item_type" id="itemtype_' + counter + '" name="item_type[]" value="'+value.item_type+'" ></td>'+
-                        '<input type="hidden" tax_id" id="taxid_' + counter + '" name="tax_id[]" value="'+value.tax_id+'" ></td>'+
+                        '<input type="hidden" tax_id" id="taxid_' + counter + '" name="tax_id[]" value="'+value.tax_id+'" >'+
                         '<input type="hidden" tax_rate" id="taxrate_' + counter + '" name="tax_rate[]" value="'+value.tax_rate+'" ></td>'+
                         // '<td class="text-right tax" id="tax_' + counter + '"></td>' +
                         '<td width="20%"><select  class="form-control unit_id" id="unitid_' + counter + '" name="unit_id[]"></select></td>' +
